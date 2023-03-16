@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/global_guide/static/css/main.948a71a4.css",
-    "main.js": "/global_guide/static/js/main.ee76ebdb.js",
+    "main.css": "/global_guide/static/css/main.7ef604cc.css",
+    "main.js": "/global_guide/static/js/main.f9becc09.js",
     "static/media/Montserrat-Regular.ttf": "/global_guide/static/media/Montserrat-Regular.ceb11275ab638627a643.ttf",
     "static/media/news.jpg": "/global_guide/static/media/news.cbb15ec3ec47409e9d74.jpg",
     "static/media/trebuchetms.ttf": "/global_guide/static/media/trebuchetms.9f1aa0037c24e0f6935e.ttf",
@@ -30,11 +30,11 @@
     "static/media/bigChoice.svg": "/global_guide/static/media/bigChoice.34cf947ad0a55a966300dea353c20c8f.svg",
     "static/media/middleChoice.svg": "/global_guide/static/media/middleChoice.0725d1cb2833658e1ea36f46e27a4dba.svg",
     "static/media/choiсe.svg": "/global_guide/static/media/choiсe.0411899ed83f7634c4a70df4f7fb63f4.svg",
-    "main.948a71a4.css.map": "/global_guide/static/css/main.948a71a4.css.map",
-    "main.ee76ebdb.js.map": "/global_guide/static/js/main.ee76ebdb.js.map"
+    "main.7ef604cc.css.map": "/global_guide/static/css/main.7ef604cc.css.map",
+    "main.f9becc09.js.map": "/global_guide/static/js/main.f9becc09.js.map"
   },
   "entrypoints": [
-    "static/css/main.948a71a4.css",
-    "static/js/main.ee76ebdb.js"
+    "static/css/main.7ef604cc.css",
+    "static/js/main.f9becc09.js"
   ]
 }
