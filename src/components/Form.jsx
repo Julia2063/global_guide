@@ -1,9 +1,12 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export const Form = ({ formFunction, isRegistration }) => { 
+export const Form = ({ formFunction, isRegistration, handleSubmit }) => { 
   
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div className="form">
       <div className="form__buttons">
@@ -27,8 +30,20 @@ export const Form = ({ formFunction, isRegistration }) => {
         {isRegistration && (
           <input type="tel" className="form__input" placeholder="Телефон" />
         )}
-        <input type="email" className="form__input" placeholder="Email" />
-        <input type="password" className="form__input" placeholder="Пароль" />
+        <input 
+          type="email" 
+          className="form__input" 
+          placeholder="Email"  
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input 
+          type="password" 
+          className="form__input" 
+          placeholder="Пароль" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </div>
       
       {!isRegistration && (
@@ -38,9 +53,16 @@ export const Form = ({ formFunction, isRegistration }) => {
         </label>
       )}
       
-      <button type="submit" className="button form__button">
+      <button 
+        type="submit" 
+        className="button form__button"
+        onClick={() => {
+          handleSubmit(email, password);
+          setEmail('');
+          setPassword('');
+        }}
+      >
         {isRegistration ? 'Зареєструватися' : 'Увійти'}
-          
       </button>
 
       {!isRegistration && (

@@ -24,7 +24,9 @@ export const DropdownWithText = ({ title, text }) => {
             <img 
               src={middleChoice} 
               alt="select" 
-              hidden={isOpen}
+              className={classNames(
+                {'dropdownWithText__icon--rotate' : isOpen,
+                })}
             />
           </button>
           <h2 className="page__title-2">
@@ -37,7 +39,10 @@ export const DropdownWithText = ({ title, text }) => {
             <img 
               src={middleChoice} 
               alt="select" 
-              hidden={isOpen}
+              className={classNames(
+                {'dropdownWithText__icon--rotate' : isOpen,
+                })}
+              
             />
           </button>
         </div>

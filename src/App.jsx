@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Header } from './components/Header';
@@ -15,8 +15,10 @@ import { NewsItemPage } from './pages/NewsItemPage';
 import { ServiseItemPage } from './pages/ServiseItemPage';
 import { ExplanationsPage } from './pages/ExplanationsPage';
 import { ExplanationsItemPage } from './pages/ExplanationsItemPage';
+import ScrollToTop from './components/ScrollToTop';
 
 import './style/App.scss';
+
 
 export function App() {
   const [language, setLanguage] = useState('ukr');
@@ -29,7 +31,7 @@ export function App() {
         setLanguage={setLanguage} 
         setSearch={setSearch}
       />
-
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"element={<HomePage />}

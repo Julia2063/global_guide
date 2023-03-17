@@ -11,12 +11,7 @@ export const ExplanationsPage = () => {
 
       <div className="page"> 
         <div className="container">
-          <div className="page__title-with-extension homePage__title">
-            <h1 className="page__title">Роз'яснення</h1>
-            <button className="button-extension onDesktop">
-              <p>Всі роз'яснення</p>
-            </button>
-          </div>
+          <h1 className="page__title explanationsPage__title">Роз'яснення</h1>
           <div className="homePage__explanation">
             <Explanation 
               title="Відповіді на часті запитання у період воєнного стану"

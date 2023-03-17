@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BannerDropdown } from '../components/BannerDropdown';
 import { DropdownWithText } from '../components/DropdownWithText';
 import { Explanation } from '../components/Explanation';
@@ -32,7 +33,10 @@ export const HomePage = () => {
               </div>
               <BannerDropdown
                 title="Іноземця"
-                values={['ever', 'verver']}
+                values={[
+                  'Громадянам України', 
+                  'Іноземцям',
+                ]}
                 handleChange={handleSelectPersonType} />
             </div>
 
@@ -42,7 +46,15 @@ export const HomePage = () => {
               </div>
               <BannerDropdown
                 title="Підтвердження громадянства України"
-                values={['так', 'ні']}
+                values={[
+                  'Проходження прикордонного контролю',
+                  'Проходження митного контролю',
+                  'Заборона на в\'їзд в Україну',
+                  'Депортація з України',
+                  'Легалізація в Україні',
+                  'Документ сервіс',
+                  'Моніторинг',
+                ]}
                 handleChange={handleSelectCitizenship} />
             </div>
             <button className="button banner__button">
@@ -99,7 +111,9 @@ export const HomePage = () => {
             <div className="page__title-with-extension homePage__title">
               <h1 className="page__title">Роз'яснення</h1>
               <button className="button-extension onDesktop">
-                <p>Всі роз'яснення</p>
+                <Link to="/explanations">
+                  <p>Всі роз'яснення</p>
+                </Link>
               </button>
             </div>
             <div className="homePage__explanation">

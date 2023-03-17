@@ -38,7 +38,7 @@ a {
   cursor: pointer;
 
   @include onMobile {
-    font-size: 8.50195px;
+    font-size: 8.5px;
     line-height: 183%;
   }
 
@@ -69,7 +69,8 @@ a {
   }
 
   &--down {
-    background-image: url(../assets/icons/doobleArrow--down.svg);
+    background-image: url(../assets/icons/doobleArrow--up.svg);
+    background-size: 8%;
   }
 
   @include onMobile {
@@ -286,11 +287,10 @@ a {
     &--account {
       color: $white2;
       background-color: $dark;
-      padding: 0 15px;
+      padding: 8px 20px;
       white-space: nowrap;
       display: flex;
       align-items: center;
-
     }
 
     @include onSmallDesktop {
@@ -314,11 +314,11 @@ a {
   
 
   &__link {
-    color: inherit;
     white-space: nowrap;
+    display: block;
 
     @include onMobile {
-      display: block;
+      
     }
 
     &--active {
@@ -334,9 +334,11 @@ a {
   &__container {
     display: flex;
     list-style-type: none;
+    align-items: center;
 
     @include onMobile{
       flex-direction: column;
+      align-items: start;
 
 
       &:first-child {
@@ -860,6 +862,11 @@ a {
     }
   }
 
+  &__icon--rotate {
+    transform: rotate(180deg);
+
+  }
+
   &__text {
     width: 68%;
     font-size: 18px;
@@ -969,7 +976,6 @@ a {
 
   &__navigation {
     border-bottom: 1px solid $dark;
-    padding-bottom: 7px;
   }
 }
 
@@ -1457,6 +1463,12 @@ a {
     @include onMobile {
       width: 100%;
     }
+  }
+}
+
+.explanationsPage {
+  &__title {
+    margin-bottom: 45px;
   }
 }
 

@@ -14,7 +14,10 @@ export const Footer = () => {
       <div className="container">
         <div className="footer__content">
           <section className="footer__section">
-            <img src={logo} alt="logo" className="footer__logo logo--footer"/>
+            <Link to="/home">
+              <img src={logo} alt="logo" className="footer__logo logo--footer"/>
+            </Link>
+            
             <p className="footer__text">
             Юридична фірма "Правий центр" - ваш головний помічник у вирішенні міграційних питань. Компанія була створена в Харкові в 2010 році.
             </p>
@@ -30,13 +33,13 @@ export const Footer = () => {
           <section className="footer__section footer__section--3">
 
             <div className="footer__socialMedia">
-              <a href="/">
+              <a href="https://www.facebook.com/">
                 <img src={fb} alt="fb" />
               </a>
-              <a href="/">
+              <a href="https://www.instagram.com/">
                 <img src={insta} alt="insta" />
               </a>
-              <a href="/">
+              <a href="https://t.me/">
                 <img src={tg} alt="tg" />
               </a>
             </div>
