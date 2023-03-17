@@ -278,7 +278,6 @@ a {
 
   &__item {
     padding-right: 40px;
-    line-height: 40px;
 
     &:last-child {
       padding-right: 0;
@@ -305,7 +304,11 @@ a {
     @include onMobile {
       line-height: inherit;
       padding-right: 0;
-      padding-bottom: 60px;
+      padding-bottom: 50px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
   }
   
@@ -338,11 +341,11 @@ a {
 
       &:first-child {
         align-self: center;
-        margin-bottom: 60px;
+        margin-bottom: 50px;
       }
 
       &:nth-child(2) {
-        margin-bottom: 90px;
+        margin-bottom: 80px;
         width: 100%;
       }
     }
@@ -359,10 +362,11 @@ a {
       display: none;
       @include onMobile {
         display: block;
+        width: 100%;
 
         & .navbar__link {
           border-bottom: 1px solid;
-          padding-bottom: 0;
+          width: max-content;
         }
       }
     }
@@ -1256,6 +1260,7 @@ a {
     font-size: inherit;
     line-height: inherit;
     font-family: inherit;
+    color: inherit;
   }
 }
 
