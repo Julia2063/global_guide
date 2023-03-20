@@ -1,13 +1,13 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useParams } from 'react-router-dom';
 
-export const PageNavigation = ({ pageType }) => {
+export const PageNavigation = () => {
   const location = useLocation();
   
   const pathnames = location.pathname.split('/').filter(el => el);
-  
-  
 
+  const { slug } = useParams();
+  
   return (
     <ul className="pageNavigation">
       <li>
@@ -32,7 +32,7 @@ export const PageNavigation = ({ pageType }) => {
 
           case '/about':
             return 'Про GGS';
-            
+
           case  'explanations':
             return 'Poз\'яснення';
 
@@ -43,15 +43,16 @@ export const PageNavigation = ({ pageType }) => {
         return isLast ? (
           <li key={pathname}>
             {' / '}
-            <p className="pageNavigation__navigation">{currentLocation()}</p>
+            <p className="pageNavigation__navigation">
+              {slug ? slug : currentLocation()}
+            </p>
           </li>
         ) : (
           <li key={pathname}>
             <Link  to={routeTo}>
               {`/ ${currentLocation()}`}
             </Link>
-          </li>
-            
+          </li> 
         );
       })}
     </ul>
