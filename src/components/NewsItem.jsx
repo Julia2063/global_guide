@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import imgo from '../assets/img/news.jpg';
 
@@ -57,4 +58,8 @@ export const NewsItem = ({ newsItem }) => {
     
     </>
   );
+};
+
+NewsItem.propType = {
+  newsItem: PropTypes.object.isRequired,
 };

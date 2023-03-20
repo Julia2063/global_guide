@@ -7,6 +7,8 @@ export const PageNavigation = () => {
   const pathnames = location.pathname.split('/').filter(el => el);
 
   const { slug } = useParams();
+
+  console.log(slug);
   
   return (
     <ul className="pageNavigation">

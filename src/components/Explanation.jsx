@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 
 export const Explanation = ({ title, text }) => {
@@ -23,4 +24,9 @@ export const Explanation = ({ title, text }) => {
       
     </div>
   );
+};
+
+Explanation.propType = {
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string,
 };

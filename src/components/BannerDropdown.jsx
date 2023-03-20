@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import bigChoice from '../assets/icons/bigChoice.svg';
+
 
 export const BannerDropdown = ({
   title, 
@@ -50,4 +53,11 @@ export const BannerDropdown = ({
       </label>
     </div>
   );
+};
+
+BannerDropdown.propTypes = {
+  title: PropTypes.string.isRequired,
+  values: PropTypes.arrayOf(PropTypes.string),
+  dropdownValue: PropTypes.string, 
+  setDropdownValue: PropTypes.func,
 };

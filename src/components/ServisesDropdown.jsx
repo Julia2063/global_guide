@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+
 export const ServisesDropdown = ({ title, img, values }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,4 +45,10 @@ export const ServisesDropdown = ({ title, img, values }) => {
       </label>
     </div>
   );
+};
+
+ServisesDropdown.propTypes = {
+  img: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  values: PropTypes.arrayOf(PropTypes.string),
 };

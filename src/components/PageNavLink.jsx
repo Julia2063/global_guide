@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 export const PageNavLink = ({ to, text }) => (
   <NavLink
@@ -11,3 +13,8 @@ export const PageNavLink = ({ to, text }) => (
     {text}
   </NavLink>
 );
+
+PageNavLink.prototype = {
+  to: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};

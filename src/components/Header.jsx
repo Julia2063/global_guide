@@ -1,5 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import PropTypes from 'prop-types';
 import searchImg from '../assets/icons/search.svg';
 import searchImgDark from '../assets/icons/searchImgDark.svg';
 import choice from '../assets/icons/choiсe.svg' ;
@@ -122,4 +124,10 @@ export const Header = ({
       </div>
     </header>
   );
+};
+
+Header.propType = {
+  language: PropTypes.string, 
+  setLanguage: PropTypes.func, 
+  setSearch: PropTypes.func,
 };

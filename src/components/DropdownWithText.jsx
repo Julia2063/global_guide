@@ -1,5 +1,6 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import middleChoice from '../assets/icons/middleChoice.svg';
 
@@ -59,4 +60,9 @@ export const DropdownWithText = ({ title, text }) => {
       </label>
     </div>
   );
+};
+
+DropdownWithText.propType = {
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string,
 };

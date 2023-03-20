@@ -1,6 +1,8 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import classNames from 'classnames';
 
 export const Form = ({ formFunction, isRegistration, handleSubmit }) => { 
   
@@ -14,8 +16,6 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
 
     setRegInfo(newRegInfo);
   };
-
-  console.log(regInfo);
 
   return (
     <form className="form">
@@ -88,4 +88,10 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
       
     </form>
   );
+};
+
+Form.propType = {
+  formFunction: PropTypes.string.isRequired , 
+  isRegistration : PropTypes.bool, 
+  handleSubmit: PropTypes.func.isRequired,
 };
