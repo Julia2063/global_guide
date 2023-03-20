@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom';
 
 export const Form = ({ formFunction, isRegistration, handleSubmit }) => { 
   
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [regInfo, setRegInfo] = useState({});
+
+  const handleChange = (fieldName, newValue) => {
+    const newRegInfo = {
+      ...regInfo,
+      [fieldName]: newValue,
+    };
+
+    setRegInfo(newRegInfo);
+  };
+
+  console.log(regInfo);
 
   return (
-    <div className="form">
+    <form className="form">
       <div className="form__buttons">
         <Link to="/account" className={classNames(
           'form__toggle-button', 
@@ -28,21 +38,28 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
       </div>
       <div className="form__inputs">
         {isRegistration && (
-          <input type="tel" className="form__input" placeholder="Телефон" />
+          <input 
+            type="tel" 
+            className="form__input" 
+            placeholder="Телефон" 
+            onChange={(event) => 
+              handleChange('phoneNumber', event.target.value)}
+            required
+          />
         )}
         <input 
           type="email" 
           className="form__input" 
           placeholder="Email"  
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          required
+          onChange={(event) => handleChange('email', event.target.value)}
         />
         <input 
           type="password" 
           className="form__input" 
           placeholder="Пароль" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          required
+          onChange={(event) => handleChange('password', event.target.value)}
         />
       </div>
       
@@ -56,10 +73,8 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
       <button 
         type="submit" 
         className="button form__button"
-        onClick={() => {
-          handleSubmit(email, password);
-          setEmail('');
-          setPassword('');
+        onClick={(e) => {
+          handleSubmit(e, regInfo);
         }}
       >
         {isRegistration ? 'Зареєструватися' : 'Увійти'}
@@ -67,10 +82,10 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
 
       {!isRegistration && (
         <button className="form__forget">
-        Забули пароль?
+          Забули пароль?
         </button>
       )}
       
-    </div>
+    </form>
   );
 };

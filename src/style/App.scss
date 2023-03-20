@@ -12,6 +12,11 @@ ul, p, h1, h2, h3, input, button {
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
 }
 
 .logo {
@@ -35,7 +40,6 @@ a {
   line-height: 250%;
   border: none;
   font-family: inherit;
-  cursor: pointer;
 
   @include onMobile {
     font-size: 8.5px;
@@ -667,6 +671,14 @@ a {
     }
   }
 
+  &__value {
+    color: $gray;
+
+    &--checked {
+      color: $dark;
+    }
+  }
+
   &__values {
     position: absolute;
     background-color: $white1;
@@ -962,8 +974,17 @@ a {
   display: flex;
   font-size: 15px;
   letter-spacing: -0.75px;
+  list-style-type: none;
 
   margin-top: 40px;
+
+  & li {
+    margin-right: 5px;
+  }
+
+  & p {
+    display: inline;
+  }
 
   @include onMobile {
     margin-top: 20px;
@@ -1199,6 +1220,7 @@ a {
     display: flex;
     position: relative;
     padding-left: 46px;
+    cursor: pointerтзь;
 
     @include onMobile {
       margin-bottom: 43px;

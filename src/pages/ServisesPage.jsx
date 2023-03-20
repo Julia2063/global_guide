@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageNavigation } from '../components/PageNavigation';
 
 import { ServisesDropdown } from '../components/ServisesDropdown';
@@ -26,54 +26,127 @@ export const ServisesPage = () => {
   // eslint-disable-next-line max-len
   const docService = ['Страхування онлайн', 'Переклад документів онлайн', 'Довідка про відсутність/наявність/заборону на в\'їзд/виїзд/у /з/ Україн/у/и/ онлайн', 'Довідка про відсутність судимості онлайн', 'Довідка, що підтверджує громадянство України онлайн', 'Докладніше'];
   const monitoring = ['Безвізовий калькулятор', '...', '...', '...'];
+
+  const [isAllButtons, setIsAllButtons] = useState(false);
+  const [filter, setFilter] = useState('Всі послуги');
+
+  const openAllButtons = () => {
+    setIsAllButtons(!isAllButtons);
+  };
+
+  const changeFilter = (title) => {
+    setFilter(title);
+    openAllButtons();
+  };
+
   return (
     <>
       <div className="container">
-        <PageNavigation />
+        <PageNavigation pageType={'servises'}/>
       </div>
       
       <div className="page page-bigBottom">
         <div className="container">
           <div className="servisesPage__content">
             <div className="servisesPage__section">
-              <ServisesButton img={menu} title="Всі послуги" />
-              <ServisesButton img={ukr} title="Громадянам України" />
-              <ServisesButton img={earth} title="Іноземцям" />
+              <ServisesButton 
+                img={menu} 
+                title={filter}
+                
+                onClick={openAllButtons}
+              />
+              {(isAllButtons && filter === 'Всі послуги') && (
+                <>
+                  <ServisesButton 
+                    img={ukr} 
+                    title="Громадянам України" 
+                    onClick={() => changeFilter('Громадянам України')}
+                  />
+                  <ServisesButton 
+                    img={earth} 
+                    title="Іноземцям" 
+                    onClick={() => changeFilter('Іноземцям')}
+                  />
+                </>
+              )}
+              
+              {(isAllButtons && filter === 'Іноземцям') && (
+                <>
+                  <ServisesButton 
+                    img={ukr} 
+                    title="Громадянам України" 
+                    onClick={() => changeFilter('Громадянам України')}
+                  />
+                  <ServisesButton 
+                    img={menu} 
+                    title="Всі послуги" 
+                    onClick={() => changeFilter('Всі послуги')}
+                  />
+                </>
+              )}
+
+              {(isAllButtons && filter === 'Громадянам України') && (
+                <>
+                  <ServisesButton 
+                    img={earth} 
+                    title="Іноземцям" 
+                    onClick={() => changeFilter('Іноземцям')}
+                  />
+                  <ServisesButton 
+                    img={menu} 
+                    title="Всі послуги" 
+                    onClick={() => changeFilter('Всі послуги')}
+                  />
+                </>
+              )}
             </div>
 
             <div className="servisesPage__section">
+
               <ServisesDropdown 
                 img={control} 
                 title="Проходження прикордонного&nbsp;контролю"
                 values={borderControl}
               />
+
               <ServisesDropdown 
                 img={muto} 
                 title="Проходження митного контролю"
                 values={customControl}
               />
-              <ServisesDropdown 
-                img={ban} 
-                title="Заборона на в'їзд в Україну"
-                values={entryBan}
-              />
-              <ServisesDropdown 
-                img={dep}
-                title="Депортація з України"
-                values={deportation}
-              />
+
+              {filter !== 'Громадянам України' && (
+                <ServisesDropdown 
+                  img={ban} 
+                  title="Заборона на в'їзд в Україну"
+                  values={entryBan}
+                />
+              )}
+              
+              {filter !== 'Громадянам України' && (
+                <ServisesDropdown 
+                  img={dep}
+                  title="Депортація з України"
+                  values={deportation}
+                />
+              )}
             </div>
             <div className="servisesPage__section">
-              <ServisesDropdown 
-                img={leg}
-                title="Легалізація в Україні"
-                values={legalization}
-              />
+              {filter !== 'Громадянам України' && (
+                <ServisesDropdown 
+                  img={leg}
+                  title="Легалізація в Україні"
+                  values={legalization}
+                />
+              )}
+              
+
               <ServisesDropdown 
                 img={doc} 
                 title="Документ сервіс"
                 values={docService}
               />
+
               <ServisesDropdown 
                 img={monitor} 
                 title="Моніторинг"

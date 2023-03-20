@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import bigChoice from '../assets/icons/bigChoice.svg';
 
-export const BannerDropdown = ({ title, values, handleChange }) => {
+export const BannerDropdown = ({
+  title, 
+  values, 
+  dropdownValue, 
+  setDropdownValue, 
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+
 
   return (
     <div className="bannerDropdown">
@@ -15,7 +21,12 @@ export const BannerDropdown = ({ title, values, handleChange }) => {
         <div className={classNames(
           'bannerDropdown__body', {'bannerDropdown__body--active': isOpen}
         )}>
-          {title}
+          <p className={dropdownValue.length > 0 
+            ? 'bannerDropdown__value--checked' 
+            : 'bannerDropdown__value'}
+          >
+            {dropdownValue.length > 0 ? dropdownValue : title}
+          </p>
           <button className="bannerDropdown__button" onClick={toggle}>
             <img src={bigChoice} alt="select" />
           </button>
@@ -27,7 +38,7 @@ export const BannerDropdown = ({ title, values, handleChange }) => {
               <li
                 key={el}
                 onClick={() => {
-                  handleChange(el);
+                  setDropdownValue(el);
                 }}
                 className="bannerDropdown__item"
               >

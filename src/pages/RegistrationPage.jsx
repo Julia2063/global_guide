@@ -6,10 +6,11 @@ import { Form } from '../components/Form';
 export const RegistrationPage = () => {
   const navigate = useNavigate();
 
-  const handleRegister = (email, password) => {
+  const handleRegister = (e, regInfo) => {
+    e.preventDefault();
     const auth = getAuth();
     
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, regInfo.email, regInfo.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);

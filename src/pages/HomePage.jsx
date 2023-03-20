@@ -1,23 +1,50 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BannerDropdown } from '../components/BannerDropdown';
 import { DropdownWithText } from '../components/DropdownWithText';
 import { Explanation } from '../components/Explanation';
 
 export const HomePage = () => {
-  const [personType, setPersonType] = useState(null);
-  const [isUkrCitizenship, setIsUkrCitizenship] = useState(false);
+  const [filterValue, setFilterValue] = useState({
+    personType: '',
+    serviseType: '',
+  });
 
-  const handleSelectPersonType = (value) => {
-    setPersonType(value);
-  };
+  const valuesPersonType = useMemo(() => {
+    switch (filterValue.personType) {
+    case 'Громадянам України':
+      return ['Іноземцям'];
 
-  const handleSelectCitizenship = (value) => {
-    setPersonType(value === 'так' 
-      ? setIsUkrCitizenship(true) 
-      : setIsUkrCitizenship(false)
-    );
-  };
+    case 'Іноземцям':
+      return ['Громадянам України'];
+
+    default:
+      return ['Громадянам України', 'Іноземцям'];
+    }
+  }, [filterValue.personType]) ;
+
+  const valuesServiseType = useMemo(() => {
+    switch (filterValue.personType) {
+    case 'Громадянам України':
+      return [
+        'Проходження прикордонного контролю',
+        'Проходження митного контролю',
+        'Заборона на в\'їзд в Україну',
+        'Моніторинг',
+      ];
+  
+    default:
+      return [
+        'Проходження прикордонного контролю',
+        'Проходження митного контролю',
+        'Заборона на в\'їзд в Україну',
+        'Депортація з України',
+        'Легалізація в Україні',
+        'Документ сервіс',
+        'Моніторинг',
+      ];
+    }
+  }, [filterValue.personType]);
  
   return (
     <>
@@ -32,12 +59,12 @@ export const HomePage = () => {
                 Я шукаю послуги для
               </div>
               <BannerDropdown
-                title="Іноземця"
-                values={[
-                  'Громадянам України', 
-                  'Іноземцям',
-                ]}
-                handleChange={handleSelectPersonType} />
+                title="Вибрати"
+                values={valuesPersonType}
+                dropdownValue={filterValue.personType}
+                setDropdownValue={(e) =>
+                  setFilterValue({...filterValue, personType: e})}
+              />
             </div>
 
             <div className="banner__label">
@@ -45,17 +72,12 @@ export const HomePage = () => {
                 Тип послуги
               </div>
               <BannerDropdown
-                title="Підтвердження громадянства України"
-                values={[
-                  'Проходження прикордонного контролю',
-                  'Проходження митного контролю',
-                  'Заборона на в\'їзд в Україну',
-                  'Депортація з України',
-                  'Легалізація в Україні',
-                  'Документ сервіс',
-                  'Моніторинг',
-                ]}
-                handleChange={handleSelectCitizenship} />
+                title="Вкажіть тип послуги"
+                values={valuesServiseType}
+                dropdownValue={filterValue.serviseType}
+                setDropdownValue={(e) =>
+                  setFilterValue({...filterValue, serviseType: e})}
+              />
             </div>
             <button className="button banner__button">
               <p>Перейти</p>
