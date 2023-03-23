@@ -11,6 +11,10 @@ export const ServisesDropdown = ({ title, img, values }) => {
     setIsOpen(!isOpen);
   };
 
+  const replaceSlash = (string) => {
+    return string.replace(/\//g , '*');
+  };
+
   return (
     <div className="servisesDropdown">
       <label className="servisesDropdown__label">
@@ -31,7 +35,7 @@ export const ServisesDropdown = ({ title, img, values }) => {
         {isOpen && (
           <div className="servisesDropdown__values">
             {values.map(el => (
-              <Link to={el} key={el}>
+              <Link to={replaceSlash(el)} key={el}>
                 <li
                   className="servisesDropdown__item"
                 >

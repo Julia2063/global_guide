@@ -8,7 +8,9 @@ export const PageNavigation = () => {
 
   const { slug } = useParams();
 
-  console.log(slug);
+  const replaseStar = (string) => {
+    return string.replace(/\*/g , '/');
+  }
   
   return (
     <ul className="pageNavigation">
@@ -44,16 +46,18 @@ export const PageNavigation = () => {
         };
         return isLast ? (
           <li key={pathname}>
-            {' / '}
+            <p>{' / '}</p>
             <p className="pageNavigation__navigation">
-              {slug ? slug : currentLocation()}
+              {slug ? `${replaseStar(slug)}` : `${currentLocation()}`}
             </p>
           </li>
         ) : (
           <li key={pathname}>
-            <Link  to={routeTo}>
-              {`/ ${currentLocation()}`}
-            </Link>
+            <p>
+              <Link  to={routeTo}>
+                {`/ ${currentLocation()}`}
+              </Link>
+            </p>
           </li> 
         );
       })}

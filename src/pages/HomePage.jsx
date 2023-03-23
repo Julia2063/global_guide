@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BannerDropdown } from '../components/BannerDropdown';
 import { DropdownWithText } from '../components/DropdownWithText';
 import { Explanation } from '../components/Explanation';
+import { UserContext } from '../components/UserProvider';
 
 export const HomePage = () => {
   const [filterValue, setFilterValue] = useState({
@@ -45,6 +46,10 @@ export const HomePage = () => {
       ];
     }
   }, [filterValue.personType]);
+
+  const { user } = useContext(UserContext);
+
+  console.log(user);
  
   return (
     <>

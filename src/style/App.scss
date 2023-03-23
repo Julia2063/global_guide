@@ -255,7 +255,7 @@ button {
   grid-template-columns: (2fr 6fr 4fr);
   align-items: center;
   font-size: 16px;
-  z-index: 1;
+  z-index: 100;
 
   @include onLaptop {
     font-size: 14px;
@@ -369,6 +369,7 @@ button {
       @include onMobile {
         display: block;
         width: 100%;
+        z-index: 100;
 
         & .navbar__link {
           border-bottom: 1px solid;
@@ -377,6 +378,18 @@ button {
       }
     }
   }
+  &__overlay {
+      background-color: transparent;
+      display: none;
+      position:fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 90;
+      transform: translateX(100%);
+    }
+
 }
 
 .footer {
@@ -975,11 +988,19 @@ button {
   font-size: 15px;
   letter-spacing: -0.75px;
   list-style-type: none;
-
+  height: 1rem;
+ 
+  white-space: nowrap;
+  
   margin-top: 40px;
 
   & li {
-    margin-right: 5px;
+    padding-right: 5px;
+
+    &:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   & p {
@@ -989,10 +1010,6 @@ button {
   @include onMobile {
     margin-top: 20px;
     font-size: 12px;
-  }
-
-  & div:first-child {
-    padding-right: 5px;
   }
 
   &__navigation {

@@ -8,17 +8,18 @@ export const AccountPage = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handleLogin = (email, password) => {
+  const handleLogin = (e, regInfo) => {
+    e.preventDefault();
     const auth = getAuth();
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, regInfo.email,regInfo.password)
       .then((userCredential) => {
         const user = userCredential.user;
 
         setUser(user);
         navigate('/home');
       })
-      .catch(() => alert('invalid user'));
+      .catch((err) => alert(`${err}`));
   };
 
   return (
