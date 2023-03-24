@@ -5,6 +5,9 @@ import { DropdownWithText } from '../components/DropdownWithText';
 import { Explanation } from '../components/Explanation';
 import { UserContext } from '../components/UserProvider';
 
+import questions from '../api/questions.json';
+import explanations from '../api/explanations.json';
+
 export const HomePage = () => {
   const [filterValue, setFilterValue] = useState({
     personType: '',
@@ -101,29 +104,13 @@ export const HomePage = () => {
               </button>
             </div>
             <div className="homePage__questions">
-              <DropdownWithText 
-                title="Як отримати громадянство України?"
-                text="Правовий зміст громадянства України, 
-                підстави і порядок його набуття та припинення,
-                повноваження органів державної влади,
-                що беруть участь у вирішенні питань громадянства
-                України, порядок оскарження рішень з питань громадянства,
-                дій чи бездіяльності органів державної влади, їх посадових 
-                і службових осіб визначає Закон України «Про громадянство 
-                України» від 18.01.2001 р."
-              />
-              <DropdownWithText 
-                title="Постійний вид на проживання"
-              />
-              <DropdownWithText 
-                title="Навчання іноземних громадян в Україні"
-              />
-              <DropdownWithText 
-                title="Як дізнатися, що реєстрація у черзі пройшла успішно?"
-              />
-              <DropdownWithText 
-                title="Я здійснив(ла) онлайн-оплату, як отримати квитанцію?"
-              />
+              {questions.map(question => 
+                <DropdownWithText
+                  title={question.title} 
+                  text={question.text}
+                  key={question.title} 
+                />
+              )}
 
               <button className="button onMobile homePage__allButton">
                 <p>Всі запитання</p>
@@ -144,46 +131,19 @@ export const HomePage = () => {
               </button>
             </div>
             <div className="homePage__explanation">
-              <Explanation 
-                title="Відповіді на часті запитання у період воєнного стану"
-                text="Відповіді на часті запитання громадян,
-              стосовно роботи органів Державної міграційної
-              служби України, у період воєного стану."
-              />
-              <Explanation 
-                title="Важлива інформація для органів реєстрації"
-                text="1 грудня 2021 року набрав чинності Закон України від 5
-              листопада 2021 року № 1871-IX «Про надання публічних (електронних
-              публічних) послуг щодо декларування…"
-              />
-              <Explanation
-                title="Декларування місця проживання та реєстрація місця
-              проживання (перебування) особи"
-                text="1 грудня 2021 року набрав чинності Закон України від 
-              5 листопада 2021 року № 1871-IX «Про надання публічних 
-              (електронних публічних) послуг щодо..." />
-              <Explanation 
-                title="Інформація для громадян України, які переселилися 
-              із тимчасово окупованої території України"
-                text="Інформація для вимушених переселенців із зони 
-              проведення Антитерористичної операції на території 
-              Донецької та Луганської областей..."
-              />
-              <Explanation 
-                title="Важлива інформація для органів реєстрації"
-                text="1 грудня 2021 року набрав чинності Закон України 
-              від 5 листопада 2021 року № 1871-IX «Про надання публічних
-              (електронних публічних) послуг щодо декларування…." 
-              />
-              <Explanation 
-                title="Важлива інформація для органів реєстрації"
-                text="1 грудня 2021 року набрав чинності Закон України від 5 
-              листопада 2021 року № 1871-IX «Про надання публічних 
-              (електронних публічних) послуг щодо декларування…"
-              />
+
+              {explanations.map(explanation => 
+                <Explanation 
+                  title={explanation.title} 
+                  text={explanation.text} 
+                  key={explanation.title}
+                />
+              )}
 
               <button className="button onMobile homePage__allButton">
-                <p>Всі Роз'яснення</p>
+                <Link to="/explanations">
+                  <p>Всі Роз'яснення</p>
+                </Link>
               </button>
             </div>
           

@@ -10,7 +10,7 @@ export const PageNavigation = () => {
 
   const replaseStar = (string) => {
     return string.replace(/\*/g , '/');
-  }
+  };
   
   return (
     <ul className="pageNavigation">

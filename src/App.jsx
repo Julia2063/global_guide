@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Header } from './components/Header';
@@ -16,20 +16,29 @@ import { ServiseItemPage } from './pages/ServiseItemPage';
 import { ExplanationsPage } from './pages/ExplanationsPage';
 import { ExplanationsItemPage } from './pages/ExplanationsItemPage';
 import ScrollToTop from './components/ScrollToTop';
+import { QuestionsItemPage } from './pages/QuestionsItemPage';
 
 import './style/App.scss';
+
+import questions from './api/questions.json';
+
+export const replaceSlash = (string) => {
+  return string.replace(/\//g , '*');
+};
+
+export const removeQuestion = (string) => {
+  return string.replace(/\?/g , '');
+};
 
 
 export function App() {
   const [language, setLanguage] = useState('ukr');
-  const [search, setSearch] = useState(null);
 
   return (
     <div className="App">
       <Header 
         language={language} 
         setLanguage={setLanguage} 
-        setSearch={setSearch}
       />
       <ScrollToTop />
       <Routes>
@@ -47,12 +56,21 @@ export function App() {
           <Route index element={(<NewsPage />)} />
           <Route path=":slug" element={(<NewsItemPage />)} />
         </Route>
-        <Route path="explanations"  >
+        <Route path="explanations">
           <Route index element={(<ExplanationsPage />)}/>
           <Route path=":slug" element={(<ExplanationsItemPage />)}/>
         </Route>
         <Route path="registration" element={<RegistrationPage />} />
         <Route path="account" element={<AccountPage />} />
+        {questions.map(question => {
+          return(
+            <Route 
+              path=":slug" 
+              key={question.title} 
+              element={(<QuestionsItemPage />)}
+            />
+          );
+        })}
       </Routes>
 
       <Footer />

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/img/logo_dark.svg';
+import cross from '../assets/icons/cross.svg';
+
+
 import { PageNavLink } from './PageNavLink';
 
-export const Navbar = ({ style, handleMenu }) => {
 
+export const Navbar = ({ style, handleMenu }) => {
 
   return (
     <>
@@ -16,12 +19,19 @@ export const Navbar = ({ style, handleMenu }) => {
       <div className="navbar" style={style}>
 
         <div className="navbar__container">
+          <div className="navbar__container-between onMobile" />
           <Link to="/">
             <img
               src={logo}
               alt="logo"
               className="logo--header" onClick={handleMenu} />
           </Link>
+          <img 
+            src={cross} 
+            alt="cross" 
+            className="navbar__cross onMobile" 
+            onClick={handleMenu}
+          />
         </div>
 
 

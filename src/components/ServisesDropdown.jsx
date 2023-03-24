@@ -1,18 +1,15 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import PropTypes from 'prop-types';
+import { replaceSlash } from '../App';
+
 
 export const ServisesDropdown = ({ title, img, values }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
-  };
-
-  const replaceSlash = (string) => {
-    return string.replace(/\//g , '*');
   };
 
   return (
@@ -35,14 +32,14 @@ export const ServisesDropdown = ({ title, img, values }) => {
         {isOpen && (
           <div className="servisesDropdown__values">
             {values.map(el => (
-              <Link to={replaceSlash(el)} key={el}>
-                <li
-                  className="servisesDropdown__item"
-                >
+              <li
+                className="servisesDropdown__item"
+                key={el}
+              >
+                <Link to={replaceSlash(`${title}: ${el}`)} >
                   {el}
-                </li>
-              </Link>
-              
+                </Link>
+              </li>
             ))}
           </div>
         )}

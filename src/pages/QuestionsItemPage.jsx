@@ -6,21 +6,26 @@ import { PageNavigation } from '../components/PageNavigation';
 import { replaceSlash } from '../App';
 import { removeQuestion } from '../App';
 
-import news from '../api/newsApi.json';
+import questions from '../api/questions.json';
 
-export const NewsItemPage = () => {
-  const [newsItem, setNewsItem] = useState({text:[]});
+export const QuestionsItemPage = () => {
+  const [questionItem, setQuestionItem] = useState({text:[]});
   const { slug } = useParams();
 
-  useEffect(() => {
-    const currentNews = news.find(el => 
-      replaceSlash(removeQuestion(el.title)) === slug);
+  
 
-    if (currentNews) {
-      setNewsItem(currentNews);
+  useEffect(() => {
+    const currentQuestion 
+     = questions.find(el => {
+      
+       return replaceSlash(removeQuestion(el.title)) === slug;
+     });
+
+    if (currentQuestion) {
+      setQuestionItem(currentQuestion);
     }
   }, [slug]);
-
+  
   return (
     <>
       <div className="container">
@@ -29,9 +34,9 @@ export const NewsItemPage = () => {
       <div className="page page-bigBottom">
         <div className="container">
           <ItemPage 
-            buttonName="Останні новини" 
-            item={newsItem} 
-            linkPath="/news"
+            buttonName="На головну" 
+            item={questionItem} 
+            linkPath="/home"
           />
         </div>
       </div>

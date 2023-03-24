@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { Link } from 'react-router-dom';
 import middleChoice from '../assets/icons/middleChoice.svg';
 
 export const DropdownWithText = ({ title, text }) => {
@@ -51,9 +52,12 @@ export const DropdownWithText = ({ title, text }) => {
           <div className="dropdownWithText__text">
             {text}
             <button className="button dropdownWithText__text-button">
-              <p>
+              <Link to={title}>
+                <p>
                   Дізнатися більше
-              </p>
+                </p>
+              </Link>
+              
             </button>
           </div>
         )}

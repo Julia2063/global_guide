@@ -15,24 +15,49 @@ import leg from '../assets/icons/ServisesPage/leg.svg';
 import doc from '../assets/icons/ServisesPage/doc.svg';
 import monitor from '../assets/icons/ServisesPage/monitor.svg';
 
+import servises from '../api/servises.json';
+
+const splitTwoPoints = (string) => {
+  const i = string.indexOf(':');
+  return string.slice(i + 2);
+};
+
 
 export const ServisesPage = () => {
-  const borderControl = ['в\'їзд в Україну', 'Виїзд з України', 'Докладніше'];
-  const customControl = ['В\'їзд в Україну', 'Bиїзд з України', '≠'];
-  const entryBan = ['Детальніше', 'Дізнатися, чи є заборона'];
-  const deportation = ['Детальніше'];
-  // eslint-disable-next-line max-len
-  const legalization = ['Громадянство України', 'Постійний дозвіл на проживання в Україні', 'Тимчасовий дозвіл на проживання в Україні', 'Докладніше'];
-  const docService = [
-    'Страхування онлайн', 
-    'Переклад документів онлайн', 
-    // eslint-disable-next-line max-len
-    'Довідка про відсутність/наявність/заборону на в\'їзд/виїзд/у /з/ Україн/у/и/ онлайн',
-    'Довідка про відсутність судимості онлайн',
-    'Довідка, що підтверджує громадянство України онлайн',
-    'Докладніше',
-  ];
-  const monitoring = ['Безвізовий калькулятор', '...', '...', '...'];
+  const borderControl = servises
+    .filter(servise => servise.title.includes(
+      'Проходження прикордонного контролю'
+    )).map(servise => splitTwoPoints(servise.title));
+
+  const customControl = servises
+    .filter(servise => servise.title.includes(
+      'Проходження митного контролю'
+    )).map(servise => splitTwoPoints(servise.title));
+
+  const entryBan = servises
+    .filter(servise => servise.title.includes(
+      'Заборона на в\'їзд в Україну'
+    )).map(servise => splitTwoPoints(servise.title));
+
+  const deportation = servises
+    .filter(servise => servise.title.includes(
+      'Депортація з України'
+    )).map(servise => splitTwoPoints(servise.title));
+  
+  const legalization = servises
+    .filter(servise => servise.title.includes(
+      'Легалізація в Україні'
+    )).map(servise => splitTwoPoints(servise.title));
+
+  const docService = servises
+    .filter(servise => servise.title.includes(
+      'Документ сервіс'
+    )).map(servise => splitTwoPoints(servise.title));
+
+  const monitoring = servises
+    .filter(servise => servise.title.includes(
+      'Моніторинг'
+    )).map(servise => splitTwoPoints(servise.title));
 
   const [isAllButtons, setIsAllButtons] = useState(false);
   const [filter, setFilter] = useState('Всі послуги');
@@ -112,7 +137,7 @@ export const ServisesPage = () => {
 
               <ServisesDropdown 
                 img={control} 
-                title="Проходження прикордонного&nbsp;контролю"
+                title="Проходження прикордонного контролю"
                 values={borderControl}
               />
 

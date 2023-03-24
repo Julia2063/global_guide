@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import { ItemPage } from '../components/ItemPage';
 import { PageNavigation } from '../components/PageNavigation';
+import { replaceSlash } from '../App';
+import { removeQuestion } from '../App';
 
 import servises from '../api/servises.json';
 
@@ -13,12 +15,14 @@ export const ServiseItemPage = () => {
   
 
   useEffect(() => {
-    const currentServise = servises.find(el => el.title.includes(slug));
+    const currentServise = servises.find(el => 
+      replaceSlash(removeQuestion(el.title)) === slug
+    );
 
     if (currentServise) {
       setServiseItem(currentServise);
     }
-  }, []);
+  }, [slug]);
   
   return (
     <>

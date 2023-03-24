@@ -2,6 +2,140 @@
     {
       "img": "",
       "title": "Проходження прикордонного контролю: в'їзд в Україну",
-      "text": ["some text"]
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Проходження прикордонного контролю: виїзд з України",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Проходження прикордонного контролю: докладніше",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Проходження митного контролю: в'їзд в Україну",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Проходження митного контролю: виїзд з України",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Проходження митного контролю: ≠",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Заборона на в'їзд в Україну: детальніше",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Заборона на в'їзд в Україну: дізнатися, чи є заборона",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Депортація з України: детальніше",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Легалізація в Україні: громадянство України",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Легалізація в Україні: постійний дозвіл на проживання в Україні",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Легалізація в Україні: тимчасовий дозвіл на проживання в Україні",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Легалізація в Україні: докладніше",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Документ сервіс: страхування онлайн",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Документ сервіс: переклад документів онлайн",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Документ сервіс: довідка про відсутність/наявність/заборону на в'їзд/виїзд/у /з/ Україн/у/и/ онлайн",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Документ сервіс: довідка про відсутність судимості онлайн",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Документ сервіс: довідка, що підтверджує громадянство України онлайн",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Документ сервіс: докладніше",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Моніторинг: безвізовий калькулятор",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Моніторинг: ...",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Моніторинг: ....",
+      "text": ["some text"],
+      "type": "services"
+    },
+    {
+      "img": "",
+      "title": "Моніторинг: .....",
+      "text": ["some text"],
+      "type": "services"
     }
+    
 ]

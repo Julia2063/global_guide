@@ -84,7 +84,7 @@ button {
 }
 
 .page {
-  margin: 95px 0 170px;
+  margin: 80px 0 170px;
 
   @include onMobile {
     margin: 20px 0 85px;
@@ -217,12 +217,60 @@ button {
       font-size: 16px;
       line-height: 80px;
     }
+
+    &-mobile {
+      z-index: 10;
+      height: 77px;
+      width: 100%;
+      display: flex;
+      
+      & input {
+        width: 100%;
+        height: 50%;
+        border: none;
+        margin-right: 20px;
+        outline: none;
+        background-color: $white2;
+        border-bottom: 1px solid $gray;
+        padding: 5px 0;
+        font-size: inherit;
+        font-family: inherit;
+
+        &:focus {
+          outline: none;
+          border-bottom: 1px solid $gray;
+        }
+
+        &::placeholder {
+          color: $gray;
+          font-size: 16px;
+          line-height: 80px;
+        }
+      }
+
+      & img {
+        width: 15px;
+        
+      }
+
+      & button {
+        height: 50%;
+        border: none;
+        background: none;
+      }
+    }
   }
 
   &__img {
     position: absolute;
     right: 0;
     top: 5px;
+
+    &--mobile {
+      position: absolute;
+      right: 40px;
+      top: 10px;
+    }
   }
 
   &__language-toogler {
@@ -241,6 +289,10 @@ button {
     align-items: center;
     cursor: pointer;
     font-family: inherit;
+
+    @include onMobile {
+      justify-content: center;
+    }
   }
 
   &__language-values {
@@ -340,6 +392,10 @@ button {
     list-style-type: none;
     align-items: center;
 
+    &-between {
+      width: 15px;
+    }
+
     @include onMobile{
       flex-direction: column;
       align-items: start;
@@ -348,6 +404,10 @@ button {
       &:first-child {
         align-self: center;
         margin-bottom: 50px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
       }
 
       &:nth-child(2) {
@@ -377,6 +437,7 @@ button {
         }
       }
     }
+
   }
   &__overlay {
       background-color: transparent;
@@ -390,6 +451,10 @@ button {
       transform: translateX(100%);
     }
 
+  &__cross {
+    height: 15px;
+    cursor: pointer;
+  }
 }
 
 .footer {
@@ -791,15 +856,21 @@ button {
   &__item {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 40px;
     padding-left: 44px;
     padding-right: 20px;
     font-size: 16px;
-    line-height: 143%;
+    line-height: 120%;
+
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     @include onMobile {
       font-size: 13px;
-      line-height: 143%;
+      line-height: 120%;
       padding-left: 40px;
     }
 
@@ -988,7 +1059,7 @@ button {
   font-size: 15px;
   letter-spacing: -0.75px;
   list-style-type: none;
-  height: 1rem;
+  height: 2rem;
  
   white-space: nowrap;
   
@@ -1508,6 +1579,108 @@ button {
 .explanationsPage {
   &__title {
     margin-bottom: 45px;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center; 
+  align-items: center;
+  z-index: 99;
+  padding:30px 0;
+  
+
+  &__window {
+    background: $dark;
+    color: $white1;
+    width: 50%;
+    max-width: 100%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start; 
+    align-items: center;
+    padding: 20px;
+    height: max-content;
+    min-height: 200px;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid $white1;
+
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__shadow {
+    position: fixed;
+    border:none;
+    display: block;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 98;
+    opacity: 0.5;
+    background-color: black;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+  }
+
+  &__icon {
+    width: 15px;
+  }
+
+  &__between {
+    width: 15px;
+  }
+}
+
+.inputSearchDropdown {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  background: $white2;
+  border-bottom: 1px solid $gray;
+  border-left: 1px solid $gray;
+  border-right: 1px solid $gray;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  height: auto;
+  overflow: auto;
+  padding-top: 5px;
+  z-index: 150;
+
+  &__item {
+    padding: 0 10px 10px 10px;
+    color: $gray;
+
+    &:hover {
+      background: $gray;
+      cursor: pointer;
+      color: $dark;
+      transition: all $transition-speed;
+    }
   }
 }
 
