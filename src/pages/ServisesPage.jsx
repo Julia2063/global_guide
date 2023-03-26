@@ -70,6 +70,7 @@ export const ServisesPage = () => {
     setFilter(title);
     openAllButtons();
   };
+  
 
   return (
     <>

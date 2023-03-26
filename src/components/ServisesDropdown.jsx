@@ -12,6 +12,12 @@ export const ServisesDropdown = ({ title, img, values }) => {
     setIsOpen(!isOpen);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 27 && isOpen) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <div className="servisesDropdown">
       <label className="servisesDropdown__label">
@@ -24,6 +30,7 @@ export const ServisesDropdown = ({ title, img, values }) => {
               {'servisesDropdown__button--active' : isOpen}
             )}            
             onClick={toggle}
+            onKeyDown={handleKeyDown}
           >
             <img src={img} alt="icon" />
           </button>

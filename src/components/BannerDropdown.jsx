@@ -17,6 +17,12 @@ export const BannerDropdown = ({
     setIsOpen(!isOpen);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 27 && isOpen) {
+      setIsOpen(false);
+    }
+  };
+
 
   return (
     <div className="bannerDropdown">
@@ -30,7 +36,11 @@ export const BannerDropdown = ({
           >
             {dropdownValue.length > 0 ? dropdownValue : title}
           </p>
-          <button className="bannerDropdown__button" onClick={toggle}>
+          <button 
+            className="bannerDropdown__button" 
+            onClick={toggle}
+            onKeyDown={handleKeyDown}
+          >
             <img src={bigChoice} alt="select" />
           </button>
           

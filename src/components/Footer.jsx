@@ -60,8 +60,6 @@ export const Footer = () => {
           <p>Privacy Policy</p>
         </section>
       </div>
-
-
     </footer>
   );
 };

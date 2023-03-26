@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import searchImg from '../assets/icons/search.svg';
@@ -14,6 +14,7 @@ import explanations from '../api/explanations.json';
 import questions from '../api/questions.json';
 import news from '../api/newsApi.json';
 
+import { useWindowSize } from '../hooks/useWindowSize';
 import { Navbar } from './Navbar';
 import { InputSearchDropdown } from './InputSearchDropdown';
 
@@ -32,12 +33,11 @@ export const Header = ({
   const [hideOrShow, setHideOrSwow] = useState({});
   const [isSearch, setIsSearch] = useState(false);
   const [isSearchDropdown, setIsSearchDropdown] = useState(true);
-
-  const location = useLocation();
-
+  const { width } = useWindowSize();
+  
   const handleMenu = () => {
     setIsOpenMenu((prev) => !prev);
-    if (window.matchMedia('(max-width: 768px)').matches) {
+    if (width < 769) {
       if (isOpenMenu) {
         setHideOrSwow(() => {
           return { transform: 'translateX(100%)'};
@@ -47,13 +47,21 @@ export const Header = ({
           return {transform: 'translateX(0)'};
         });
       }
-    } else {
+    } 
+  };
+
+  useEffect(() => {
+    if (width > 769) {
       setHideOrSwow(() => {
         return {transform: 'translateX(0)'};
       });
+    } else {
+      setHideOrSwow(() => {
+        return {transform: 'translateX(100%)'};
+      });
     }
-  };
 
+  }, [width]);
   
   const onChangeLanguage = (value) => {
     setLanguage(value);
@@ -68,16 +76,16 @@ export const Header = ({
     setQuery(value);
   };
 
-  /* const handleBlur = () => {
+ /*  const handleBlur = () => {
     setQuery('');
     
-  };
+  }; */
 
   const handleKeyDown = (event) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 || event.keyCode === 27) {
       setQuery('');
     }
-  }; */
+  };
 
   const handleIsSearch = () => {
     setIsSearch(!isSearch);
@@ -122,6 +130,7 @@ export const Header = ({
               onFocus={() => {
                 setIsSearchDropdown(true);
               }}
+              onKeyDown={handleKeyDown}
             />
             <img 
               src={searchImg} 
@@ -137,8 +146,6 @@ export const Header = ({
             )}
           </label>
 
-
-          
           <div className="header__language-toogler">
             <button className="header__button" onClick={toggle}>
               {language}
@@ -176,6 +183,7 @@ export const Header = ({
                 onFocus={() => {
                   setIsSearchDropdown(true);
                 }}
+                onKeyDown={handleKeyDown}
               />
               <img 
                 src={searchImg} 
