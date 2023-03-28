@@ -3,138 +3,161 @@
       "img": "",
       "title": "Проходження прикордонного контролю: в'їзд в Україну",
       "text": ["some text"],
+      "path": "pogranichnyj-kontrol-vezd-v-ukrainu",
       "type": "services"
     },
     {
       "img": "",
       "title": "Проходження прикордонного контролю: виїзд з України",
       "text": ["some text"],
+      "path": "pogranichnyj-kontrol-vyezd-s-ukrainu",
       "type": "services"
     },
     {
       "img": "",
       "title": "Проходження прикордонного контролю: докладніше",
       "text": ["some text"],
+      "path": "prykordonnyi-kontrol-dokladnishe",
       "type": "services"
     },
     {
       "img": "",
       "title": "Проходження митного контролю: в'їзд в Україну",
       "text": ["some text"],
+      "path": "mytnyi-kontrol-vizd-v-ukrainu",
       "type": "services"
     },
     {
       "img": "",
       "title": "Проходження митного контролю: виїзд з України",
       "text": ["some text"],
+      "path": "mytnyi-kontrol-vyezd-s-ukrainu",
       "type": "services"
     },
     {
       "img": "",
       "title": "Проходження митного контролю: ≠",
       "text": ["some text"],
+      "path": "mytnyi-kontrol-≠",
       "type": "services"
     },
     {
       "img": "",
       "title": "Заборона на в'їзд в Україну: детальніше",
       "text": ["some text"],
+      "path": "zaborona-na-vizd-detalnishe",
       "type": "services"
     },
     {
       "img": "",
       "title": "Заборона на в'їзд в Україну: дізнатися, чи є заборона",
       "text": ["some text"],
+      "path": "zaborona-na-vizd-chy-ye-zaborona",
       "type": "services"
     },
     {
       "img": "",
       "title": "Депортація з України: детальніше",
       "text": ["some text"],
+      "path": "deportatsiia-z-ukrainy-detalnishe",
       "type": "services"
     },
     {
       "img": "",
       "title": "Легалізація в Україні: громадянство України",
       "text": ["some text"],
+      "path": "lehalizatsiia-v-ukraini-hromadianstvo",
       "type": "services"
     },
     {
       "img": "",
       "title": "Легалізація в Україні: постійний дозвіл на проживання в Україні",
       "text": ["some text"],
+      "path": "lehalizatsiia-v-ukraini-postiinyi-dozvil",
       "type": "services"
     },
     {
       "img": "",
       "title": "Легалізація в Україні: тимчасовий дозвіл на проживання в Україні",
       "text": ["some text"],
+      "path": "lehalizatsiia-v-ukraini-tymchasovyi-dozvil",
       "type": "services"
     },
     {
       "img": "",
       "title": "Легалізація в Україні: докладніше",
       "text": ["some text"],
+      "path": "lehalizatsiia-v-ukraini-dokladnishe",
       "type": "services"
     },
     {
       "img": "",
       "title": "Документ сервіс: страхування онлайн",
       "text": ["some text"],
+      "path": "dokument-servis-strakhuvannia",
       "type": "services"
     },
     {
       "img": "",
       "title": "Документ сервіс: переклад документів онлайн",
       "text": ["some text"],
+      "path": "dokument-servis-pereklad",
       "type": "services"
     },
     {
       "img": "",
       "title": "Документ сервіс: довідка про відсутність/наявність/заборону на в'їзд/виїзд/у /з/ Україн/у/и/ онлайн",
       "text": ["some text"],
+      "path": "dokument-servis-dovidka-zaborona",
       "type": "services"
     },
     {
       "img": "",
       "title": "Документ сервіс: довідка про відсутність судимості онлайн",
       "text": ["some text"],
+      "path": "dokument-servis-dovidka-vidsutnist-sudymosti",
       "type": "services"
     },
     {
       "img": "",
       "title": "Документ сервіс: довідка, що підтверджує громадянство України онлайн",
       "text": ["some text"],
+      "path": "dokument-servis-dovidka-hromadianstvo",
       "type": "services"
     },
     {
       "img": "",
       "title": "Документ сервіс: докладніше",
       "text": ["some text"],
+      "path": "dokument-servis-dokladnishe",
       "type": "services"
     },
     {
       "img": "",
       "title": "Моніторинг: безвізовий калькулятор",
       "text": ["some text"],
+      "path": "monitorynh-bezvizovyi-kalkuliator",
       "type": "services"
     },
     {
       "img": "",
       "title": "Моніторинг: ...",
       "text": ["some text"],
+      "path": "monitorynh-...",
       "type": "services"
     },
     {
       "img": "",
       "title": "Моніторинг: ....",
       "text": ["some text"],
+      "path": "monitorynh-....",
       "type": "services"
     },
     {
       "img": "",
       "title": "Моніторинг: .....",
       "text": ["some text"],
+      "path": "monitorynh-.....",
       "type": "services"
     }
     

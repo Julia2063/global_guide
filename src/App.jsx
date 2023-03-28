@@ -22,15 +22,6 @@ import './style/App.scss';
 
 import questions from './api/questions.json';
 
-export const replaceSlash = (string) => {
-  return string.replace(/\//g , '*');
-};
-
-export const removeQuestion = (string) => {
-  return string.replace(/\?/g , '');
-};
-
-
 export function App() {
   const [language, setLanguage] = useState('ukr');
 

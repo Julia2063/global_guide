@@ -52,7 +52,6 @@ export const RegistrationPage = () => {
           handleModal={handleModal} 
         />
       )}
-      
     </>
   );
 };

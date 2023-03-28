@@ -3,20 +3,16 @@ import { useParams } from 'react-router-dom';
 
 import { ItemPage } from '../components/ItemPage';
 import { PageNavigation } from '../components/PageNavigation';
-import { replaceSlash } from '../App';
-import { removeQuestion } from '../App';
 
-import servises from '../api/servises.json';
+import services from '../api/services.json';
 
 export const ServiseItemPage = () => {
   const [serviseItem, setServiseItem] = useState({text:[]});
   const { slug } = useParams();
 
-  
-
   useEffect(() => {
-    const currentServise = servises.find(el => 
-      replaceSlash(removeQuestion(el.title)) === slug
+    const currentServise = services.find(el => 
+      el.path === slug
     );
 
     if (currentServise) {

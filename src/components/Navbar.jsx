@@ -59,7 +59,7 @@ export const Navbar = ({ style, handleMenu }) => {
           </li>
           <li className="navbar__item--account">
             <Link to="/account" className="navbar__link">
-            Вхід до кабінету
+              <p>Вхід до кабінету</p>  
             </Link>
           </li>
         </div>
@@ -68,12 +68,12 @@ export const Navbar = ({ style, handleMenu }) => {
 
           <li className="navbar__item" onClick={handleMenu}>
             <Link to="/account" className="navbar__link">
-            Вхід
+              <p>Вхід</p> 
             </Link>
           </li>
           <li className="navbar__item" onClick={handleMenu}>
             <Link to="/registration" className="navbar__link">
-            Реєстрація
+              <p>Реєстрація</p> 
             </Link>
           </li>
         </div>

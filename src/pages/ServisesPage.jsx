@@ -15,7 +15,7 @@ import leg from '../assets/icons/ServisesPage/leg.svg';
 import doc from '../assets/icons/ServisesPage/doc.svg';
 import monitor from '../assets/icons/ServisesPage/monitor.svg';
 
-import servises from '../api/servises.json';
+import services from '../api/services.json';
 
 const splitTwoPoints = (string) => {
   const i = string.indexOf(':');
@@ -24,37 +24,37 @@ const splitTwoPoints = (string) => {
 
 
 export const ServisesPage = () => {
-  const borderControl = servises
+  const borderControl = services
     .filter(servise => servise.title.includes(
       'Проходження прикордонного контролю'
     )).map(servise => splitTwoPoints(servise.title));
 
-  const customControl = servises
+  const customControl = services
     .filter(servise => servise.title.includes(
       'Проходження митного контролю'
     )).map(servise => splitTwoPoints(servise.title));
 
-  const entryBan = servises
+  const entryBan = services
     .filter(servise => servise.title.includes(
       'Заборона на в\'їзд в Україну'
     )).map(servise => splitTwoPoints(servise.title));
 
-  const deportation = servises
+  const deportation = services
     .filter(servise => servise.title.includes(
       'Депортація з України'
     )).map(servise => splitTwoPoints(servise.title));
   
-  const legalization = servises
+  const legalization = services
     .filter(servise => servise.title.includes(
       'Легалізація в Україні'
     )).map(servise => splitTwoPoints(servise.title));
 
-  const docService = servises
+  const docService = services
     .filter(servise => servise.title.includes(
       'Документ сервіс'
     )).map(servise => splitTwoPoints(servise.title));
 
-  const monitoring = servises
+  const monitoring = services
     .filter(servise => servise.title.includes(
       'Моніторинг'
     )).map(servise => splitTwoPoints(servise.title));

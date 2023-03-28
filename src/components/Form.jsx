@@ -24,7 +24,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
           'form__toggle-button', 
           {'form__toggle-button--active' : formFunction === 'account'}
         )}>
-          Вхід
+          <p>Вхід</p> 
         </Link>
 
         <Link to="/registration"
@@ -33,7 +33,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
             {'form__toggle-button--active' : formFunction === 'registration'}
           )}
         >
-          Реєстрація
+          <p>Реєстрація</p> 
         </Link>
       </div>
       <div className="form__inputs">
@@ -82,7 +82,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
 
       {!isRegistration && (
         <button className="form__forget">
-          Забули пароль?
+          <p>Забули пароль?</p> 
         </button>
       )}
       

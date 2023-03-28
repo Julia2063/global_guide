@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { replaceSlash } from '../App';
 
+import services from '../api/services.json';
 
 export const ServisesDropdown = ({ title, img, values }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,16 +38,22 @@ export const ServisesDropdown = ({ title, img, values }) => {
         </div>
         {isOpen && (
           <div className="servisesDropdown__values">
-            {values.map(el => (
-              <li
-                className="servisesDropdown__item"
-                key={el}
-              >
-                <Link to={replaceSlash(`${title}: ${el}`)} >
-                  {el}
-                </Link>
-              </li>
-            ))}
+            {values.map(el => {
+              // eslint-disable-next-line max-len
+              const linkPath = services.find(e => e.title.includes(`${title}: ${el}`))?.path;
+              return (
+                <li
+                  className="servisesDropdown__item"
+                  key={el}
+                >
+                  <Link 
+                    to={linkPath} 
+                  >
+                    {el}
+                  </Link>
+                </li>
+              );
+            })}
           </div>
         )}
       </label>

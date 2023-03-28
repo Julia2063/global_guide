@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { replaceSlash } from '../App';
-import { removeQuestion } from '../App';
-
 import { ItemPage } from '../components/ItemPage';
 import { PageNavigation } from '../components/PageNavigation';
 
@@ -16,9 +13,7 @@ export const ExplanationsItemPage = () => {
 
   useEffect(() => {
     const currenteExplanation 
-    = explanations.find(el => 
-      replaceSlash(removeQuestion(el.title)).includes(slug)
-    );
+    = explanations.find(el => el.path === slug);
 
     if (currenteExplanation) {
       setExplanationsItem(currenteExplanation);

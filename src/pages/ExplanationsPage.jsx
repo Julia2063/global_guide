@@ -22,6 +22,7 @@ export const ExplanationsPage = () => {
                 title={explanation.title} 
                 text={explanation.text} 
                 key={explanation.title}
+                path={explanation.path}
               />
             )}
 

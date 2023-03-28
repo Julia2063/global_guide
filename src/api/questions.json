@@ -3,30 +3,35 @@
       "img": "",
       "title": "Як отримати громадянство України?",
       "text": ["Правовий зміст громадянства України, підстави і порядок його набуття та припинення, повноваження органів державної влади, що беруть участь у вирішенні питань громадянства України, порядок оскарження рішень з питань громадянства, дій чи бездіяльності органів державної влади, їх посадових і службових осіб визначає Закон України «Про громадянство України» від 18.01.2001 р."],
+      "path": "otrymaty-hromadianstvo-ukrainy",
       "type": "questions"
     },
     {
       "img": "",
       "title": "Постійний вид на проживання",
       "text": ["some text"],
+      "path": "postiinyi-vyd-na-prozhyvannia",
       "type": "questions"
     },
     {
       "img": "",
       "title": "Навчання іноземних громадян в Україні",
       "text": ["some text"],
+      "path": "navchannia-inozemnykh-hromadian-v-ukraini",
       "type": "questions"
     },
     {
       "img": "",
       "title": "Як дізнатися, що реєстрація у черзі пройшла успішно?",
       "text": ["some text"],
+      "path": "reiestratsiia-u-cherzi",
       "type": "questions"
     },
     {
       "img": "",
       "title": "Я здійснив(ла) онлайн-оплату, як отримати квитанцію?",
       "text": ["some text"],
+      "path": "otrymaty-kvytantsiiu",
       "type": "questions"
     }
 ]

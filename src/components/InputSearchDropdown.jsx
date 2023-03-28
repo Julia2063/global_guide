@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { replaceSlash } from '../App';
-import { removeQuestion } from '../App';
-
 export const InputSearchDropdown = ({ search, handleCloseSearchDropdown }) => {
 
   return (
@@ -13,7 +10,7 @@ export const InputSearchDropdown = ({ search, handleCloseSearchDropdown }) => {
         return (
           <Link 
             // eslint-disable-next-line max-len
-            to={`${el.type === 'questions' ? '' : `/${el.type}`}/${replaceSlash(removeQuestion(el.title))}`}
+            to={`${el.type === 'questions' ? '' : `/${el.type}`}/${el.path}`}
             key={el.title} 
             onClick={handleCloseSearchDropdown}
           >

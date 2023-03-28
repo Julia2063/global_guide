@@ -95,10 +95,10 @@ export const HomePage = () => {
       </div>
       <div className="homePage">
         <div className="page">
-          <div className="container">
+          <section className="container">
           
             <div className="page__title-with-extension homePage__title">
-              <h1 className="page__title">Найчастіші запитання</h1>
+              <h2 className="page__title">Найчастіші запитання</h2>
               <button className="button-extension onDesktop">
                 <p>Всі запитання</p>
               </button>
@@ -109,6 +109,7 @@ export const HomePage = () => {
                   title={question.title} 
                   text={question.text}
                   key={question.title} 
+                  path={question.path}
                 />
               )}
 
@@ -117,13 +118,13 @@ export const HomePage = () => {
               </button>
 
             </div>
-          </div>
+          </section>
         </div>
         <div className="separator onDesktop" />
         <div className="page"> 
-          <div className="container">
+          <section className="container">
             <div className="page__title-with-extension homePage__title">
-              <h1 className="page__title">Роз'яснення</h1>
+              <h2 className="page__title">Роз'яснення</h2>
               <button className="button-extension onDesktop">
                 <Link to="/explanations">
                   <p>Всі роз'яснення</p>
@@ -137,6 +138,7 @@ export const HomePage = () => {
                   title={explanation.title} 
                   text={explanation.text} 
                   key={explanation.title}
+                  path={explanation.path}
                 />
               )}
 
@@ -147,7 +149,7 @@ export const HomePage = () => {
               </button>
             </div>
           
-          </div>
+          </section>
         </div>
       </div>
     </>

@@ -8,7 +8,7 @@ export const ServisesButton = ({ img, title, onClick }) => {
         <div className="servisesButton__icon">
           <img src={img} alt="icon" className="servisesButton__img" />
         </div>
-        {title}
+        <p>{title}</p> 
       </button>
     </label>
   );

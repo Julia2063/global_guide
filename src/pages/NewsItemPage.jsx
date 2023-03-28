@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 
 import { ItemPage } from '../components/ItemPage';
 import { PageNavigation } from '../components/PageNavigation';
-import { replaceSlash } from '../App';
-import { removeQuestion } from '../App';
 
 import news from '../api/newsApi.json';
 
@@ -14,7 +12,7 @@ export const NewsItemPage = () => {
 
   useEffect(() => {
     const currentNews = news.find(el => 
-      replaceSlash(removeQuestion(el.title)) === slug);
+      el.path === slug);
 
     if (currentNews) {
       setNewsItem(currentNews);

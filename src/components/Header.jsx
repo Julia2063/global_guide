@@ -9,7 +9,7 @@ import logo from '../assets/img/logo_dark.svg';
 import menu from '../assets/icons/menu.svg';
 import cross from '../assets/icons/cross__gray.svg';
 
-import servises from '../api/servises.json';
+import services from '../api/services.json';
 import explanations from '../api/explanations.json';
 import questions from '../api/questions.json';
 import news from '../api/newsApi.json';
@@ -76,11 +76,6 @@ export const Header = ({
     setQuery(value);
   };
 
- /*  const handleBlur = () => {
-    setQuery('');
-    
-  }; */
-
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 || event.keyCode === 27) {
       setQuery('');
@@ -101,7 +96,7 @@ export const Header = ({
   };
 
   useEffect(() => {
-    const searchResult =  getSearch(servises, news, questions, explanations);
+    const searchResult =  getSearch(services, news, questions, explanations);
     if (query.length > 0) {
       setSearch(searchResult);
     }

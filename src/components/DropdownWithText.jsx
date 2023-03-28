@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import middleChoice from '../assets/icons/middleChoice.svg';
 
-export const DropdownWithText = ({ title, text }) => {
+export const DropdownWithText = ({ title, text, path }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -52,7 +52,7 @@ export const DropdownWithText = ({ title, text }) => {
           <div className="dropdownWithText__text">
             {text}
             <button className="button dropdownWithText__text-button">
-              <Link to={title}>
+              <Link to={path}>
                 <p>
                   Дізнатися більше
                 </p>

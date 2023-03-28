@@ -10,7 +10,7 @@ export const PageNavLink = ({ to, text }) => (
       'navbar__link', { 'navbar__link--active': isActive },
     )}
   >
-    {text}
+    <p>{text}</p> 
   </NavLink>
 );
 
