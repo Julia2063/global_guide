@@ -61,7 +61,7 @@ export function App() {
           return(
             <Route 
               path=":slug" 
-              key={question.title} 
+              key={question.id} 
               element={(<QuestionsItemPage />)}
             />
           );

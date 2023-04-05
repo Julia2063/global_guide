@@ -15,7 +15,7 @@ export const InputSearchDropdown = ({ search, handleCloseSearchDropdown }) => {
           <Link 
             // eslint-disable-next-line max-len
             to={`${el.type === 'questions' ? '' : `/${el.type}`}/${el.path}`}
-            key={el.id} 
+            key={el.path + el.id} 
             onClick={handleCloseSearchDropdown}
           >
             <li 
