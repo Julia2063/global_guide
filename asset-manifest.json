@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/global_guide/static/css/main.550b64e5.css",
-    "main.js": "/global_guide/static/js/main.693397c1.js",
+    "main.css": "/global_guide/static/css/main.42caf9e6.css",
+    "main.js": "/global_guide/static/js/main.dc1fe58d.js",
     "static/media/Montserrat-Regular.ttf": "/global_guide/static/media/Montserrat-Regular.ceb11275ab638627a643.ttf",
     "static/media/news.jpg": "/global_guide/static/media/news.cbb15ec3ec47409e9d74.jpg",
     "static/media/trebuchetms.ttf": "/global_guide/static/media/trebuchetms.9f1aa0037c24e0f6935e.ttf",
@@ -29,15 +29,16 @@
     "static/media/cross__white.svg": "/global_guide/static/media/cross__white.f24f4e51e507026238351cb073a16c6c.svg",
     "static/media/cross__gray.svg": "/global_guide/static/media/cross__gray.ae7c2bc3a7ee544de8f5a68c3f26a0ba.svg",
     "static/media/doobleArrow--up.svg": "/global_guide/static/media/doobleArrow--up.890db430e466ca231a68.svg",
+    "static/media/getFetch.cjs": "/global_guide/static/media/getFetch.40f37ddea2378391108f.cjs",
     "static/media/dobleArrow.svg": "/global_guide/static/media/dobleArrow.3da0e7aa4f6698fb395e.svg",
     "static/media/bigChoice.svg": "/global_guide/static/media/bigChoice.34cf947ad0a55a966300dea353c20c8f.svg",
     "static/media/middleChoice.svg": "/global_guide/static/media/middleChoice.0725d1cb2833658e1ea36f46e27a4dba.svg",
     "static/media/choiсe.svg": "/global_guide/static/media/choiсe.0411899ed83f7634c4a70df4f7fb63f4.svg",
-    "main.550b64e5.css.map": "/global_guide/static/css/main.550b64e5.css.map",
-    "main.693397c1.js.map": "/global_guide/static/js/main.693397c1.js.map"
+    "main.42caf9e6.css.map": "/global_guide/static/css/main.42caf9e6.css.map",
+    "main.dc1fe58d.js.map": "/global_guide/static/js/main.dc1fe58d.js.map"
   },
   "entrypoints": [
-    "static/css/main.550b64e5.css",
-    "static/js/main.693397c1.js"
+    "static/css/main.42caf9e6.css",
+    "static/js/main.dc1fe58d.js"
   ]
 }
