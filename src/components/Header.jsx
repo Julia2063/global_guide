@@ -96,9 +96,7 @@ export const Header = () => {
     return searchArr.filter(el => {
       const title = rightTitle(el, i18n.language);
 
-      const title2 = rightTitle2(el, i18n.language) || null ;
       return  title.toLowerCase().includes(query.toLowerCase()) 
-      || title2?.toLowerCase().includes(query.toLowerCase());
     });
   };
 
