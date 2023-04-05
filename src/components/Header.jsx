@@ -94,9 +94,15 @@ export const Header = () => {
       [...arguments].reduce((start, el) => start.concat(el), []);
 
     return searchArr.filter(el => {
-      const title = rightTitle(el, i18n.language);
 
-      return  title.toLowerCase().includes(query.toLowerCase()) 
+     
+      return  (
+        // eslint-disable-next-line max-len
+        rightTitle(el, i18n.language).toLowerCase().includes(query.toLowerCase()) 
+      // eslint-disable-next-line max-len
+      || rightTitle2(el, i18n.language)?.toLowerCase().includes(query.toLowerCase())
+      );
+      
     });
   };
 
