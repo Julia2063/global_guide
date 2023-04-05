@@ -32,7 +32,7 @@ export const HomePage = () => {
 
   const valuesServiseType = useMemo(() => {
     switch (filterValue.personType) {
-    case 'Ukrainian citizens':
+    case t('services.citizens'):
       return [
         t('services.borderControl'),
         t('services.customControl'),

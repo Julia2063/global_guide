@@ -132,8 +132,8 @@ export const resources = {
         support: 'Техническая поддержка',
       },
       services: {
-        sitizens: 'Гражданам Украины',
-        foreigners: 'Иностарнцам',
+        citizens: 'Гражданам Украины',
+        foreigners: 'Иностранцам',
 
         borderControl: 'Прохождение пограничного контроля',
         customControl: 'Прохождение таможенного контроля',
