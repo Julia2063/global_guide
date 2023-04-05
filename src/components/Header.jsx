@@ -89,15 +89,16 @@ export const Header = () => {
   };
 
   function getSearch () { 
+    
     const searchArr =
       [...arguments].reduce((start, el) => start.concat(el), []);
 
     return searchArr.filter(el => {
-      
-      return rightTitle(el, i18n.language)
-        .toLowerCase().includes(query.toLowerCase()) 
-      || rightTitle2(el, i18n.language)
-        ?.toLowerCase().includes(query.toLowerCase());
+      const title = rightTitle(el, i18n.language);
+
+      const title2 = rightTitle2(el, i18n.language) || null ;
+      return  title.toLowerCase().includes(query.toLowerCase()) 
+      || title2?.toLowerCase().includes(query.toLowerCase());
     });
   };
 
