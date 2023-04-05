@@ -1,9 +1,10 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { BannerDropdown } from '../components/BannerDropdown';
 import { DropdownWithText } from '../components/DropdownWithText';
 import { Explanation } from '../components/Explanation';
-import { UserContext } from '../components/UserProvider';
+import { AppContext } from '../components/AppProvider';
 
 import questions from '../api/questions.json';
 import explanations from '../api/explanations.json';
@@ -13,44 +14,53 @@ export const HomePage = () => {
     personType: '',
     serviseType: '',
   });
+  const { t, i18n }  = useTranslation();
 
   const valuesPersonType = useMemo(() => {
     switch (filterValue.personType) {
-    case 'Громадянам України':
-      return ['Іноземцям'];
+    case 'Ukrainian citizens':
+      return [t('services.foreigners')];
 
-    case 'Іноземцям':
-      return ['Громадянам України'];
+    case 'Foreigners':
+      return [t('services.citizens')];
 
     default:
-      return ['Громадянам України', 'Іноземцям'];
-    }
-  }, [filterValue.personType]) ;
+      return [t('services.citizens'), t('services.foreigners')];
+    };
+      
+  }, [filterValue.personType, t]) ;
 
   const valuesServiseType = useMemo(() => {
     switch (filterValue.personType) {
-    case 'Громадянам України':
+    case 'Ukrainian citizens':
       return [
-        'Проходження прикордонного контролю',
-        'Проходження митного контролю',
-        'Заборона на в\'їзд в Україну',
-        'Моніторинг',
+        t('services.borderControl'),
+        t('services.customControl'),
+        t('services.ban'),
+        t('services.monitoring'),
       ];
   
     default:
       return [
-        'Проходження прикордонного контролю',
-        'Проходження митного контролю',
-        'Заборона на в\'їзд в Україну',
-        'Депортація з України',
-        'Легалізація в Україні',
-        'Документ сервіс',
-        'Моніторинг',
+        t('services.borderControl'),
+        t('services.customControl'),
+        t('services.ban'),
+        t('services.deportation'),
+        t('services.legalization'),
+        t('services.document'),
+        t('services.monitoring'),
       ];
     }
-  }, [filterValue.personType]);
+  }, [filterValue.personType, t]);
 
-  const { user } = useContext(UserContext);
+  useEffect(() => {
+    setFilterValue({
+      personType: '',
+      serviseType: '',
+    });
+  }, [i18n.language]);
+
+  const { user } = useContext(AppContext);
 
   console.log(user);
  
@@ -59,15 +69,15 @@ export const HomePage = () => {
       <div className="banner">
         <div className="container">
           <h1 className="banner__title">
-          Послуги для іноземних громадян
+            {t('homePage.banner.h1')}
           </h1>
           <div className="banner__dropdowns">
             <div className="banner__label">
               <div className="banner__label-title">
-                Я шукаю послуги для
+                {t('homePage.banner.label_title1')} 
               </div>
               <BannerDropdown
-                title="Вибрати"
+                title={t('homePage.banner.bannerDropdown.title1')}
                 values={valuesPersonType}
                 dropdownValue={filterValue.personType}
                 setDropdownValue={(e) =>
@@ -77,10 +87,10 @@ export const HomePage = () => {
 
             <div className="banner__label">
               <div className="banner__label-title">
-                Тип послуги
+                {t('homePage.banner.label_title2')}
               </div>
               <BannerDropdown
-                title="Вкажіть тип послуги"
+                title={t('homePage.banner.bannerDropdown.title2')}
                 values={valuesServiseType}
                 dropdownValue={filterValue.serviseType}
                 setDropdownValue={(e) =>
@@ -88,7 +98,7 @@ export const HomePage = () => {
               />
             </div>
             <button className="button banner__button">
-              <p>Перейти</p>
+              <p>{t('homePage.banner.go')}</p>
             </button>
           </div>
         </div>
@@ -98,23 +108,21 @@ export const HomePage = () => {
           <section className="container">
           
             <div className="page__title-with-extension homePage__title">
-              <h2 className="page__title">Найчастіші запитання</h2>
+              <h2 className="page__title">{t('homePage.faq')}</h2>
               <button className="button-extension onDesktop">
-                <p>Всі запитання</p>
+                <p>{t('homePage.aq')}</p>
               </button>
             </div>
             <div className="homePage__questions">
               {questions.map(question => 
                 <DropdownWithText
-                  title={question.title} 
-                  text={question.text}
-                  key={question.title} 
-                  path={question.path}
+                  item={question}
+                  key={question.id} 
                 />
               )}
 
               <button className="button onMobile homePage__allButton">
-                <p>Всі запитання</p>
+                <p>{t('homePage.aq')}</p>
               </button>
 
             </div>
@@ -124,10 +132,10 @@ export const HomePage = () => {
         <div className="page"> 
           <section className="container">
             <div className="page__title-with-extension homePage__title">
-              <h2 className="page__title">Роз'яснення</h2>
+              <h2 className="page__title">{t('explanations.explanations')}</h2>
               <button className="button-extension onDesktop">
                 <Link to="/explanations">
-                  <p>Всі роз'яснення</p>
+                  <p>{t('explanations.allExplanations')}</p>
                 </Link>
               </button>
             </div>
@@ -135,16 +143,14 @@ export const HomePage = () => {
 
               {explanations.map(explanation => 
                 <Explanation 
-                  title={explanation.title} 
-                  text={explanation.text} 
-                  key={explanation.title}
-                  path={explanation.path}
+                  item={explanation}
+                  key={explanation.id}
                 />
               )}
 
               <button className="button onMobile homePage__allButton">
                 <Link to="/explanations">
-                  <p>Всі Роз'яснення</p>
+                  <p>{t('explanations.allExplanations')}</p>
                 </Link>
               </button>
             </div>

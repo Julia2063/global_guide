@@ -2,11 +2,14 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { rightTitle } from '../helpers/rightData';
 
 import services from '../api/services.json';
 
 export const ServisesDropdown = ({ title, img, values }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t, i18n }  = useTranslation();
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -40,7 +43,7 @@ export const ServisesDropdown = ({ title, img, values }) => {
           <div className="servisesDropdown__values">
             {values.map(el => {
               // eslint-disable-next-line max-len
-              const linkPath = services.find(e => e.title.includes(`${title}: ${el}`))?.path;
+              const linkPath = services.find(e => rightTitle(e, i18n.language).includes(`${title}: ${el}`))?.path;
               return (
                 <li
                   className="servisesDropdown__item"

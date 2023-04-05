@@ -1,0 +1,46 @@
+
+  {
+    "id": "1",
+    "titleEN": "What is «Global Chat»?",
+    "titleRU": "Что такое «Глобал чат»?",
+    "titleUA": "Що таке «Глобал чат»?",
+    "textEN": {
+      "p1": "Our lawyers, having experience in dealing with issues related to the stay of foreigners in Ukraine, tried to give this resource the most useful functions for the security of foreign citizens in Ukraine.",
+      "ul1": [
+          "So with this resource you can:",
+          [
+            "Communicate in a global chat with your compatriots living or who previously lived in Ukraine and directly share useful information about your stay in Ukraine and any other information",
+            "Stay up to date with all the latest migration news",
+            "You can remotely receive a certificate of the presence or absence of a ban on entry / exit to / from Ukraine",
+            "Monitor your data in the state registers of Ukraine according to the specified parameters, which will warn you against committing administrative offenses that may have negative consequences in the form of a ban on entry into Ukraine."
+          ]
+      ],
+      "p2": "The system will timely notify you about the presence of information in the registers, which in the future may adversely affect your stay in Ukraine and you will be able to respond to it in a timely manner, which will make it impossible for any negative consequences to occur."
+  },
+    "textRU": {
+      "p1": "Наши юристы, имея опыт работы по вопросам, связанным с пребыванием иностранцев в Украине, постарались наделить данный ресурс максимально полезными функциями для безопасности иностранных граждан в Украине.",
+      "ul1": [
+          "Так при помощи данного ресурса Вы сможете:",
+          [
+            "Общаться в глобал чате со своими соотечественниками, проживающими или которые ранее проживали в Украине и напрямую делиться полезной информацией о пребывании в Украине и любой другой информацией",
+            "Будете в курсе всех актуальных миграционных новостей",
+            "Сможете дистанционно получить справку о наличии или отсутствии запрета на въезд/выезд в/из Украины",
+            "Мониторить по заданным параметрам свои данные в государственных реестрах Украины, что предостережет Вас от совершения административных правонарушений, которые могут иметь негативные последствия в виде запрета на въезд в Украину."
+          ]
+      ],
+      "p2": "Система своевременно известит Вас о наличии в реестрах информации, которая в дальнейшем может отрицательно повлиять на Ваше пребывание в Украине и Вы своевременно сможете отреагировать на нее, что сделает невозможным наступление любых негативных последствий."
+  },
+    "textUA": {
+        "p1": "Наші юристи, маючи досвід роботи з питань пов'язаних с перебуванням іноземців в Україні постаралися наділити даний ресурс максимально корисними функціями за для безпеки іноземних громадян в Україні.",
+        "ul1": [
+            "Так за допомоги даного ресурсу Ви зможете:",
+            [
+              "Спілкуватись в глобал чаті зі своїми співвітчизниками, які проживають або проживали в Україні та напряму ділитися корисною інформацією стосовно перебування в Україні та будь якою іншою інформацією",
+              "Будете в курсі всіх актуальних міграційних новин",
+              "Зможете дистанційно отримати довідку про наявність або відсутність заборони на вїзд/виїзд до/з України",
+              "Моніторити за заданими параметрами свої данні в державних реєстрах України, що застереже Вас від скоєння адміністративних правопорушень, які можуть мати негативні наслідки у вигляді заборони на в'їзд до України."
+            ]
+        ],
+        "p2": "Система своєчасно сповістить Вас про наявність в реєстрах інформації яка в подальшому може негативнo вплинути на Ваше перебування в Україні і Ви своєчасно зможете відреагувати на неї, що унеможливить настання будь яких негативних наслідків."
+    }
+  }

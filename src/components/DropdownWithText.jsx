@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
 import middleChoice from '../assets/icons/middleChoice.svg';
 
-export const DropdownWithText = ({ title, text, path }) => {
+export const DropdownWithText = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { titleEN, titleRU, titleUA, textEN, textRU, textUA, path } = item;
+  const { t, i18n }  = useTranslation();
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -32,7 +36,9 @@ export const DropdownWithText = ({ title, text, path }) => {
             />
           </button>
           <h2 className="page__title-2">
-            {title}
+            {i18n.language === 'en' && titleEN}
+            {i18n.language === 'ru' && titleRU}
+            {i18n.language === 'ua' && titleUA}
           </h2>
           <button 
             className="dropdownWithText__button onDesktop" 
@@ -50,11 +56,13 @@ export const DropdownWithText = ({ title, text, path }) => {
         </div>
         {isOpen && (
           <div className="dropdownWithText__text">
-            {text}
+            {i18n.language === 'en' && convertJsonToHTML(textEN)}
+            {i18n.language === 'ru' && convertJsonToHTML(textRU)}
+            {i18n.language === 'ua' && convertJsonToHTML(textUA)}
             <button className="button dropdownWithText__text-button">
               <Link to={path}>
                 <p>
-                  Дізнатися більше
+                  {t('homePage.knowMore')}
                 </p>
               </Link>
               

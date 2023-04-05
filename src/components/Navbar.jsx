@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import logo from '../assets/img/logo_dark.svg';
 import cross from '../assets/icons/cross.svg';
 
@@ -8,7 +9,7 @@ import { PageNavLink } from './PageNavLink';
 
 
 export const Navbar = ({ style, handleMenu }) => {
-
+  const { t, i18n }  = useTranslation();
   return (
     <>
       <div 
@@ -37,29 +38,29 @@ export const Navbar = ({ style, handleMenu }) => {
 
         <div className="navbar__container">
           <li className="navbar__item" onClick={handleMenu}>
-            <PageNavLink to="/services" text="Послуги" />
+            <PageNavLink to="/services" text={t('navbar.services')} />
           </li>
           <li className="navbar__item" onClick={handleMenu}>
-            <PageNavLink to="/chat" text="Global чат" />
+            <PageNavLink to="/chat" text={t('navbar.chat')} />
           </li>
           <li className="navbar__item" onClick={handleMenu}>
-            <PageNavLink to="/about" text="Про GGS" />
+            <PageNavLink to="/about" text={t('navbar.about')} />
           </li>
           <li className="navbar__item" onClick={handleMenu}>
-            <PageNavLink to="/news" text="Новини" />
+            <PageNavLink to="/news" text={t('navbar.news')} />
           </li>
           <li className="navbar__item" onClick={handleMenu}>
-            <PageNavLink to="/explanations" text="Роз'яснення" />
+            <PageNavLink to="/explanations" text={t('navbar.explanations')} />
           </li>
         </div>
 
         <div className="navbar__container navbar__container--large">
           <li className="navbar__item">
-            <PageNavLink to="/registration" text="Зареєструватися" />
+            <PageNavLink to="/registration" text={t('navbar.register')} />
           </li>
           <li className="navbar__item--account">
             <Link to="/account" className="navbar__link">
-              <p>Вхід до кабінету</p>  
+              <p>{t('navbar.cabinet')}</p>  
             </Link>
           </li>
         </div>
@@ -68,12 +69,12 @@ export const Navbar = ({ style, handleMenu }) => {
 
           <li className="navbar__item" onClick={handleMenu}>
             <Link to="/account" className="navbar__link">
-              <p>Вхід</p> 
+              <p>{t('navbar.login')}</p> 
             </Link>
           </li>
           <li className="navbar__item" onClick={handleMenu}>
             <Link to="/registration" className="navbar__link">
-              <p>Реєстрація</p> 
+              <p>{t('navbar.register_mobile')}</p> 
             </Link>
           </li>
         </div>

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PageNavigation } from '../components/PageNavigation';
 
 import { ServisesDropdown } from '../components/ServisesDropdown';
 import { ServisesButton } from '../components/ServisesButton';
+import { rightTitle } from '../helpers/rightData';
 
 import menu from '../assets/icons/ServisesPage/menu.svg';
 import control from '../assets/icons/ServisesPage/control.svg';
@@ -24,43 +26,45 @@ const splitTwoPoints = (string) => {
 
 
 export const ServisesPage = () => {
+  const { t, i18n }  = useTranslation();
+
   const borderControl = services
-    .filter(servise => servise.title.includes(
-      'Проходження прикордонного контролю'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.borderControl')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
 
   const customControl = services
-    .filter(servise => servise.title.includes(
-      'Проходження митного контролю'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.customControl')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
 
   const entryBan = services
-    .filter(servise => servise.title.includes(
-      'Заборона на в\'їзд в Україну'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.ban')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
 
   const deportation = services
-    .filter(servise => servise.title.includes(
-      'Депортація з України'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.deportation')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
   
   const legalization = services
-    .filter(servise => servise.title.includes(
-      'Легалізація в Україні'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.legalization')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
 
   const docService = services
-    .filter(servise => servise.title.includes(
-      'Документ сервіс'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.document')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
 
   const monitoring = services
-    .filter(servise => servise.title.includes(
-      'Моніторинг'
-    )).map(servise => splitTwoPoints(servise.title));
+    .filter(service => rightTitle(service, i18n.language).includes(
+      t('services.monitoring')
+    )).map(service => splitTwoPoints(rightTitle(service, i18n.language)));
 
   const [isAllButtons, setIsAllButtons] = useState(false);
-  const [filter, setFilter] = useState('Всі послуги');
+  const [filter, setFilter] = useState(t('services.allServices'));
 
   const openAllButtons = () => {
     setIsAllButtons(!isAllButtons);
@@ -70,6 +74,10 @@ export const ServisesPage = () => {
     setFilter(title);
     openAllButtons();
   };
+
+  useEffect (() => {
+    setFilter(t('services.allServices'));
+  }, [t]);
   
 
   return (
@@ -88,47 +96,47 @@ export const ServisesPage = () => {
                 
                 onClick={openAllButtons}
               />
-              {(isAllButtons && filter === 'Всі послуги') && (
+              {(isAllButtons && filter === t('services.allServices')) && (
                 <>
                   <ServisesButton 
                     img={ukr} 
-                    title="Громадянам України" 
-                    onClick={() => changeFilter('Громадянам України')}
+                    title={t('services.citizens')} 
+                    onClick={() => changeFilter(t('services.citizens'))}
                   />
                   <ServisesButton 
                     img={earth} 
-                    title="Іноземцям" 
-                    onClick={() => changeFilter('Іноземцям')}
+                    title={t('services.foreigners')}
+                    onClick={() => changeFilter(t('services.foreigners'))}
                   />
                 </>
               )}
               
-              {(isAllButtons && filter === 'Іноземцям') && (
+              {(isAllButtons && filter === t('services.foreigners')) && (
                 <>
                   <ServisesButton 
                     img={ukr} 
-                    title="Громадянам України" 
-                    onClick={() => changeFilter('Громадянам України')}
+                    title={t('services.citizens')} 
+                    onClick={() => changeFilter(t('services.citizens'))}
                   />
                   <ServisesButton 
                     img={menu} 
-                    title="Всі послуги" 
-                    onClick={() => changeFilter('Всі послуги')}
+                    title={t('services.allServices')}
+                    onClick={() => changeFilter(t('services.allServices'))}
                   />
                 </>
               )}
 
-              {(isAllButtons && filter === 'Громадянам України') && (
+              {(isAllButtons && filter === t('services.citizens')) && (
                 <>
                   <ServisesButton 
                     img={earth} 
-                    title="Іноземцям" 
-                    onClick={() => changeFilter('Іноземцям')}
+                    title={t('services.foreigners')} 
+                    onClick={() => changeFilter(t('services.foreigners'))}
                   />
                   <ServisesButton 
                     img={menu} 
-                    title="Всі послуги" 
-                    onClick={() => changeFilter('Всі послуги')}
+                    title={t('services.allServices')} 
+                    onClick={() => changeFilter(t('services.allServices'))}
                   />
                 </>
               )}
@@ -138,37 +146,37 @@ export const ServisesPage = () => {
 
               <ServisesDropdown 
                 img={control} 
-                title="Проходження прикордонного контролю"
+                title={t('services.borderControl')}
                 values={borderControl}
               />
 
               <ServisesDropdown 
                 img={muto} 
-                title="Проходження митного контролю"
+                title={t('services.customControl')}
                 values={customControl}
               />
 
-              {filter !== 'Громадянам України' && (
+              {filter !== t('services.citizens') && (
                 <ServisesDropdown 
                   img={ban} 
-                  title="Заборона на в'їзд в Україну"
+                  title={t('services.ban')}
                   values={entryBan}
                 />
               )}
               
-              {filter !== 'Громадянам України' && (
+              {filter !== t('services.citizens') && (
                 <ServisesDropdown 
                   img={dep}
-                  title="Депортація з України"
+                  title={t('services.deportation')}
                   values={deportation}
                 />
               )}
             </div>
             <div className="servisesPage__section">
-              {filter !== 'Громадянам України' && (
+              {filter !== t('services.citizens') && (
                 <ServisesDropdown 
                   img={leg}
-                  title="Легалізація в Україні"
+                  title={t('services.legalization')}
                   values={legalization}
                 />
               )}
@@ -176,13 +184,13 @@ export const ServisesPage = () => {
 
               <ServisesDropdown 
                 img={doc} 
-                title="Документ сервіс"
+                title={t('services.document')}
                 values={docService}
               />
 
               <ServisesDropdown 
                 img={monitor} 
-                title="Моніторинг"
+                title={t('services.monitoring')}
                 values={monitoring}
               />
             </div>

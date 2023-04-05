@@ -5,27 +5,23 @@ import { useTranslation } from 'react-i18next';
 import { ItemPage } from '../components/ItemPage';
 import { PageNavigation } from '../components/PageNavigation';
 
-import questions from '../api/questions.json';
+import citizenship from '../api/citizenship.json';
 
-export const QuestionsItemPage = () => {
-  const [questionItem, setQuestionItem] = useState({text:[]});
+export const CitizenshipItemPage = () => {
+  const [citizenshipItem, setCitizenshipItem] = useState({text:[]});
   const { slug } = useParams();
 
   const { t }  = useTranslation();
 
-  
-
   useEffect(() => {
-    const currentQuestion 
-     = questions.find(el => el.path === slug);
+    const currentCitizenchip = citizenship.find(el => 
+      el.path === slug);
 
-    if (currentQuestion) {
-      setQuestionItem(currentQuestion);
+    if (currentCitizenchip) {
+      setCitizenshipItem(currentCitizenchip);
     }
   }, [slug]);
 
-  
-  
   return (
     <>
       <div className="container">
@@ -34,9 +30,9 @@ export const QuestionsItemPage = () => {
       <div className="page page-bigBottom">
         <div className="container">
           <ItemPage 
-            buttonName={t('homePage.questions.home')}
-            item={questionItem} 
-            linkPath="/home"
+            buttonName={t('citizenship.button')} 
+            item={citizenshipItem} 
+            linkPath="/services/lehalizatsiia-v-ukraini-hromadianstvo"
           />
         </div>
       </div>

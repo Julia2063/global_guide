@@ -1,39 +1,55 @@
 import React from 'react';
 import { useLocation, Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { rightTitle } from '../helpers/rightData';
 
 import services from '../api/services.json';
 import explanations from '../api/explanations.json';
 import questions from '../api/questions.json';
 import news from '../api/newsApi.json';
+import citizenship from '../api/citizenship.json';
+
 
 export const PageNavigation = () => {
   const location = useLocation();
+  const { t, i18n }  = useTranslation();
+
   
   const pathnames = location.pathname.split('/').filter(el => el);
 
   const { slug } = useParams();
 
   const findTitle = () => {
+    if (pathnames[1] === 'lehalizatsiia-v-ukraini-hromadianstvo') {
+      return rightTitle(citizenship
+        .find(el => el.path === slug), i18n.language
+      );
+    };
+    
     switch(pathnames[0]) {
     case 'news':
-      return news.find(el => el.path === slug)?.title;
+      return rightTitle(news.find(el => el.path === slug), i18n.language);
 
     case 'services':
-      return services.find(el => el.path === slug)?.title;
+      return rightTitle(services.find(el => el.path === slug), i18n.language);
 
     case 'explanations':
-      return explanations.find(el => el.path === slug)?.title;
+      return  rightTitle(explanations
+        .find(el => el.path === slug), i18n.language
+      );
       
     default:
-      return questions.find(el => el.path === slug)?.title;
+      return rightTitle(questions.find(el => el.path === slug), i18n.language);
     }
+
+    
   };
   
   return (
     <ul className="pageNavigation">
       <li>
         <Link to="/">
-          <p>Головна</p> 
+          <p>{t(t('pageNavigation.main'))}</p> 
         </Link>
       </li>
 
@@ -43,19 +59,22 @@ export const PageNavigation = () => {
         const currentLocation = () => {
           switch (pathname) {
           case 'services':
-            return 'Послуги';
+            return t('navbar.services');
 
           case 'chat':
-            return 'Global чат';
+            return t('navbar.chat');
 
           case 'news':
-            return 'Новини';
+            return t('navbar.news');
 
-          case '/about':
-            return 'Про GGS';
+          case 'about':
+            return t('navbar.about');
 
           case  'explanations':
-            return 'Poз\'яснення';
+            return t('navbar.explanations');
+
+          case 'lehalizatsiia-v-ukraini-hromadianstvo':
+            return t('citizenship.title');
 
           default:
             return pathname;

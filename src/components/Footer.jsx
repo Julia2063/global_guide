@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import logo from '../assets/img/logo_white.svg';
 import fb from '../assets/icons/fb.svg';
 import insta from '../assets/icons/insta.svg';
@@ -9,6 +10,7 @@ import tg from '../assets/icons/tg.svg';
 import mail from '../assets/icons/mail.svg';
 
 export const Footer = () => {
+  const { t }  = useTranslation();
   return (
     <footer className="footer">
       <div className="container">
@@ -24,10 +26,10 @@ export const Footer = () => {
           </section>
           <section className="footer__section footer__section--2">
             <Link to="/home" className="footer__link">
-              Головна
+              {t('pageNavigation.main')}
             </Link>
             <Link to="/services" className="footer__link">
-              Послуги
+              {t('navbar.services')}
             </Link>
           </section>
           <section className="footer__section footer__section--3">
@@ -44,7 +46,7 @@ export const Footer = () => {
               </a>
             </div>
             <h3 className="footer__section-title">
-              Технічна підтримка
+              {t('footer.support')}
             </h3>
             <a href="mailto:Guidepro.ua@gmail.com" className="footer__link">
               <img src={mail} alt="mail" className="footer__link-logo"/>

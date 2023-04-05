@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { rightTitle, rightPreview } from '../helpers/rightData';
 
 import imgo from '../assets/img/news.jpg';
 
-export const NewsItem = ({ newsItem }) => {
-  const { /* img, */ title, text, path } = newsItem;
+export const NewsItem = ({ item }) => {
+  const { /* img, */path } = item;
+  const { t, i18n }  = useTranslation();
 
   return (
     <>
@@ -20,14 +23,14 @@ export const NewsItem = ({ newsItem }) => {
 
         <div className="newsItem__body">
           <h3 className="page__title-2 newsItem__title">
-            {title}
+            {rightTitle(item, i18n.language)}
           </h3>
           <p className="newsItem__text">
-            {text[0]}
+            {rightPreview(item, i18n.language)}
           </p>
           <button className="button newsItem__button onDesktop">
             <Link to={path}>
-              <p>Читати більше</p>
+              <p>{t('explanations.readMore')}</p>
             </Link>
           </button>
         </div>
@@ -47,10 +50,10 @@ export const NewsItem = ({ newsItem }) => {
 
           <div className="newsItem__body">
             <h3 className="page__title-2 newsItem__title">
-              {title}
+              {rightTitle(item, i18n.language)}
             </h3>
             <p className="newsItem__text">
-              {text[0]}
+              {rightPreview(item, i18n.language)}
             </p>
           </div>
         </Link>

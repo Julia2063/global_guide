@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 
 export const Form = ({ formFunction, isRegistration, handleSubmit }) => { 
   
   const [regInfo, setRegInfo] = useState({});
+  const { t }  = useTranslation();
 
   const handleChange = (fieldName, newValue) => {
     const newRegInfo = {
@@ -24,7 +26,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
           'form__toggle-button', 
           {'form__toggle-button--active' : formFunction === 'account'}
         )}>
-          <p>Вхід</p> 
+          <p>{t('form.entry')}</p> 
         </Link>
 
         <Link to="/registration"
@@ -33,7 +35,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
             {'form__toggle-button--active' : formFunction === 'registration'}
           )}
         >
-          <p>Реєстрація</p> 
+          <p>{t('form.register')}</p> 
         </Link>
       </div>
       <div className="form__inputs">
@@ -41,7 +43,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
           <input 
             type="tel" 
             className="form__input" 
-            placeholder="Телефон" 
+            placeholder={t('form.phone')} 
             onChange={(event) => 
               handleChange('phoneNumber', event.target.value)}
             required
@@ -57,7 +59,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
         <input 
           type="password" 
           className="form__input" 
-          placeholder="Пароль" 
+          placeholder={t('form.password')} 
           required
           onChange={(event) => handleChange('password', event.target.value)}
         />
@@ -66,7 +68,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
       {!isRegistration && (
         <label className="form__checkbox-label">
           <input type="checkbox" />
-          <span>Запам’ятати мене</span>
+          <span>{t('form.rememberMe')} </span>
         </label>
       )}
       
@@ -77,12 +79,12 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
           handleSubmit(e, regInfo);
         }}
       >
-        {isRegistration ? 'Зареєструватися' : 'Увійти'}
+        {isRegistration ? t('form.signUp') : t('form.logIn')}
       </button>
 
       {!isRegistration && (
         <button className="form__forget">
-          <p>Забули пароль?</p> 
+          <p>{t('form.forget')}</p> 
         </button>
       )}
       

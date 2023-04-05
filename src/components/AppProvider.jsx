@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
 
-export const UserContext = React.createContext({
+export const AppContext = React.createContext({
   user: null,
   setUser: () => {},
 });
 
-export const UserProvider = ({ children }) => {
+export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const contextValue = useMemo(() => {
@@ -16,8 +16,8 @@ export const UserProvider = ({ children }) => {
   }, [user]) ;
 
   return (
-    <UserContext.Provider value={contextValue}>
+    <AppContext.Provider value={contextValue}>
       {children}
-    </UserContext.Provider>
+    </AppContext.Provider>
   );
 };

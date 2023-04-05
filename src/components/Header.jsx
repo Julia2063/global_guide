@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import PropTypes from 'prop-types';
 import searchImg from '../assets/icons/search.svg';
@@ -13,27 +14,28 @@ import services from '../api/services.json';
 import explanations from '../api/explanations.json';
 import questions from '../api/questions.json';
 import news from '../api/newsApi.json';
+import citizenship from '../api/citizenship.json';
 
 import { useWindowSize } from '../hooks/useWindowSize';
+import { rightTitle, rightTitle2 } from '../helpers/rightData';
 import { Navbar } from './Navbar';
 import { InputSearchDropdown } from './InputSearchDropdown';
 
 
 
-export const Header = ({ 
-  language, 
-  setLanguage, 
-}) => {
+export const Header = () => {
+  const { t, i18n }  = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [search, setSearch] = useState([]);
-  const languages = ['ukr', 'en'];
+  const languages = ['ua', 'en', 'ru'];
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [hideOrShow, setHideOrSwow] = useState({});
   const [isSearch, setIsSearch] = useState(false);
   const [isSearchDropdown, setIsSearchDropdown] = useState(true);
   const { width } = useWindowSize();
+
   
   const handleMenu = () => {
     setIsOpenMenu((prev) => !prev);
@@ -63,8 +65,8 @@ export const Header = ({
 
   }, [width]);
   
-  const onChangeLanguage = (value) => {
-    setLanguage(value);
+  const onChangeLanguage = (el) => {
+    i18n.changeLanguage(el);
   };
 
   const toggle = () => {
@@ -91,16 +93,26 @@ export const Header = ({
       [...arguments].reduce((start, el) => start.concat(el), []);
 
     return searchArr.filter(el => {
-      return el.title.toLowerCase().includes(query.toLowerCase());
+      
+      return rightTitle(el, i18n.language)
+        .toLowerCase().includes(query.toLowerCase()) 
+      || rightTitle2(el, i18n.language)
+        ?.toLowerCase().includes(query.toLowerCase());
     });
   };
 
+
   useEffect(() => {
-    const searchResult =  getSearch(services, news, questions, explanations);
+    const searchResult =  getSearch(
+      services, 
+      news, 
+      questions,
+      explanations,
+      citizenship
+    );
     if (query.length > 0) {
       setSearch(searchResult);
     }
-    
   }, [query]);
 
   
@@ -119,7 +131,7 @@ export const Header = ({
             <input 
               type="text"
               className="header__input" 
-              placeholder="Пошук"
+              placeholder={t('header.search')}
               value={query}
               onChange={handleChange}
               onFocus={() => {
@@ -143,11 +155,11 @@ export const Header = ({
 
           <div className="header__language-toogler">
             <button className="header__button" onClick={toggle}>
-              {language}
+              {i18n.language}
               <img src={choice} alt="choice" />
             </button>
             {isOpen && (
-              <ul className="header__language-values">
+              <ul className="header__language-values" >
                 {languages.map(el => (
                   <li
                     key={el}

@@ -3,10 +3,21 @@ import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
+import { useTranslation } from 'react-i18next';
+import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
 import imgo from '../assets/img/news.jpg';
 
+import { rightTitle, rightTitle2 } from '../helpers/rightData';
+
 export const ItemPage = ({ item, buttonName, linkPath }) => {
-  const { /* img, */ title, text } = item;
+  const { 
+    /* img, */ 
+    textEN, 
+    textRU, 
+    textUA,
+  } = item;
+
+  const { i18n }  = useTranslation();
 
   return (
     <div className="itemPage">
@@ -20,13 +31,16 @@ export const ItemPage = ({ item, buttonName, linkPath }) => {
 
       <div className="itemPage__body">
         <h1 className="page__title itemPage__title">
-          {title}
+          {rightTitle2(item, i18n.language) 
+            ? rightTitle2(item, i18n.language) 
+            : rightTitle(item, i18n.language)
+          }
         </h1>
-        {text.map(el => (
-          <p className="itemPage__text" key={el}>
-            {el}
-          </p>  
-        ))}
+        <article className="itemPage__text">
+          {i18n.language === 'ua' && (convertJsonToHTML(textUA || {}))}
+          {i18n.language === 'ru' && (convertJsonToHTML(textRU || {}))}
+          {i18n.language === 'en' && (convertJsonToHTML(textEN || {}))}
+        </article>
         <button className="button-extension button-extension--down">
           <Link to={linkPath}>
             <p>{buttonName}</p>

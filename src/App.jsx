@@ -21,16 +21,14 @@ import { QuestionsItemPage } from './pages/QuestionsItemPage';
 import './style/App.scss';
 
 import questions from './api/questions.json';
+import { CitizenshipPage } from './pages/СitizenshipPage';
+import { CitizenshipItemPage } from './pages/CitizenshipItemPage';
 
 export function App() {
-  const [language, setLanguage] = useState('ukr');
 
   return (
     <div className="App">
-      <Header 
-        language={language} 
-        setLanguage={setLanguage} 
-      />
+      <Header />
       <ScrollToTop />
       <Routes>
         <Route
@@ -39,7 +37,12 @@ export function App() {
         <Route path="home" element={<Navigate to="/" replace />} />
         <Route path="services" >
           <Route index element={(<ServisesPage />)} />
+          <Route path="lehalizatsiia-v-ukraini-hromadianstvo" >
+            <Route index  element={<CitizenshipPage />} />
+            <Route path=":slug"  element={(<CitizenshipItemPage />)} />
+          </Route>
           <Route path=":slug" element={(<ServiseItemPage />)} />
+
         </Route>
         <Route path="chat" element={<ChatPage />} />
         <Route path="about" element={<AboutPage />} />
@@ -52,6 +55,7 @@ export function App() {
           <Route path=":slug" element={(<ExplanationsItemPage />)}/>
         </Route>
         <Route path="registration" element={<RegistrationPage />} />
+       
         <Route path="account" element={<AccountPage />} />
         {questions.map(question => {
           return(

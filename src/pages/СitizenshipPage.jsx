@@ -1,10 +1,11 @@
 import React from 'react';
 import { PageNavigation } from '../components/PageNavigation';
+
 import { NewsItem } from '../components/NewsItem';
 
-import news from '../api/newsApi.json';
+import citizenship from '../api/citizenship.json';
 
-export const NewsPage = () => {
+export const CitizenshipPage = () => {
   return (
     <>
       <div className="container">
@@ -14,7 +15,7 @@ export const NewsPage = () => {
       <div className="page page-bigBottom">
         <div className="container">
           <div className="newsPage">
-            {news.map(el => {
+            {citizenship.map(el => {
               return (
                 <NewsItem item={el} key={el.id} />
               );

@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { PageNavigation } from '../components/PageNavigation';
+import { rightTitle } from '../helpers/rightData';
+import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
+
+import chatPage from '../api/chatPage.json';
 
 export const ChatPage = () => {
+  const { t, i18n }  = useTranslation();
+  
   return (
     <>
       <div className="container">
@@ -11,59 +18,26 @@ export const ChatPage = () => {
       
       <div className="page">
         <div className="container">
-          <div className="aboutPages">
-            <h1 className="page__title aboutPages__title">
-              Що таке «Глобал чат» ?
+          <div className="itemPage">
+            <h1 className="page__title itemPage__title">
+              {rightTitle(chatPage, i18n.language)}
             </h1>
-            <div className="aboutPages__content">
-              <p>
-                Наші юристи, маючи досвід роботи з питань пов'язаних с 
-                перебуванням іноземців в Україні постаралися наділити 
-                даний ресурс максимально корисними функціями за для
-                безпеки іноземних громадян в Україні.
-              </p>
-              
-              <div>
-                <p className="aboutPages__listTitle">
-                  Так за допомоги даного ресурсу Ви зможете:
-                </p>
-                <ul>
-                  <li>
-                  Спілкуватись в глобал чаті зі своїми співвітчизниками, які 
-                  проживають або проживали в Україні та напряму ділитися
-                  корисною інформацією стосовно перебування в Україні
-                  та будь якою іншою інформацією
-                  </li>
-                  <li>
-                  Будете в курсі всіх актуальних міграційних новин
-                  </li>
-                  <li>
-                  Зможете дистанційно отримати довідку про наявність 
-                  або відсутність заборони на вїзд/виїзд до/з України
-                  </li>
-                  <li>
-                  Моніторити за заданими параметрами свої данні в державних
-                  реєстрах України, що застереже Вас від скоєння 
-                  адміністративних правопорушень, які можуть мати негативні 
-                  наслідки у вигляді заборони на в'їзд до України.
-                  </li>
-                </ul>
-              </div>
-              
-              <p>
-                Система своєчасно сповістить Вас про наявність в реєстрах
-                інформації яка в подальшому може негативно вплинути на Ваше
-                перебування в Україні і Ви своєчасно зможете відреагувати 
-                на неї, що унеможливе настання будь яких негативних наслідків.
-              </p>
-            </div>
+            <article className="itemPage__text">
+              {i18n.language === 'ua' 
+                && (convertJsonToHTML(chatPage.textUA || {}))}
+              {i18n.language === 'ru'
+                 && (convertJsonToHTML(chatPage.textRU || {}))}
+              {i18n.language === 'en' 
+                && (convertJsonToHTML(chatPage.textEN || {}))}
+            </article>
 
-            <button className="button-extension  chatPage__button">
-              <Link to="/">
-                <p>Перейти до чату</p>
-              </Link>
-            </button>
+            
           </div>
+          <button className="button-extension  chatPage__button">
+            <Link to="/">
+              <p>{t('chatPage.button')}</p>
+            </Link>
+          </button>
         </div>
       </div>
     </>

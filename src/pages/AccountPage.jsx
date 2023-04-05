@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Form } from '../components/Form';
-import { UserContext } from '../components/UserProvider';
+import { AppContext } from '../components/AppProvider';
 import { Modal } from '../components/Modal';
 
 export const AccountPage = () => {
@@ -10,7 +10,7 @@ export const AccountPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
 
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogin = (e, regInfo) => {
