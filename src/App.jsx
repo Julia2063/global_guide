@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 import { Header } from './components/Header';
-
 import { HomePage } from './pages/HomePage';
 import { ServisesPage } from './pages/ServisesPage';
 import { ChatPage } from './pages/ChatPage';
@@ -23,8 +23,24 @@ import './style/App.scss';
 import questions from './api/questions.json';
 import { CitizenshipPage } from './pages/СitizenshipPage';
 import { CitizenshipItemPage } from './pages/CitizenshipItemPage';
+import { AppContext } from './components/AppProvider';
+
 
 export function App() {
+  const auth = getAuth();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if(user) {
+        return setUser(user);
+      }
+    });
+
+  }, [auth.currentUser]);
+
+  const { user, setUser } = useContext(AppContext);
+
+  console.log(user);
 
   return (
     <div className="App">

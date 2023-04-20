@@ -1,10 +1,9 @@
-import React, { useContext, useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { BannerDropdown } from '../components/BannerDropdown';
 import { DropdownWithText } from '../components/DropdownWithText';
 import { Explanation } from '../components/Explanation';
-import { AppContext } from '../components/AppProvider';
 
 import questions from '../api/questions.json';
 import explanations from '../api/explanations.json';
@@ -60,9 +59,7 @@ export const HomePage = () => {
     });
   }, [i18n.language]);
 
-  const { user } = useContext(AppContext);
-
-  console.log(user);
+ 
  
   return (
     <>

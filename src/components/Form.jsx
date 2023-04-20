@@ -5,9 +5,14 @@ import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 
-export const Form = ({ formFunction, isRegistration, handleSubmit }) => { 
+export const Form = ({ 
+  formFunction, 
+  isRegistration,
+  handleSubmit,
+  handleResetPassword,
+}) => { 
   
-  const [regInfo, setRegInfo] = useState({});
+  const [regInfo, setRegInfo] = useState({email: '', password: ''});
   const { t }  = useTranslation();
 
   const handleChange = (fieldName, newValue) => {
@@ -18,6 +23,7 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
 
     setRegInfo(newRegInfo);
   };
+
 
   return (
     <form className="form">
@@ -46,14 +52,12 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
             placeholder={t('form.phone')} 
             onChange={(event) => 
               handleChange('phoneNumber', event.target.value)}
-            required
           />
         )}
         <input 
           type="email" 
           className="form__input" 
           placeholder="Email"  
-          required
           onChange={(event) => handleChange('email', event.target.value)}
         />
         <input 
@@ -83,7 +87,10 @@ export const Form = ({ formFunction, isRegistration, handleSubmit }) => {
       </button>
 
       {!isRegistration && (
-        <button className="form__forget">
+        <button 
+          className="form__forget"
+          onClick={() => handleResetPassword(regInfo)}
+        >
           <p>{t('form.forget')}</p> 
         </button>
       )}

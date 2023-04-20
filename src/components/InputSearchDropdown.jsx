@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 import { rightTitle, rightTitle2 } from '../helpers/rightData';
+import { useOnClickOutside } from '../hooks/useOnClickOutside';
 
-export const InputSearchDropdown = ({ search, handleCloseSearchDropdown }) => {
+export const InputSearchDropdown = ({ 
+  search,
+  handleCloseSearchDropdown,
+}) => {
   const { i18n }  = useTranslation();
 
+  const searchRef = useRef();
+  useOnClickOutside(searchRef, () => handleCloseSearchDropdown());
+
   return (
-    <ul className="inputSearchDropdown">
+    <ul className="inputSearchDropdown" ref={searchRef}>
       {search.map(el => {
   
         return (

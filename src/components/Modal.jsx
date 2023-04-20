@@ -8,7 +8,7 @@ export const Modal = ({ title, message, handleModal }) => {
   return (
     <>
       <div className="modal">
-        <div class="modal__window">
+        <div className="modal__window">
           <div className="modal__title">
             <div className="modal__between" />
             <p>{title}</p>
@@ -20,7 +20,7 @@ export const Modal = ({ title, message, handleModal }) => {
               />
             </button>
           </div>
-          <div class="modal__body">
+          <div className="modal__body">
             {message}
           </div>
         </div>

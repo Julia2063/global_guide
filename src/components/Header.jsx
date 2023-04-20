@@ -37,6 +37,7 @@ export const Header = () => {
   const [isSearchDropdown, setIsSearchDropdown] = useState(true);
   const { width } = useWindowSize();
 
+
   
   const handleMenu = () => {
     setIsOpenMenu((prev) => !prev);
@@ -99,7 +100,7 @@ export const Header = () => {
      
       return  (
         // eslint-disable-next-line max-len
-        rightTitle(el, i18n.language).toLowerCase().includes(query.toLowerCase()) 
+        rightTitle(el, i18n.language)?.toLowerCase().includes(query.toLowerCase()) 
       // eslint-disable-next-line max-len
       || rightTitle2(el, i18n.language)?.toLowerCase().includes(query.toLowerCase())
       );

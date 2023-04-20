@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -6,18 +6,23 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
 import middleChoice from '../assets/icons/middleChoice.svg';
+import { useOnClickOutside } from '../hooks/useOnClickOutside';
 
 export const DropdownWithText = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { titleEN, titleRU, titleUA, textEN, textRU, textUA, path } = item;
   const { t, i18n }  = useTranslation();
 
+  const refDropWithText = useRef();
+
+  useOnClickOutside(refDropWithText, () => setIsOpen(false));
+
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="dropdownWithText">
+    <div className="dropdownWithText" ref={refDropWithText}>
       <label className="dropdownWithText__label">
         <div className={classNames(
           'dropdownWithText__body', {'dropdownWithText__body--open' : isOpen}

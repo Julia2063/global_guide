@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import bigChoice from '../assets/icons/bigChoice.svg';
+import { useOnClickOutside } from '../hooks/useOnClickOutside';
 
 
 export const BannerDropdown = ({
@@ -11,7 +12,10 @@ export const BannerDropdown = ({
   dropdownValue, 
   setDropdownValue, 
 }) => {
+  const ref = useRef();
   const [isOpen, setIsOpen] = useState(false);
+
+  useOnClickOutside(ref, () => setIsOpen(false));
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -25,7 +29,7 @@ export const BannerDropdown = ({
 
 
   return (
-    <div className="bannerDropdown">
+    <div className="bannerDropdown" ref={ref}>
       <label className="bannerDropdown__label">
         <div className={classNames(
           'bannerDropdown__body', {'bannerDropdown__body--active': isOpen}

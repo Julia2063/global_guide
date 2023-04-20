@@ -1,15 +1,20 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { rightTitle } from '../helpers/rightData';
 
 import services from '../api/services.json';
+import { useOnClickOutside } from '../hooks/useOnClickOutside';
 
 export const ServisesDropdown = ({ title, img, values }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n }  = useTranslation();
+
+  const refServisesDrop = useRef();
+
+  useOnClickOutside(refServisesDrop, () => setIsOpen(false));
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -22,7 +27,7 @@ export const ServisesDropdown = ({ title, img, values }) => {
   };
 
   return (
-    <div className="servisesDropdown">
+    <div className="servisesDropdown" ref={refServisesDrop}>
       <label className="servisesDropdown__label">
         <div className={classNames(
           'servisesDropdown__body', {'servisesDropdown__body--active': isOpen}
