@@ -1,0 +1,93 @@
+{
+      "header": {
+        "search": "Пошук"
+      },
+
+      "navbar": {
+        "services": "Послуги",
+        "chat": "Global чат",
+        "about": "Про GGS",
+        "news": "Новини",
+        "explanations": "Роз'яснення",
+        "register": "Зареєструватися",
+        "cabinet": "Вхід до кабінету",
+        "login": "Вхід",
+        "register_mobile": "Реєстрація"
+      },
+
+      "homePage": {
+        "banner": {
+          "h1": "Послуги для іноземних громадян",
+          "label_title1": "Я шукаю послуги для",
+          "label_title2": "Тип послуги",
+
+          "bannerDropdown": {
+            "title1": "Вибрати",
+            "title2": "Вкажіть тип послуги"
+          },
+
+          "go": "Перейти"
+        },
+
+        "faq": "Найчастіші запитання",
+        "aq": "Всі запитання",
+        "knowMore": "Дізнатися більше",
+
+        "questions": {
+          "home": "На головну"
+        }
+      },
+
+      "explanations": {
+        "readMore": "Читати більше",
+        "explanations": "Роз'яснення",
+        "allExplanations": "Всі роз'яснення"
+      },
+
+      "pageNavigation": {
+        "main": "Головна"
+      },
+
+      "footer": {
+        "support": "Технічна підтримка"
+      },
+
+      "services": {
+        "citizen": "Громадянам України",
+        "foreigners": "Іноземцям",
+
+        "borderControl": "Проходження прикордонного контролю",
+        "customControl": "Проходження митного контролю",
+        "ban": "Заборона на в'їзд в Україну",
+        "deportation": "Депортація з України",
+        "legalization": "Легалізація в Україні",
+        "document": "Документ сервіс",
+        "monitoring": "Моніторинг",
+
+        "allServices": "Усі послуги"
+      },
+
+      "citizenship": {
+        "title": "Легалізація в Україні: громадянство",
+        "button": "Питання громадянства"
+      },
+
+      "newsPage": {
+        "button": "Останні новини"
+      },
+
+      "chatPage": {
+        "button": "Перейти до чату"
+      },
+
+      "form": {
+        "entry": "Вхід",
+        "register": "Реєстрація",
+        "phone": "Телефон",
+        "password": "Пароль", 
+        "rememberMe": "Запам’ятати мене",
+        "signUp": "Заеєструватися",
+        "logIn": "Увійти",
+        "forget": "Забули пароль?"
+      }
+  }
