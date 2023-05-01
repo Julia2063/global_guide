@@ -2,8 +2,6 @@ import i18n from 'i18next';
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
-import { resources } from './languages/locales';
-
 
 i18n
  
@@ -14,14 +12,23 @@ i18n
   .use(initReactI18next)
 
   .init({
-    fallbackLng: 'ua',
+    fallbackLng: {
+      'en-US':['en'],
+      'ru-RU':['ru'],
+      'ua-UA':['ua'],
+      default:['ru'],
+    },
     debug: true,
     
 
     interpolation: {
       escapeValue: false, 
     },
+
+    backend: {
+      loadPath: 'global_guide/locales/{{lng}}/translation.json',
+    },
     
-   
-    resources,
   });
+
+export default i18n;

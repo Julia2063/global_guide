@@ -37,9 +37,12 @@ export const ItemPage = ({ item, buttonName, linkPath }) => {
           }
         </h1>
         <article className="itemPage__text">
-          {i18n.language === 'ua' && (convertJsonToHTML(textUA || {}))}
-          {i18n.language === 'ru' && (convertJsonToHTML(textRU || {}))}
-          {i18n.language === 'en' && (convertJsonToHTML(textEN || {}))}
+          {i18n.language.split('-')[0] === 'ua'
+            && (convertJsonToHTML(textUA || {}))}
+          {i18n.language.split('-')[0] === 'ru' 
+            && (convertJsonToHTML(textRU || {}))}
+          {i18n.language.split('-')[0] === 'en' 
+            && (convertJsonToHTML(textEN || {}))}
         </article>
         <button className="button-extension button-extension--down">
           <Link to={linkPath}>

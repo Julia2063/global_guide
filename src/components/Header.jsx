@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -19,6 +19,7 @@ import citizenship from '../api/citizenship.json';
 
 import { useWindowSize } from '../hooks/useWindowSize';
 import { rightTitle, rightTitle2 } from '../helpers/rightData';
+import { useOnClickOutside } from '../hooks/useOnClickOutside';
 import { Navbar } from './Navbar';
 import { InputSearchDropdown } from './InputSearchDropdown';
 
@@ -36,6 +37,9 @@ export const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isSearchDropdown, setIsSearchDropdown] = useState(true);
   const { width } = useWindowSize();
+
+  const refLanguageValues = useRef();
+  useOnClickOutside(refLanguageValues, () => setIsOpen(false));
 
 
   
@@ -162,11 +166,11 @@ export const Header = () => {
 
           <div className="header__language-toogler">
             <button className="header__button" onClick={toggle}>
-              {i18n.language}
+              {i18n.language.split('-')[0]}
               <img src={choice} alt="choice" />
             </button>
             {isOpen && (
-              <ul className="header__language-values" >
+              <ul className="header__language-values" ref={refLanguageValues} >
                 {languages.map(el => (
                   <li
                     key={el}

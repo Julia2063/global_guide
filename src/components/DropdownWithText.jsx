@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
 import middleChoice from '../assets/icons/middleChoice.svg';
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
+import { rightTitle } from '../helpers/rightData';
 
 export const DropdownWithText = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,9 +42,8 @@ export const DropdownWithText = ({ item }) => {
             />
           </button>
           <h2 className="page__title-2">
-            {i18n.language === 'en' && titleEN}
-            {i18n.language === 'ru' && titleRU}
-            {i18n.language === 'ua' && titleUA}
+            {rightTitle(item, i18n.language)}
+          
           </h2>
           <button 
             className="dropdownWithText__button onDesktop" 
@@ -61,9 +61,12 @@ export const DropdownWithText = ({ item }) => {
         </div>
         {isOpen && (
           <div className="dropdownWithText__text">
-            {i18n.language === 'en' && convertJsonToHTML(textEN)}
-            {i18n.language === 'ru' && convertJsonToHTML(textRU)}
-            {i18n.language === 'ua' && convertJsonToHTML(textUA)}
+            {i18n.language.split('-')[0] === 'ua'
+            && (convertJsonToHTML(textUA || {}))}
+            {i18n.language.split('-')[0] === 'ru' 
+            && (convertJsonToHTML(textRU || {}))}
+            {i18n.language.split('-')[0] === 'en' 
+            && (convertJsonToHTML(textEN || {}))}
             <button className="button dropdownWithText__text-button">
               <Link to={path}>
                 <p>

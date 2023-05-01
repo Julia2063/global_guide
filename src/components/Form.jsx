@@ -64,7 +64,6 @@ export const Form = ({
           type="password" 
           className="form__input" 
           placeholder={t('form.password')} 
-          required
           onChange={(event) => handleChange('password', event.target.value)}
         />
       </div>

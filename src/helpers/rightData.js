@@ -1,5 +1,5 @@
 export const rightTitle = (item, language) => {
-  switch (language) {
+  switch (language.split('-')[0]) {
   case 'en': 
     return item.titleEN;
 
@@ -15,7 +15,7 @@ export const rightTitle = (item, language) => {
 };
 
 export const rightTitle2 = (item, language) => {
-  switch (language) {
+  switch (language.split('-')[0]) {
   case 'en': 
     return item.title2EN;
 
@@ -24,14 +24,14 @@ export const rightTitle2 = (item, language) => {
 
   case 'ua': 
     return item.title2UA;
-
+    
   default: 
     return;
   }
 };
 
 export const rightPreview = (item, language) => {
-  switch (language) {
+  switch (language.split('-')[0]) {
   case 'en': 
     return item.previewEN;
 

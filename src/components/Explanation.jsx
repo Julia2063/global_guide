@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
+import { rightTitle } from '../helpers/rightData';
 
 export const Explanation = ({ item }) => {
-  const { titleEN, titleRU, titleUA, textEN, textRU, textUA, path } = item;
+  const { textEN, textRU, textUA, path } = item;
   const location = useLocation();
   const { t, i18n }  = useTranslation();
 
@@ -14,14 +15,15 @@ export const Explanation = ({ item }) => {
   return (
     <div className="explanation">
       <h3 className="page__title-2 explanation__title">
-        {i18n.language === 'en' && titleEN}
-        {i18n.language === 'ru' && titleRU}
-        {i18n.language === 'ua' && titleUA}
+        {rightTitle(item, i18n.language)}
       </h3>
       <div className="explanation__text">
-        {i18n.language === 'en' && convertJsonToHTML(textEN)}
-        {i18n.language === 'ru' && convertJsonToHTML(textRU)}
-        {i18n.language === 'ua' && convertJsonToHTML(textUA)}
+        {i18n.language.split('-')[0] === 'ua'
+          && (convertJsonToHTML(textUA || {}))}
+        {i18n.language.split('-')[0] === 'ru' 
+          && (convertJsonToHTML(textRU || {}))}
+        {i18n.language.split('-')[0] === 'en' 
+          && (convertJsonToHTML(textEN || {}))}
       </div>
       <button className="button explanation__button">
         <Link 
