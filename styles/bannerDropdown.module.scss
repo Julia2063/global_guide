@@ -1,0 +1,72 @@
+@import "./variables";
+@import './mixins';
+
+.bannerDropdown {
+    &__body {
+      width: 100%;
+      height: 80px;
+      background: $white1;
+      padding: 24px 30px;
+      
+      color: $gray;
+  
+      &__active {
+        border: 1px solid $dark;
+      }
+  
+      @include onMobile {
+        height: 46px;
+        padding: 6.5px 10px;
+        line-height: 220%;
+      }
+    }
+  
+    &__label {
+      position: relative;
+    }
+  
+    &__button {
+      position: absolute;
+      right: 21px;
+      top: 33.37px;
+      background: inherit;
+      border: none;
+  
+      @include onMobile {
+        right: 18px;
+        top: 18px;
+  
+        & img {
+          width: 11.5px;
+          height: 10px;
+        }
+      }
+    }
+  
+    &__value {
+      color: $gray;
+  
+      &__checked {
+        color: $dark;
+      }
+    }
+  
+    &__values {
+      position: absolute;
+      background-color: $white1;
+      width: 100%;
+  
+      @include onMobile {
+        position: static;
+      }
+    }
+  
+    &__item {
+      padding: 15px 30px;
+      cursor: pointer;
+  
+      @include onMobile {
+        padding: 6.5px 10px;
+      }
+    }
+  }
