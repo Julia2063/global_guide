@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 env:
-  NODE_AUTH_TOKEN: ${{ secrets.PAGES_DEPLOYMENT }}
+  NODE_AUTH_TOKEN: ${{ secrets.PAGE__DEDLOY }}
 
 permissions:
   contents: read
@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-          node-version: '16.10.0'
+          node-version: '18.16.0'
 
       - name: Setup Pages 🔧
         id: pages
