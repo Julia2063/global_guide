@@ -151,27 +151,76 @@ export function createNewUser(user, regInfo) {
     });
   };
 
-  export function createNewPost(postInfo, file) {
+  export function getTitleOfPosts (collection, locale) {
+    return new Promise(function (resolve, reject) {
+      db.collection(collection).get().then(res => {
+        const data = [];
+          res.forEach((doc) => {
+            data.push(
+              [doc.data()[locale].title, doc.data().type, doc.data().path]
+            );
+          });
+          resolve(data);
+      }).catch((error) =>
+  reject(error))
+  })}
+
+  export function getTitleOfServices (locale) {
+    return new Promise(function (resolve, reject) {
+      db.collection('services').get().then(res => {
+        const data = [];
+          res.forEach((doc) => {
+            data.push(
+              [`${doc.data().serviceType[locale]}: ${doc.data()[locale].title}`, doc.data().type, doc.data().path]
+            );
+          });
+          resolve(data);
+      }).catch((error) =>
+  reject(error))
+  })}
+
+  export function createNewPost(postInfo, file, type, serviceType) {
     const id = Math.floor(Date.now() * Math.random()).toString();
     return new Promise(function (resolve, reject) {
-    
-        const post_to_firebase = {
+      const post_to_firebase = type === "services" ? {
           id,
           image: '',
 
           ua: {
             title: postInfo.ua.title || '', 
-            preview:postInfo.ua.preview || '',
+            text: postInfo.ua.text || '',
+          },
+
+          ru: {
+            title: postInfo.ru.title || '',  
+            text: postInfo.ru.text || '',
+          },
+          en: {
+            title: postInfo.en.title || '',  
+            text: postInfo.en.text || '',
+          },
+          
+          path: postInfo.path.length > 0 ? postInfo.path : id,
+          type: postInfo.type,
+          serviceType,
+          dateCreating: format(new Date(), 'yyyy-MM-dd HH:mm'),
+      } : {
+          id,
+          image: '',
+
+          ua: {
+            title: postInfo.ua.title || '', 
+            preview: postInfo.ua.preview || '',
             text: postInfo.ua.text || '',
           },
           ru: {
             title: postInfo.ru.title || '', 
-            preview:postInfo.ru.preview || '',
+            preview: postInfo.ru.preview || '',
             text: postInfo.ru.text || '',
           },
           en: {
             title: postInfo.en.title || '', 
-            preview:postInfo.en.preview || '',
+            preview: postInfo.en.preview || '',
             text: postInfo.en.text || '',
           },
           
@@ -185,7 +234,7 @@ export function createNewUser(user, regInfo) {
             uploadFileToStorage(file, r.result.id, postInfo);
           }
           
-          console.log('product saved in DB');
+          console.log('post saved in DB');
 
           resolve(r);
         }).catch(e => {

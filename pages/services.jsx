@@ -4,60 +4,68 @@ import { PageNavigation } from '../components/PageNavigation';
 
 import { ServisesDropdown } from '../components/ServisesDropdown';
 import { ServisesButton } from '../components/ServisesButton';
-import { rightTitle } from '../helpers/rightData';
+import { getRightData } from '../helpers/rightData';
 
-import services from '../api/services.json';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from '../components/Layout';
 
+import Menu from '../public/menu.svg';
+import Control from '../public/control.svg';
+import Muto from '../public/muto.svg';
+import Ban from '../public/ban.svg';
+import Ukr from '../public/ukr.svg';
+import Earth from '../public/earth.svg';
+import Dep from '../public/dep.svg';
+import Leg from '../public/leg.svg';
+import Doc from '../public/doc.svg';
+import Monitor from '../public/monitor.svg';
+
+
 import styles from '../styles/servicesPage.module.scss';
+import { getCollection } from '../helpers/firebaseControl';
 
-const splitTwoPoints = (string) => {
-  const i = string.indexOf(':');
-  return string.slice(i + 2);
-};
-
-
-export default function Services() {
+export default function Services({ services }) {
   const { t }  = useTranslation();
   const { locale } = useRouter();
 
+  console.log(services);
+
 
   const borderControl = services
-    .filter(service => rightTitle(service, locale).includes(
+    .filter(service => service.serviceType[locale] === (
       t('services.borderControl')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
 
   const customControl = services
-    .filter(service => rightTitle(service, locale).includes(
+    .filter(service =>service.serviceType[locale] === (
       t('services.customControl')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
 
   const entryBan = services
-    .filter(service => rightTitle(service, locale).includes(
+    .filter(service => service.serviceType[locale] === (
       t('services.ban')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
 
   const deportation = services
-    .filter(service => rightTitle(service, locale).includes(
+    .filter(service => service.serviceType[locale] === (
       t('services.deportation')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
   
   const legalization = services
-    .filter(service => rightTitle(service,locale).includes(
+    .filter(service => service.serviceType[locale] === (
       t('services.legalization')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
 
   const docService = services
-    .filter(service => rightTitle(service, locale).includes(
+    .filter(service => service.serviceType[locale] === (
       t('services.document')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
 
   const monitoring = services
-    .filter(service => rightTitle(service, locale).includes(
+    .filter(service => service.serviceType[locale] === (
       t('services.monitoring')
-    )).map(service => splitTwoPoints(rightTitle(service, locale)));
+    )).map(service => [getRightData(service, locale, "title"), service.path]);
 
   const [isAllButtons, setIsAllButtons] = useState(false);
   const [filter, setFilter] = useState(t('services.allServices'));
@@ -91,7 +99,7 @@ export default function Services() {
           <div className={styles.servisesPage__content}>
             <div className={styles.servisesPage__section}>
               <ServisesButton 
-                img={'../menu.svg'} 
+                Img={Menu} 
                 title={filter}
                 
                 onClick={openAllButtons}
@@ -99,12 +107,12 @@ export default function Services() {
               {(isAllButtons && filter === t('services.allServices')) && (
                 <>
                   <ServisesButton 
-                    img={'../ukr.svg'} 
+                    Img={Ukr}  
                     title={t('services.citizens')} 
                     onClick={() => changeFilter(t('services.citizens'))}
                   />
                   <ServisesButton 
-                    img={'../earth.svg'} 
+                    Img={Earth}  
                     title={t('services.foreigners')}
                     onClick={() => changeFilter(t('services.foreigners'))}
                   />
@@ -114,12 +122,12 @@ export default function Services() {
               {(isAllButtons && filter === t('services.foreigners')) && (
                 <>
                   <ServisesButton 
-                    img={'../ukr.svg'} 
+                    Img={Ukr} 
                     title={t('services.citizens')} 
                     onClick={() => changeFilter(t('services.citizens'))}
                   />
                   <ServisesButton 
-                    img={'../menu.svg'} 
+                    Img={Menu}
                     title={t('services.allServices')}
                     onClick={() => changeFilter(t('services.allServices'))}
                   />
@@ -129,12 +137,12 @@ export default function Services() {
               {(isAllButtons && filter === t('services.citizens')) && (
                 <>
                   <ServisesButton 
-                    img={'../earth.svg'} 
+                    Img={Earth}
                     title={t('services.foreigners')} 
                     onClick={() => changeFilter(t('services.foreigners'))}
                   />
                   <ServisesButton 
-                    img={'../menu.svg'} 
+                    Img={Menu} 
                     title={t('services.allServices')} 
                     onClick={() => changeFilter(t('services.allServices'))}
                   />
@@ -145,20 +153,20 @@ export default function Services() {
             <div className={styles.servisesPage__section}>
 
               <ServisesDropdown 
-                img={'../control.svg'} 
+                Img={Control}
                 title={t('services.borderControl')}
                 values={borderControl}
               />
 
               <ServisesDropdown 
-                img={'../muto.svg'} 
+                Img={Muto}
                 title={t('services.customControl')}
                 values={customControl}
               />
 
               {filter !== t('services.citizens') && (
                 <ServisesDropdown 
-                  img={'../ban.svg'} 
+                Img={Ban} 
                   title={t('services.ban')}
                   values={entryBan}
                 />
@@ -166,7 +174,7 @@ export default function Services() {
               
               {filter !== t('services.citizens') && (
                 <ServisesDropdown 
-                  img={'../dep.svg'}
+                  Img={Dep}
                   title={t('services.deportation')}
                   values={deportation}
                 />
@@ -176,7 +184,7 @@ export default function Services() {
              <div className={styles.servisesPage__section}>
               {filter !== t('services.citizens') && (
                 <ServisesDropdown 
-                  img={'../leg.svg'}
+                  Img={Leg}
                   title={t('services.legalization')}
                   values={legalization}
                 />
@@ -184,13 +192,13 @@ export default function Services() {
               
 
               <ServisesDropdown 
-                img={'../doc.svg'} 
+                Img={Doc} 
                 title={t('services.document')}
                 values={docService}
               />
 
               <ServisesDropdown 
-                img={'../monitor.svg'} 
+                Img={Monitor}
                 title={t('services.monitoring')}
                 values={monitoring}
               />
@@ -202,10 +210,10 @@ export default function Services() {
   );
 };
 
-export async function getStaticProps({ locale }) {
-	return {
-		props: {
-			...(await serverSideTranslations(locale, ['common'])),
-		},
-	}
+export async function getServerSideProps({ locale }) {
+
+  const services = await getCollection('services');
+  return { props: { services,
+    ...await serverSideTranslations(locale, ['common'])
+  } };
 }

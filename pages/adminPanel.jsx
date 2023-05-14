@@ -19,13 +19,32 @@ export default function AdminPanel () {
   const [currentInfoItem, setCurrentInfoItem] = useState(null);
   const [func, setFunc] = useState('updateInfo');
 
-  const [news, setNews] = useState(null);
+  const [news, setNews] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [explanations, setExplanations] = useState([]);
+  const [services, setServices] = useState([]);
+  const [citizenship, setCitizenship] = useState([]);
 
   useEffect(() => {
     db.collection('news').onSnapshot(snapshot => {
       setNews(snapshot.docs.map(doc => doc.data()))
     });
+    db.collection('questions').onSnapshot(snapshot => {
+      setQuestions(snapshot.docs.map(doc => doc.data()))
+    });
+    db.collection('explanations').onSnapshot(snapshot => {
+      setExplanations(snapshot.docs.map(doc => doc.data()))
+    });
+    db.collection('services').onSnapshot(snapshot => {
+      setServices(snapshot.docs.map(doc => doc.data()))
+    });
+    db.collection('citizenship').onSnapshot(snapshot => {
+      setCitizenship(snapshot.docs.map(doc => doc.data()))
+    });
   }, []);
+
+  console.log(news);
+  console.log(services);
 
   const handleModal = () => {
     setIsModal(!isModal);
@@ -50,10 +69,12 @@ export default function AdminPanel () {
   };
 
   const handleModalUpdate = (el) => {
+    setType(el.type)
     setFunc('updateInfo');
     setCurrentInfoItem(el);
     setIsModal(true);
     setTitleMessage(`Обновить ${el.type}`);
+    
   };
 
   const handleDelete = async (el) => {
@@ -90,12 +111,78 @@ export default function AdminPanel () {
           </button>
         </div>
 
-       {/*  <div className={styles.body__item}> 
+        <div className={styles.body__item}> 
           <div className={styles.body__item__content}>
-            feww
+            <p>Вопросы</p>
+            <CustomeSwiper 
+              array={questions}
+              handleModalUpdate={handleModalUpdate}
+              handleDelete={handleDelete}
+              
+            />
           </div>
-          <button className={styles.body__item__button}>+</button>
-        </div> */}
+          <button
+            name="questions"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'вопрос')}
+          >
+            +
+          </button>
+        </div>
+
+        <div className={styles.body__item}> 
+          <div className={styles.body__item__content}>
+            <p>Разъяснения</p>
+            <CustomeSwiper 
+              array={explanations}
+              handleModalUpdate={handleModalUpdate}
+              handleDelete={handleDelete}
+            />
+          </div>
+          <button
+            name="explanations"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'разьяснение')}
+          >
+            +
+          </button>
+        </div>
+
+        <div className={styles.body__item}> 
+          <div className={styles.body__item__content}>
+            <p>Услуги</p>
+            <CustomeSwiper 
+              array={services}
+              handleModalUpdate={handleModalUpdate}
+              handleDelete={handleDelete}
+            />
+          </div>
+          <button
+            name="services"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'услугу')}
+          >
+            +
+          </button>
+        </div>
+
+        <div className={styles.body__item}> 
+          <div className={styles.body__item__content}>
+            <p>Гражданство (услуги)</p>
+            <CustomeSwiper 
+              array={citizenship}
+              handleModalUpdate={handleModalUpdate}
+              handleDelete={handleDelete}
+            />
+          </div>
+          <button
+            name="citizenship"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'гражданство')}
+          >
+            +
+          </button>
+        </div>
 
       </div>
       <button 
@@ -112,7 +199,7 @@ export default function AdminPanel () {
           form={
             <InformationForm 
               type={type}
-              setIsModal={setIsModal}
+              setIsModal={handleModal}
               currentInfoItem={currentInfoItem}
               func={func}
             />

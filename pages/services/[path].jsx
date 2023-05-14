@@ -7,27 +7,28 @@ import { getRightData } from '../../helpers/rightData';
 import { useRouter } from 'next/router';
 import { Layout } from '../../components/Layout';
 
-export default function NewsItemPage ({ newItem }) {
+export default function ServiceItemPage ({ serviceItem }) {
 
   const { t }  = useTranslation();
   const { locale } = useRouter();
 
+  console.log(serviceItem);
+
   return (
     <Layout
-      type='news page'
-      title={getRightData(newItem[0], locale, 'title')}
-      desctiption={`${t('head.news.new')} ${getRightData(newItem[0], locale, 'title')} ${t('head.news.inSite')}`}
-
+      type='serviceItem page'
+      title={`${serviceItem[0].serviceType[locale]}: ${getRightData(serviceItem[0], locale, 'title')}`}
+      desctiption={`${serviceItem[0].serviceType[locale]}: ${getRightData(serviceItem[0], locale, 'title')} - ${t('head.service.desc1')}${getRightData(serviceItem[0], locale, 'title')} - ${t('head.service.desc2')}`}
     >
       <div className="container">
-        <PageNavigation title={getRightData(newItem[0], locale, 'title')} />
+        <PageNavigation title={`${serviceItem[0].serviceType[locale]}: ${getRightData(serviceItem[0], locale, 'title')}`} />
       </div>
       <div className="page page-bigBottom">
         <div className="container">
           <ItemPage 
-            buttonName={t('newsPage.button')} 
-            item={newItem[0]} 
-            linkPath="/news"
+            buttonName={t('services.allServices')} 
+            item={serviceItem[0]} 
+            linkPath="/services"
           />
         </div>
       </div>
@@ -36,8 +37,8 @@ export default function NewsItemPage ({ newItem }) {
 };
 
 export async function getServerSideProps({ params, locale }) {
-  const newItem = await getCollectionWhereKeyValue('news', 'path', params.path);
-  return { props: { newItem,
+  const serviceItem = await getCollectionWhereKeyValue('services', 'path', params.path);
+  return { props: { serviceItem,
     ...await serverSideTranslations(locale, ['common'])
   }};
 }

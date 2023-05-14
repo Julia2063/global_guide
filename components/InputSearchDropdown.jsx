@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import Link from 'next/link'
 
-/* import { rightTitle, rightTitle2 } from '../helpers/rightData'; */
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
 
 import styles from '../styles/inputSearchDropdown.module.scss';
@@ -20,18 +19,14 @@ export const InputSearchDropdown = ({
   
         return (
           <Link 
-            // eslint-disable-next-line max-len
-            href={`${el.type === 'questions' ? '' : `/${el.type}`}/${el.path}`}
-            key={el.path + el.id} 
+            href={el[2] === 'lehalizatsiia-v-ukraini-hromadianstvo' ? '/services/citizenship': `/${el[1]}/${el[2]}`}
+            key={el[2]} 
             onClick={handleCloseSearchDropdown}
           >
             <li 
               className={styles.inputSearchDropdown__item} 
             >
-             {/*  {rightTitle2(el, i18n.language) 
-                ? rightTitle2(el, i18n.language) 
-                : rightTitle(el, i18n.language)
-              } */}
+            {el[0]}
             </li>  
           </Link>
         );

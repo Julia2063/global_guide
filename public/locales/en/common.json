@@ -9,6 +9,16 @@
         "news": {
           "new": "News",
           "inSite": "on the site globalguide.com"
+        },
+
+        "post": {
+          "title": "blog article",
+          "desc": "Related article"
+        },
+        "service": {
+          "title": "consultations and legal assistance in Ukraine",
+          "desc1": "registration with the help of 【Global Guide Service】 ➤➤➤",
+          "desc2": "legal assistance⚡ Accompanying a lawyer✔️ Assistance in collecting documents✍ Minimum processing time⌚️"
         } 
       },
 

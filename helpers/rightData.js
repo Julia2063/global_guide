@@ -62,3 +62,8 @@ export const getRightData = (item, language, key) => {
     return;
   }
 };
+
+export const splitTwoPoints = (string) => {
+  const i = string.indexOf(':');
+  return string.slice(i + 2);
+};

@@ -2,15 +2,13 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { PageNavigation } from '../components/PageNavigation';
 
-import { rightTitle } from '../helpers/rightData';
-import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
-
 import aboutPage from '../api/aboutPage.json';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from '../components/Layout';
 
 import styles from '../styles/itemPage.module.scss';
+import { getRightData } from '../helpers/rightData';
 
 export default function AboutPage () {
   const { t }  = useTranslation();
@@ -30,17 +28,12 @@ export default function AboutPage () {
         <div className="container">
         <div className={styles.itemPage}>
         <h1 className={`page__title ${styles.itemPage__title}`}>
-              {rightTitle(aboutPage, locale)}
+              {getRightData(aboutPage, locale, "title")}
             </h1>
-            <article className={styles.itemPage__text}>
-              {locale === 'ua' 
-                && (convertJsonToHTML(aboutPage.textUA || {}))}
-              {locale === 'ru'
-                 && (convertJsonToHTML(aboutPage.textRU || {}))}
-              {locale === 'en' 
-                && (convertJsonToHTML(aboutPage.textEN || {}))}
-            </article>
-            
+            <article 
+              className={styles.itemPage__text}
+              dangerouslySetInnerHTML={{ __html:  getRightData(aboutPage, locale, 'text')}}
+            />
           </div>
           <button className="button-extension button-extension--down">
             <Link href="/news">

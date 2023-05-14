@@ -7,27 +7,27 @@ import { getRightData } from '../../helpers/rightData';
 import { useRouter } from 'next/router';
 import { Layout } from '../../components/Layout';
 
-export default function NewsItemPage ({ newItem }) {
+export default function ExplanationItemPage ({ explanationItem }) {
 
   const { t }  = useTranslation();
   const { locale } = useRouter();
 
   return (
     <Layout
-      type='news page'
-      title={getRightData(newItem[0], locale, 'title')}
-      desctiption={`${t('head.news.new')} ${getRightData(newItem[0], locale, 'title')} ${t('head.news.inSite')}`}
+      type='post page'
+      title={getRightData(explanationItem[0], locale, 'title')}
+      desctiption={`${t('head.post.desc')} ${getRightData(explanationItem[0], locale, 'title')} ${t('head.news.inSite')}`}
 
     >
       <div className="container">
-        <PageNavigation title={getRightData(newItem[0], locale, 'title')} />
+        <PageNavigation title={getRightData(explanationItem[0], locale, 'title')} />
       </div>
       <div className="page page-bigBottom">
         <div className="container">
           <ItemPage 
-            buttonName={t('newsPage.button')} 
-            item={newItem[0]} 
-            linkPath="/news"
+            buttonName={t('explanations.allExplanations')} 
+            item={explanationItem[0]} 
+            linkPath="/explanations"
           />
         </div>
       </div>
@@ -36,8 +36,8 @@ export default function NewsItemPage ({ newItem }) {
 };
 
 export async function getServerSideProps({ params, locale }) {
-  const newItem = await getCollectionWhereKeyValue('news', 'path', params.path);
-  return { props: { newItem,
+  const explanationItem = await getCollectionWhereKeyValue('explanations', 'path', params.path);
+  return { props: { explanationItem,
     ...await serverSideTranslations(locale, ['common'])
   }};
 }

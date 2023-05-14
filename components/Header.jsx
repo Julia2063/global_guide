@@ -3,14 +3,8 @@ import Link from 'next/link'
 
 import PropTypes from 'prop-types';
 
-import services from '../api/services.json' ;
-import explanations from '../api/explanations.json';
-import questions from '../api/questions.json';
-import news from '../api/newsApi.json';
-import citizenship from '../api/citizenship.json';
-
 import { useWindowSize } from '../hooks/useWindowSize';
-import { rightTitle, rightTitle2 } from '../helpers/rightData';
+import { getRightData, rightTitle, rightTitle2 } from '../helpers/rightData';
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
 import { Navbar } from './Navbar';
 import { InputSearchDropdown } from './InputSearchDropdown';
@@ -25,25 +19,29 @@ import LogoDark from '../public/logo_dark.svg';
 import Menu from '../public/menu.svg';
 
 import styles from '../styles/header.module.scss';
+import { getTitleOfPosts, getTitleOfServices } from '../helpers/firebaseControl';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searshQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [search, setSearch] = useState([]);
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [hideOrShow, setHideOrSwow] = useState({});
   const [isSearch, setIsSearch] = useState(false);
   const [isSearchDropdown, setIsSearchDropdown] = useState(true);
+
   const { width } = useWindowSize();
   const { locale, locales, pathname, query } = useRouter()
-
-  
 
   const { t } = useTranslation('common');
 
   const refLanguageValues = useRef();
+  const inputRef = useRef();
+ 
   useOnClickOutside(refLanguageValues, () => setIsOpen(false));
+  useOnClickOutside(inputRef, () => handleCloseSearchDropdown());
+ 
 
 
   
@@ -79,14 +77,12 @@ export const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setQuery(value);
-  };
+  
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 || event.keyCode === 27) {
-      setQuery('');
+      setSearchQuery('');
+      setIsSearch(!isSearch);
     }
   };
 
@@ -94,64 +90,69 @@ export const Header = () => {
     setIsSearch(!isSearch);
   };
 
-  /* function getSearch () { 
+  function getSearch () { 
     
     const searchArr =
       [...arguments].reduce((start, el) => start.concat(el), []);
 
     return searchArr.filter(el => {
-
-     
       return  (
-        // eslint-disable-next-line max-len
-        rightTitle(el, i18n.language)?.toLowerCase().includes(query.toLowerCase()) 
-      // eslint-disable-next-line max-len
-      || rightTitle2(el, i18n.language)?.toLowerCase().includes(query.toLowerCase())
+        el[0].toLowerCase().includes(searchQuery.toLowerCase()) 
       );
-      
     });
   };
 
-
-  useEffect(() => {
-    const searchResult =  getSearch(
-      services, 
-      news, 
-      questions,
-      explanations,
-      citizenship
-    );
-    if (query.length > 0) {
-      setSearch(searchResult);
+  const handleChange = async(event) => {
+    const { value } = event.target;
+    setSearchQuery(value);
+    setIsSearchDropdown(true);
+    try {
+      const newsTitles = await getTitleOfPosts('news', locale);
+      const questionsTitles = await getTitleOfPosts('questions', locale);
+      const explanationsTitles = await getTitleOfPosts('explanations', locale);
+      const servicesTitles = await getTitleOfServices(locale);
+      const citizenshipTitles = await getTitleOfPosts('citizenship', locale);
+      const searchResult =  getSearch(
+        newsTitles,
+        questionsTitles, 
+        explanationsTitles,
+        servicesTitles,
+        citizenshipTitles,
+      );
+      if (searchQuery.length > 0) {
+        setSearch(searchResult);
+      }
+    } catch (error){
+      alert (error);
     }
-  }, [query]); */
-
-  
+  };
+ 
   const handleCloseSearchDropdown = () => {
-    if (query.length > 0) {
+    if (searchQuery.length > 0) {
       setIsSearchDropdown(!isSearchDropdown);
     }
-    setQuery('');
+    setSearchQuery('');
   };
   
   return (
     <header className={styles.header}>
       <div className="container">
         <div className={styles.header__leftBlock}>
-          <label className={styles.header__label} >
+          <label className={styles.header__label} ref={inputRef}>
             <input 
               type="text"
               className={styles.header__input}
               placeholder={t('header.search')}
-              value={searshQuery}
+              value={searchQuery}
               onChange={handleChange}
               onFocus={() => {
                 setIsSearchDropdown(true);
               }}
               onKeyDown={handleKeyDown}
+              
             />
             <SearchIcon className={styles.header__img}/>
-            {(isSearchDropdown && query.length > 0 && search.length > 0) && (
+            {(isSearchDropdown && searchQuery.length > 0 && search.length > 0) && (
               <InputSearchDropdown 
                 search={search} 
                 handleCloseSearchDropdown={handleCloseSearchDropdown}
@@ -201,7 +202,7 @@ export const Header = () => {
                 type="text"
                 autoFocus 
                 placeholder="Пошук"
-                value={searshQuery}
+                value={searchQuery}
                 onChange={handleChange}
                 onFocus={() => {
                   setIsSearchDropdown(true);

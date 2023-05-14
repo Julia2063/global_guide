@@ -2,17 +2,13 @@ import { clsx } from 'clsx';
 import { useState, useRef } from 'react';
 import Link from 'next/link'
 import PropTypes from 'prop-types';
-import { rightTitle } from '../helpers/rightData';
 
-import services from '../api/services.json';
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
-import { useRouter } from 'next/router';
 
 import styles from '../styles/servisesDropdown.module.scss';
 
-export const ServisesDropdown = ({ title, img, values }) => {
+export const ServisesDropdown = ({ title, Img, values }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { locale } =  useRouter();
 
   const refServisesDrop = useRef();
 
@@ -28,6 +24,8 @@ export const ServisesDropdown = ({ title, img, values }) => {
     }
   };
 
+  console.log(values);
+
   return (
     <div className={styles.servisesDropdown} ref={refServisesDrop}>
       <label className={styles.servisesDropdown__label}>
@@ -42,24 +40,24 @@ export const ServisesDropdown = ({ title, img, values }) => {
             onClick={toggle}
             onKeyDown={handleKeyDown}
           >
-            <img src={img} alt="icon" />
+            <Img alt="icon" />
           </button>
           {title}
         </div>
         {isOpen && (
           <div className={styles.servisesDropdown__values}>
             {values.map(el => {
-              // eslint-disable-next-line max-len
-              const linkPath = services.find(e => rightTitle(e, locale).includes(`${title}: ${el}`))?.path;
               return (
                 <li
                   className={styles.servisesDropdown__item}
                   key={el}
                 >
                   <Link 
-                    href={linkPath} 
+                    href={el[1] === 'lehalizatsiia-v-ukraini-hromadianstvo' 
+                      ? '/services/citizenship'
+                      : `/services/${el[1]}`} 
                   >
-                    {el}
+                    {el[0]}
                   </Link>
                 </li>
               );

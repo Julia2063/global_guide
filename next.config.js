@@ -3,9 +3,14 @@
 const { i18n } = require('./next-i18next.config')
 
 const nextConfig = {
-	
+	images: {
+		loader: 'akamai',
+		path: '',
+	  },
+	  assetPrefix: './',
 	webpack: (config, options) => {
 		config.resolve.fallback = { fs: false };
+		
 		config.module.rules.push({
 			loader: '@svgr/webpack',
 			issuer: /\.[jt]sx?$/,
@@ -26,7 +31,7 @@ const nextConfig = {
 			},
 			test: /\.svg$/,
 		});
-
+  
 	
 		return config;
 	  },

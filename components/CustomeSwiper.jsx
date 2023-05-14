@@ -2,7 +2,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar } from 'swiper';
 import styles from '../styles/customeSwiper.module.scss';
 
-export const CustomeSwiper = ({ array, handleDelete, handleModalUpdate }) => {
+export const CustomeSwiper = ({ 
+  array,
+  handleDelete, 
+  handleModalUpdate,
+}) => {
 
   return (
     <Swiper
@@ -38,14 +42,19 @@ return new Date(a.dateCreating) - new Date(b.dateCreating);
   />
   <div className={styles.swiper__card__click} onClick={() => handleModalUpdate(el)}>
      <p  className={styles.swiper__card__title}>
-    {el.ua.title}
-  </p>
-  <p className={styles.swiper__card__text}>
+    {el.type === "services" ? `${el.serviceType.ua}: ${el.ua.title}` : el.ua.title}
+    </p>
+  
+  {!el.ua.preview
+  ? <div className={styles.swiper__card__text} dangerouslySetInnerHTML={{ __html:  el.ua.text}} />
+  : <p className={styles.swiper__card__text}>
     {el.ua.preview}
   </p>
+  }
+  
   </div>
  
-  <button 
+  <button   
     className={styles.swiper__card__button}
     onClick={() => handleDelete(el)}
   >
@@ -56,5 +65,4 @@ return new Date(a.dateCreating) - new Date(b.dateCreating);
 </SwiperSlide>
 ))}
 </Swiper>
-  )
-}
+  )}

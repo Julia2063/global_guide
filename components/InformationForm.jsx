@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
 import { useRef, useState, useEffect } from 'react';
+import dynamic from "next/dynamic";
 import { clsx } from 'clsx';
 
 const ReactQuill = dynamic(() => import("react-quill"), {
@@ -10,29 +10,50 @@ import styles from '../styles/informationForm.module.scss';
 import { createNewPost, updateDocumentInCollection, uploadFileToStorage } from "../helpers/firebaseControl";
 
 export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
+  const selectValues = [
+    'Прохождение пограничного контроля',
+    'Прохождение таможенного контроля',
+    'Запрет на въезд в Украину',
+    'Депортация из Украины',
+    'Легализация в Украине',
+    'Документ сервис',
+    'Мониторинг'
+  ];
+
+  const modules = {
+    toolbar: [
+      [{header: [2, 3, false ]}],
+      ["bold", "italic", "underline", "link"],
+      [
+        {list: "ordered"},
+        {list: "bullet"},
+      ]
+    ],
+  };
+
   const [file, setFile] = useState(null);
-  const [dataModal, setDataModal] = useState({
-    image: '', 
+  const [dataModal, setDataModal] = useState({image: '', 
 
-    ua: {
-      title: '', 
-      preview: '',
-      text: '',
-    },
+  ua: {
+    title: '', 
+    preview: '',
+    text: '',
+  },
 
-    ru: {
-      title: '', 
-      preview: '',
-      text: '',
-    },
-    en: {
-      title: '', 
-      preview: '',
-      text: '',
-    },
-    path: '',
-    type,
-  });
+  ru: {
+    title: '', 
+    preview: '',
+    text: '',
+  },
+  en: {
+    title: '', 
+    preview: '',
+    text: '',
+  },
+  path: '',
+  type,
+});
+
 
   const [tabsState, setTabsState] = useState({
     ua: true,
@@ -40,33 +61,66 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
     ru: false,
   });
 
+  const [serviceType, setServiceType] = useState('Прохождение пограничного контроля');
+
+  const getRightserviseType = (type) => {
+    switch(type) {
+      case 'Прохождение пограничного контроля':
+        return {
+          ua: 'Проходження прикордонного контролю',
+          ru: 'Прохождение пограничного контроля',
+          en: 'Border control',
+        };
+
+      case 'Прохождение таможенного контроля':
+        return {
+          ua: 'Проходження митного контролю',
+          ru: 'Прохождение таможенного контроля',
+          en: 'Customs control',
+        };
+
+      case 'Запрет на въезд в Украину':
+        return {
+          ua: 'Заборона на в\'їзд в Україну',
+          ru: 'Запрет на въезд в Украину',
+          en: 'Ban on entry into Ukraine',
+        };
+
+      case 'Депортация из Украины':
+        return {
+          ua: 'Депортація з України',
+          ru: 'Депортация из Украины',
+          en: 'Deportation from Ukraine',
+        };
+
+      case 'Легализация в Украине':
+        return {
+          ua: 'Легалізація в Україні',
+          ru: 'Легализация в Украине',
+          en: 'Legalization in Ukraine',
+        };
+
+      case 'Документ сервис':
+        return {
+          ua: 'Документ сервіс',
+          ru: 'Документ сервис',
+          en: 'Document service',
+        };
+
+      case 'Мониторинг':
+        return {
+          ua: 'Моніторинг',
+          ru: 'Мониторинг',
+          en: 'Monitoring',
+        };
+
+      default: 
+        return {};
+    };
+  };
+
   const inputRef = useRef();
-
-  useEffect(() => {
-    setDataModal({
-      image: currentInfoItem?.image || '', 
-      
-      ru: {
-        title: currentInfoItem?.ru.title || '', 
-        preview: currentInfoItem?.ru.preview || '',
-        text: currentInfoItem?.ru.text || '',
-      },
-      en: {
-        title: currentInfoItem?.en.title || '', 
-        preview: currentInfoItem?.en.preview || '',
-        text: currentInfoItem?.en.text|| '',
-      },
-      ua: {
-        title: currentInfoItem?.ua.title || '', 
-        preview: currentInfoItem?.ua.preview || '',
-        text: currentInfoItem?.ua.text || '',
-      },
-      path: currentInfoItem?.path || '',
-      type,
-    });
-  }, [currentInfoItem]);
-
-
+  
   const handleChangePhoto = (e) => {
     if (e.target.files[0]) {
       setFile(e.target.files[0]);
@@ -91,6 +145,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
   };
 
   const handleChangeModalWithLang = (fieldName, newValue, lang) => {
+    console.log(fieldName);
     setDataModal({
       ...dataModal,
       [lang]: {...dataModal[lang],  [fieldName]: newValue} ,
@@ -107,22 +162,6 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
   const handleSubmitModal = func === 'updateInfo' ? (
     async (e) => {
       e.preventDefault();    
-   
-      const oldData = Object.values({
-        titleRu: currentInfoItem.ru.title, 
-        previewRu:  currentInfoItem.ru.preview,
-        textRu:  currentInfoItem.ru.text,
-        
-        titleEn: currentInfoItem.en.title, 
-        previewEn:  currentInfoItem.en.preview,
-        textEn:  currentInfoItem.en.text,
-
-        titleUa: currentInfoItem.ua.title, 
-        previewUa:  currentInfoItem.ua.preview,
-        textUa:  currentInfoItem.ua.text,
-
-        path: currentInfoItem.path,
-        });
 
       const newData = Object.values({
         titleRu: dataModal.ru.title, 
@@ -140,35 +179,55 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
         path: dataModal.path,
       });
 
-      if (oldData.some((el, i) => el !== newData[i])) {
+      if (newData.some(el => el.length !== 0)) {
         try {
-        
+          type === 'services' ? 
           await updateDocumentInCollection(`${currentInfoItem.type}`, {
             ...currentInfoItem, 
             ru: {
-              title: dataModal.ru.title || '', 
-              preview: dataModal.ru.preview || '',
-              text: dataModal.ru.text || '',
+              title: dataModal.ru.title.length > 0  ? dataModal.ru.title : currentInfoItem.ru.title, 
+              text: dataModal.ru.text.length > 0  ? dataModal.ru.text : currentInfoItem.ru.text,
             },
             en: {
-              title: dataModal.en.title || '', 
-              preview: dataModal.en.preview || '',
-              text: dataModal.en.text|| '',
+              title: dataModal.en.title.length > 0  ? dataModal.en.title : currentInfoItem.en.title,
+              text: dataModal.en.text.length > 0  ? dataModal.en.text : currentInfoItem.en.text,
             },
             ua: {
-              title: dataModal.ua.title || '', 
-              preview:dataModal.ua.preview || '',
-              text:dataModal.ua.text || '',
+              title: dataModal.ua.title.length > 0  ? dataModal.ua.title : currentInfoItem.ua.title, 
+              text: dataModal.ua.text.length > 0  ? dataModal.ua.text : currentInfoItem.ua.text,
             },
 
-            path: dataModal.path,
+            path: dataModal.path.length > 0  ? dataModal.path : currentInfoItem.path,
+            
+          }, currentInfoItem.idPost)
+
+          :
+          await updateDocumentInCollection(`${currentInfoItem.type}`, {
+            ...currentInfoItem, 
+            ru: {
+              title: dataModal.ru.title.length > 0  ? dataModal.ru.title : currentInfoItem.ru.title,
+              preview: dataModal.ru.preview.length > 0  ? dataModal.ru.preview : currentInfoItem.ru.preview,
+              text: dataModal.ru.text.length > 0  ? dataModal.ru.text : currentInfoItem.ru.text,
+            },
+            en: {
+              title: dataModal.en.title.length > 0  ? dataModal.en.title : currentInfoItem.en.title,
+              preview: dataModal.en.preview.length > 0  ? dataModal.en.preview : currentInfoItem.en.preview,
+              text: dataModal.en.text.length > 0  ? dataModal.en.text : currentInfoItem.en.text,
+            },
+            ua: {
+              title: dataModal.ua.title.length > 0  ? dataModal.ua.title : currentInfoItem.ua.title, 
+              preview: dataModal.en.preview.length > 0  ? dataModal.en.preview : currentInfoItem.en.preview,
+              text: dataModal.ua.text.length > 0  ? dataModal.ua.text : currentInfoItem.ua.text,
+            },
+
+            path: dataModal.path.length > 0  ? dataModal.path : currentInfoItem.path,
             
           }, currentInfoItem.idPost);
 
         } catch (error) {
           alert(error);
         }
-      }
+      };
 
       if (file) {
         try {
@@ -179,7 +238,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           console.log(error);
           alert(error);
         }
-      }
+      };
 
       
       setIsModal(false);
@@ -187,9 +246,10 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
     : (
       async (e) => {
         e.preventDefault(); 
+        const fullServiseType = getRightserviseType(serviceType);
         try {
          
-          createNewPost(dataModal, file);
+          createNewPost(dataModal, file, type, fullServiseType);
         
           setIsModal(false);
         } catch (error) {
@@ -198,13 +258,18 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
       }
     );
 
-    console.log(currentInfoItem);
-
+    console.log(dataModal.ua.text);
+    console.log(dataModal.en.text);
+    console.log(dataModal.ru.text);
   return (
     <form className={styles.form} onSubmit={(e) => handleSubmitModal(e)}>
       <div className={styles.image}>
           <img 
-            src={dataModal.image || '../addPhoto.svg'} 
+            src={dataModal.image.length > 0 
+              ? (dataModal.image ||'../addPhoto.svg')  
+              : currentInfoItem 
+                ? (currentInfoItem.image || '../addPhoto.svg') 
+                : (dataModal.image || '../addPhoto.svg')} 
             alt="image"
             className={styles.image__img}
           />
@@ -213,8 +278,6 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
             className={styles.addPhoto} 
           >
             <img src='../photo.svg' alt="add photo" /> 
-            
-          
           </div>
 
           <input
@@ -226,6 +289,22 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           </label>
           
       </div>
+
+      {(type === 'services' && func !== 'updateInfo') && (
+        <select 
+          className={styles.input} 
+          onChange={(e) => setServiceType(e.target.value)} 
+        >
+          
+          {selectValues.map(el => {
+            return (
+              <option key={el}>
+                {el}
+              </option>
+            )
+          })}
+        </select>
+      )}
 
       <div>
         <div className={styles.tabs}>
@@ -273,34 +352,41 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
               [styles.tabs__body__center]: tabsState.en,
             }
           )}
-          >
+          > 
+
+          {(type === 'services' && func === 'updateInfo') && (
+            <p className={styles.serviceType}>{`${currentInfoItem.serviceType.ua}:`} </p>
+          )}
             <input
               type="text"
               placeholder="заголовок"
-              value={dataModal.ua.title}
+              value={dataModal.ua.title.length > 0 ? dataModal.ua.title : currentInfoItem ? currentInfoItem.ua.title : dataModal.ua.title}
               className={styles.input}
               onChange={(e) => handleChangeModalWithLang('title', e.target.value, 'ua')} 
               autoFocus
               ref={inputRef}
             />
-            <textarea
+            
+            {type !== "services" && (
+               <textarea
               type="text"
               placeholder="прев'ю"
-              value={dataModal.ua.preview}
+              value={dataModal.ua.preview.length > 0 ? dataModal.ua.preview : currentInfoItem ? currentInfoItem.ua.preview : dataModal.ua.preview}
               className={styles.input}
               onChange={(e) => handleChangeModalWithLang('preview', e.target.value, 'ua')} 
             />
-            <label className={styles.label}>
+            )}
+           
+            <div className={styles.label}>
               <p className={styles.label__p}>Основний текст</p>
               <div className={styles.ReactQuill}>
               <ReactQuill
-                theme="snow"
-                value={dataModal.ua.text}
+                value={dataModal.ua.text.length > 0 ? dataModal.ua.text : currentInfoItem ? currentInfoItem.ua.text : dataModal.ua.text}
                 onChange={(e) => handleChangeModalWithLang('text', e, 'ua')}
-                            
+                modules={modules}            
                  />
               </div>
-            </label>
+            </div>
           </div>
         )}
 
@@ -314,33 +400,40 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
             }
           )}
           >
+
+          {(type === 'services' && func === 'updateInfo') && (
+            <p className={styles.serviceType}>{`${currentInfoItem.serviceType.en}:`} </p>
+          )}  
             <input
               type="text"
               placeholder="title"
-              value={dataModal.en.title}
+              value={dataModal.en.title.length > 0 ? dataModal.en.title : currentInfoItem ? currentInfoItem.en.title : dataModal.en.title}
               className={styles.input}
               onChange={(e) => handleChangeModalWithLang('title', e.target.value, 'en')} 
               autoFocus
               ref={inputRef}
             />
-            <textarea
+            {type !== "services" && (
+              <textarea
               type="text"
               placeholder="preview"
-              value={dataModal.en.preview}
+              value={dataModal.en.preview.length > 0 ? dataModal.en.preview : currentInfoItem ? currentInfoItem.en.preview : dataModal.en.preview}
               className={styles.input}
               onChange={(e) => handleChangeModalWithLang('preview', e.target.value, 'en')} 
             />
-            <label className={styles.label}>
+            )}
+            
+            <div className={styles.label}>
               <p className={styles.label__p}>Main text</p>
               <div className={styles.ReactQuill}>
               <ReactQuill
-                theme="snow"
-                value={dataModal.en.text}
+                modules={modules} 
+                value={dataModal.en.text.length > 0 ? dataModal.en.text : currentInfoItem ? currentInfoItem.en.text : dataModal.en.text}
                 onChange={(e) => handleChangeModalWithLang('text', e, 'en')}
                             
                  />
               </div>
-            </label>
+            </div>
           </div>
         )}
 
@@ -354,33 +447,40 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
             }
           )}
           >
+
+          {(type === 'services' && func === 'updateInfo') && (
+            <p className={styles.serviceType}>{`${currentInfoItem.serviceType.ru}:`} </p>
+          )}
              <input
               type="text"
               placeholder="заголовок"
-              value={dataModal.ru.title}
+              value={dataModal.ru.title.length > 0 ? dataModal.ru.title : currentInfoItem ? currentInfoItem.ru.title : dataModal.ru.title}
               className={styles.input}
               onChange={(e) => handleChangeModalWithLang('title', e.target.value, 'ru')} 
               autoFocus
               ref={inputRef}
             />
-            <textarea
+            {type !== "services" && (
+              <textarea
               type="text"
               placeholder="превью"
-              value={dataModal.ru.preview}
+              value={dataModal.ru.preview.length > 0 ? dataModal.ru.preview : currentInfoItem ? currentInfoItem.ru.preview : dataModal.ru.preview}
               className={styles.input}
               onChange={(e) => handleChangeModalWithLang('preview', e.target.value, 'ru')} 
             />
-            <label className={styles.label}>
+            )}
+            
+            <div className={styles.label}>
               <p className={styles.label__p}>Основной текст</p>
               <div className={styles.ReactQuill}>
               <ReactQuill
-                theme="snow"
-                value={dataModal.ru.text}
+                modules={modules} 
+                value={dataModal.ru.text.length > 0 ? dataModal.ru.text : currentInfoItem ? currentInfoItem.ru.text : dataModal.ru.text}
                 onChange={(e) => handleChangeModalWithLang('text', e, 'ru')}
                             
                  />
               </div>
-            </label>
+            </div>
           </div>
         )}
       </div>
@@ -388,7 +488,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           className={styles.input} 
           type="text"
           placeholder="путь в формате 'vyezd-s-ukrainy'"
-          value={dataModal.path}
+          value={dataModal.path.length > 0 ? dataModal.path : currentInfoItem ? currentInfoItem.path : dataModal.path}
           onChange={(e) => handleChangeModal('path', e.target.value )} 
         />
         <button type="submit" className={styles.submitButton}>
@@ -396,4 +496,4 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
         </button>
     </form>
   )
-}
+};

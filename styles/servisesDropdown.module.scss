@@ -81,11 +81,12 @@
     &__item {
       display: flex;
       align-items: center;
-      height: 40px;
+      min-height: 40px;
       padding-left: 44px;
       padding-right: 20px;
       font-size: 16px;
       line-height: 120%;
+      height: max-content;
   
       margin-bottom: 10px;
   

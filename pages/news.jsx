@@ -27,7 +27,7 @@ export default function NewsPage ({ news }) {
               return new Date(b.dateCreating) - new Date(a.dateCreating);
             }).map(el => {
               return (
-                <NewsItem item={el} key={el.id} />
+                <NewsItem item={el} key={el.id} isNews={true} />
               );
             })}
           </div>

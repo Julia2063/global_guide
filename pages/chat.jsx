@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { PageNavigation } from '../components/PageNavigation';
-import { rightTitle } from '../helpers/rightData';
-import { convertJsonToHTML } from '../helpers/convertJsonToHTML';
 
 import chatPage from '../api/chatPage.json';
 import { useRouter } from 'next/router';
@@ -10,6 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from '../components/Layout';
 
 import styles from '../styles/itemPage.module.scss';
+import { getRightData } from '../helpers/rightData';
 
 export default function ChatPage () {
   const { t }  = useTranslation();
@@ -30,18 +29,12 @@ export default function ChatPage () {
         <div className="container">
           <div className={styles.itemPage}>
             <h1 className={`page__title ${styles.itemPage__title}`}>
-              {rightTitle(chatPage, locale)}
+              {getRightData(chatPage, locale, 'title')}
             </h1>
-            <article className={styles.itemPage__text}>
-              {locale === 'ua' 
-                && (convertJsonToHTML(chatPage.textUA || {}))}
-              {locale === 'ru'
-                 && (convertJsonToHTML(chatPage.textRU || {}))}
-              {locale === 'en' 
-                && (convertJsonToHTML(chatPage.textEN || {}))}
-            </article>
-
-            
+            <article 
+              className={styles.itemPage__text}
+              dangerouslySetInnerHTML={{ __html:  getRightData(chatPage, locale, 'text')}}
+            />
           </div>
           <button className="button-extension  chatPage__button">
             <Link href="/">

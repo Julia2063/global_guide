@@ -10,11 +10,9 @@ import { useRouter } from 'next/router';
 
 import styles from '../styles/banner.module.scss'; 
 import stylesHome from '../styles/homePage.module.scss'; 
+import { getCollection } from '../helpers/firebaseControl';
 
-import questions from '../api/questions.json';
-import explanations from '../api/explanations.json';
-
-export default function HomePage() {
+export default function HomePage({ questions, explanations }) {
 	const [filterValue, setFilterValue] = useState({
 		personType: '',
 		serviseType: '',
@@ -122,7 +120,7 @@ export default function HomePage() {
               </button>
             </div>
             <div className={stylesHome.homePage__questions}>
-              {questions.map(question => 
+              {questions.slice(0, 5).map(question => 
                 <DropdownWithText
                   item={question}
                   key={question.id} 
@@ -149,7 +147,7 @@ export default function HomePage() {
             </div>
             <div className={stylesHome.homePage__explanation}>
 
-              {explanations.map(explanation => 
+              {explanations.slice(0, 6).map(explanation => 
                 <Explanation 
                   item={explanation}
                   key={explanation.id}
@@ -170,10 +168,11 @@ export default function HomePage() {
 	);
 }
 
-export async function getStaticProps({ locale }) {
-	return {
-		props: {
-			...(await serverSideTranslations(locale, ['common'])),
-		},
-	}
+export async function getServerSideProps({ locale }) {
+
+  const questions = await getCollection('questions');
+  const explanations = await getCollection('explanations');
+  return { props: { questions, explanations,
+    ...await serverSideTranslations(locale, ['common'])
+  } };
 }

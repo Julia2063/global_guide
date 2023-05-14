@@ -6,6 +6,8 @@ import { useTranslation } from 'next-i18next';
 import styles from '../styles/layout.module.scss'; 
 
 export const Layout = ({ children, title, type, desctiption, h1 }) => {
+
+  console.log(type);
   const { t }  = useTranslation();
   const titleExpression = () => {
     switch (type) {
@@ -18,10 +20,16 @@ export const Layout = ({ children, title, type, desctiption, h1 }) => {
       case 'news page':
         return `${title} • ${t('head.news.new')} Global Guide Service`;
 
+      case 'post page':
+        return `${title} • ${t('head.post.title')} Global Guide Service`;
+
+      case 'serviceItem page':
+        return `${title} • ${t('head.service.title')} | Global Guide Service`;
+
       default: 
         return '';
-    }
-  }
+    } 
+  };
     return (
         <>
             <Head>

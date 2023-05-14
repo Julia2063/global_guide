@@ -5,14 +5,13 @@ import { clsx } from 'clsx';
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next';
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
-import { rightTitle } from '../helpers/rightData';
+import { getRightData } from '../helpers/rightData';
 import { useRouter } from 'next/router';
 
 import styles from '../styles/dropdownWithText.module.scss'; 
 
 export const DropdownWithText = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { textEN, textRU, textUA, path } = item;
   const { t }  = useTranslation();
 
   const { locale } =  useRouter();
@@ -45,7 +44,7 @@ export const DropdownWithText = ({ item }) => {
             />
           </button>
           <h3 className="page__title-2">
-            {rightTitle(item, locale)}
+            {getRightData(item, locale, 'title')}
           
           </h3>
           <button 
@@ -64,9 +63,9 @@ export const DropdownWithText = ({ item }) => {
         </div>
         {isOpen && (
           <div className={styles.dropdownWithText__text}>
-            {item.ru.text}
+             {getRightData(item, locale, 'preview')}
             <button className={`button ${styles.dropdownWithText__text__button}`}>
-              <Link href={path}>
+              <Link href={`/questions/${item.path}`}>
                 <p>
                   {t('homePage.knowMore')}
                 </p>

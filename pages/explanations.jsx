@@ -2,13 +2,13 @@ import { useTranslation } from 'next-i18next';
 import { Explanation } from '../components/Explanation';
 import { PageNavigation } from '../components/PageNavigation';
 
-import explanations from '../api/explanations.json';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from '../components/Layout';
 
 import styles from '../styles/homePage.module.scss';
+import { getCollection } from '../helpers/firebaseControl';
 
-export default function ExplanationsPage () {
+export default function ExplanationsPage ({  explanations }) {
 
   const { t }  = useTranslation();
 
@@ -44,8 +44,9 @@ export default function ExplanationsPage () {
 };
 
 export async function getStaticProps({ locale }) {
+  const explanations = await getCollection('explanations');
 	return {
-		props: {
+		props: { explanations,
 			...(await serverSideTranslations(locale, ['common'])),
 		},
 	}

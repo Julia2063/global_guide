@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 import styles from '../styles/newsItem.module.scss';
 
-export const NewsItem = ({ item }) => {
+export const NewsItem = ({ item, isNews }) => {
   const { t }  = useTranslation();
   const { locale } = useRouter();
 
@@ -29,11 +29,20 @@ export const NewsItem = ({ item }) => {
             {getRightData(item, locale, 'preview')}
           </p>
           <button className={`button ${styles.newsItem__button} onDesktop`}>
-            <Link 
+            {isNews ? (
+              <Link 
               href='/news/[path]' as={`/news/${item.path}`}
             >
               <p>{t('explanations.readMore')}</p>
             </Link>
+            ) : (
+              <Link 
+              href='/services/citizenship/[path]' as={`/services/citizenship/${item.path}`}
+            >
+              <p>{t('explanations.readMore')}</p>
+            </Link>
+            )}
+            
           </button>
         </div>
 
