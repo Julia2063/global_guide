@@ -5,9 +5,7 @@ import { useTranslation } from 'next-i18next';
 
 import styles from '../styles/layout.module.scss'; 
 
-export const Layout = ({ children, title, type, desctiption, h1 }) => {
-
-  console.log(type);
+export const Layout = ({ children, title, type, desctiption, h1, script }) => {
   const { t }  = useTranslation();
   const titleExpression = () => {
     switch (type) {
@@ -27,15 +25,35 @@ export const Layout = ({ children, title, type, desctiption, h1 }) => {
         return `${title} • ${t('head.service.title')} | Global Guide Service`;
 
       default: 
-        return '';
+        return `${title} | Global Guide Service`;
     } 
   };
+
+  const addJsonLd = () => {
+    return {
+      __html: script,
+    }
+  };
+  
     return (
         <>
             <Head>
                 <title>{titleExpression()}
                 </title>
-                <meta name="description" content={desctiption} />
+                {type !== 'sitemap page' &&
+                 <meta name="description" content={desctiption} />
+                }
+               
+                {type === 'sitemap page' && 
+                <meta name="robots" content="noindex, follow, noarchive" />
+                }
+                {script && (
+                  <script 
+                    type="application/ld+json" 
+                    dangerouslySetInnerHTML={addJsonLd()}
+                />
+                )}
+                 
             </Head>
             <Header />
             <main>

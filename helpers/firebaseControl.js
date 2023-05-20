@@ -163,7 +163,7 @@ export function createNewUser(user, regInfo) {
           resolve(data);
       }).catch((error) =>
   reject(error))
-  })}
+  })};
 
   export function getTitleOfServices (locale) {
     return new Promise(function (resolve, reject) {
@@ -172,6 +172,20 @@ export function createNewUser(user, regInfo) {
           res.forEach((doc) => {
             data.push(
               [`${doc.data().serviceType[locale]}: ${doc.data()[locale].title}`, doc.data().type, doc.data().path]
+            );
+          });
+          resolve(data);
+      }).catch((error) =>
+  reject(error))
+  })};
+
+  export function getFieldsOfPosts (collection, field) {
+    return new Promise(function (resolve, reject) {
+      db.collection(collection).get().then(res => {
+        const data = [];
+          res.forEach((doc) => {
+            data.push(
+              doc.data()[field]
             );
           });
           resolve(data);

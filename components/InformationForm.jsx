@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
+import {format} from 'date-fns';
 import dynamic from "next/dynamic";
 import { clsx } from 'clsx';
 
@@ -155,7 +156,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
   const handleChangeModal = (fieldName, newValue) => {
     setDataModal({
       ...dataModal,
-      [fieldName]: newValue,
+      [fieldName]: newValue.trim(),
     });
   };
 
@@ -178,7 +179,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
 
         path: dataModal.path,
       });
-
+      
       if (newData.some(el => el.length !== 0)) {
         try {
           type === 'services' ? 
@@ -198,6 +199,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
             },
 
             path: dataModal.path.length > 0  ? dataModal.path : currentInfoItem.path,
+            dateCreating: format(new Date(), 'yyyy-MM-dd HH:mm'),
             
           }, currentInfoItem.idPost)
 
@@ -216,11 +218,12 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
             },
             ua: {
               title: dataModal.ua.title.length > 0  ? dataModal.ua.title : currentInfoItem.ua.title, 
-              preview: dataModal.en.preview.length > 0  ? dataModal.en.preview : currentInfoItem.en.preview,
+              preview: dataModal.ua.preview.length > 0  ? dataModal.ua.preview : currentInfoItem.ua.preview,
               text: dataModal.ua.text.length > 0  ? dataModal.ua.text : currentInfoItem.ua.text,
             },
 
             path: dataModal.path.length > 0  ? dataModal.path : currentInfoItem.path,
+            dateCreating: format(new Date(), 'yyyy-MM-dd HH:mm'),
             
           }, currentInfoItem.idPost);
 
@@ -258,9 +261,8 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
       }
     );
 
-    console.log(dataModal.ua.text);
-    console.log(dataModal.en.text);
-    console.log(dataModal.ru.text);
+    console.log(dataModal);
+  
   return (
     <form className={styles.form} onSubmit={(e) => handleSubmitModal(e)}>
       <div className={styles.image}>

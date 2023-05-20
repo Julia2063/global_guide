@@ -35,6 +35,9 @@ export const Footer = () => {
             <Link href="/services" className={styles.footer__link}>
               {t('navbar.services')}
             </Link>
+            <Link href="/sitemap" className={styles.footer__link}>
+              {t('pageNavigation.sitemap')}
+            </Link>
           </section>
           <section className={`${styles.footer__section} ${styles.footer__section__3}`}>
 

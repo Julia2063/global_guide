@@ -12,7 +12,16 @@ import styles from '../styles/banner.module.scss';
 import stylesHome from '../styles/homePage.module.scss'; 
 import { getCollection } from '../helpers/firebaseControl';
 
+import Separator from '../public/separator.svg';
+
+import { BASE_URL } from './sitemap.xml';
+
+import { getRightData } from '../helpers/rightData';
+
+import { ButtonUp } from '../components/ButtonUp';
+
 export default function HomePage({ questions, explanations }) {
+  
 	const [filterValue, setFilterValue] = useState({
 		personType: '',
 		serviseType: '',
@@ -71,6 +80,46 @@ export default function HomePage({ questions, explanations }) {
       title={t('head.home.title')}
       desctiption={t('head.home.description')}
       h1={t('head.home.h1')}
+      script={`
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "${BASE_URL}",
+            "logo": "${BASE_URL}/logo_dark.svg"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "${BASE_URL}",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "${BASE_URL}/search?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }, 
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              ${questions.map(el => {
+                return (
+                   `{
+              "@type": "Question",
+              "name": "${getRightData(el, locale, 'title')}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "${getRightData(el, locale, "preview")}"
+              }
+            }`
+                )
+              })}
+             ]
+          }
+        ]`}
     >
       <div className={styles.banner}>
         <div className="container">
@@ -134,7 +183,11 @@ export default function HomePage({ questions, explanations }) {
             </div>
           </section>
         </div>
-        <div className="separator onDesktop" />
+        <div className="separator onDesktop" 
+          
+        >
+          <Separator/> 
+        </div>
         <div className="page"> 
           <section className="container">
             <div className={`${stylesHome.homePage__title} page__title-with-extension`}>
@@ -164,7 +217,9 @@ export default function HomePage({ questions, explanations }) {
           </section>
         </div>
       </div>
+       <ButtonUp />
 	</Layout>
+ 
 	);
 }
 

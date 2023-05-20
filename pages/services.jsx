@@ -4,7 +4,7 @@ import { PageNavigation } from '../components/PageNavigation';
 
 import { ServisesDropdown } from '../components/ServisesDropdown';
 import { ServisesButton } from '../components/ServisesButton';
-import { getRightData } from '../helpers/rightData';
+import { getRightData, getRightURL } from '../helpers/rightData';
 
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -21,16 +21,14 @@ import Leg from '../public/leg.svg';
 import Doc from '../public/doc.svg';
 import Monitor from '../public/monitor.svg';
 
-
 import styles from '../styles/servicesPage.module.scss';
 import { getCollection } from '../helpers/firebaseControl';
 
+import { BASE_URL } from './sitemap.xml';
+
 export default function Services({ services }) {
   const { t }  = useTranslation();
-  const { locale } = useRouter();
-
-  console.log(services);
-
+  const { locale, pathname } = useRouter();
 
   const borderControl = services
     .filter(service => service.serviceType[locale] === (
@@ -81,14 +79,58 @@ export default function Services({ services }) {
 
   useEffect (() => {
     setFilter(t('services.allServices'));
-  }, [t]);
-  
+  }, [t]);  
 
   return (
     <Layout
       type='service page'
       desctiption={`⭐${t('navbar.services')}⭐ ${t('head.home.description')}`  }
       h1={t('navbar.services')}
+      script={`[
+        {
+            "@context": "http://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement":
+              [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "item":
+                  {
+                    "@id": "${BASE_URL}",
+                    "name": "${t('pageNavigation.main')}"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item":
+                  {
+                    "@id": "${getRightURL(locale, pathname)}",
+                    "name": "${t('navbar.services')}"
+                  }
+                }
+              ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              ${services.filter(el => el.id !== '147406030952').map(el => {
+                return (
+                   `{
+              "@type": "Question",
+              "name": "${el.serviceType[locale]}: ${getRightData(el, locale, 'title')}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "${getRightData(el, locale, "text").slice(0, 250) + '...'}"
+              }
+            }`
+                )
+              })}
+             ]
+          }
+        ]`}
     >
       <div className="container">
         <PageNavigation pageType={'servises'}/>

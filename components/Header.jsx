@@ -1,10 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link'
-
-import PropTypes from 'prop-types';
+import { useState, useEffect, useRef, useContext } from 'react';
+import Link from 'next/link';
 
 import { useWindowSize } from '../hooks/useWindowSize';
-import { getRightData, rightTitle, rightTitle2 } from '../helpers/rightData';
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
 import { Navbar } from './Navbar';
 import { InputSearchDropdown } from './InputSearchDropdown';
@@ -19,7 +16,7 @@ import LogoDark from '../public/logo_dark.svg';
 import Menu from '../public/menu.svg';
 
 import styles from '../styles/header.module.scss';
-import { getTitleOfPosts, getTitleOfServices } from '../helpers/firebaseControl';
+import { AppContext } from './AppProvider';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,21 +27,21 @@ export const Header = () => {
   const [hideOrShow, setHideOrSwow] = useState({});
   const [isSearch, setIsSearch] = useState(false);
   const [isSearchDropdown, setIsSearchDropdown] = useState(true);
+ 
 
   const { width } = useWindowSize();
   const { locale, locales, pathname, query } = useRouter()
 
   const { t } = useTranslation('common');
 
+  const { titleArr } = useContext(AppContext);
+
   const refLanguageValues = useRef();
   const inputRef = useRef();
- 
+
   useOnClickOutside(refLanguageValues, () => setIsOpen(false));
   useOnClickOutside(inputRef, () => handleCloseSearchDropdown());
  
-
-
-  
   const handleMenu = () => {
     setIsOpenMenu((prev) => !prev);
     if (width < 769) {
@@ -77,8 +74,6 @@ export const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  
-
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 || event.keyCode === 27) {
       setSearchQuery('');
@@ -90,48 +85,37 @@ export const Header = () => {
     setIsSearch(!isSearch);
   };
 
-  function getSearch () { 
-    
-    const searchArr =
-      [...arguments].reduce((start, el) => start.concat(el), []);
+  function getSearch (arr) {
 
-    return searchArr.filter(el => {
+    return arr.filter(el => {
       return  (
         el[0].toLowerCase().includes(searchQuery.toLowerCase()) 
       );
     });
   };
 
-  const handleChange = async(event) => {
+  const handleChange = (event) => {
     const { value } = event.target;
     setSearchQuery(value);
-    setIsSearchDropdown(true);
-    try {
-      const newsTitles = await getTitleOfPosts('news', locale);
-      const questionsTitles = await getTitleOfPosts('questions', locale);
-      const explanationsTitles = await getTitleOfPosts('explanations', locale);
-      const servicesTitles = await getTitleOfServices(locale);
-      const citizenshipTitles = await getTitleOfPosts('citizenship', locale);
-      const searchResult =  getSearch(
-        newsTitles,
-        questionsTitles, 
-        explanationsTitles,
-        servicesTitles,
-        citizenshipTitles,
-      );
-      if (searchQuery.length > 0) {
-        setSearch(searchResult);
-      }
-    } catch (error){
-      alert (error);
-    }
   };
+      
+
+  useEffect(() => {
+    const searchResult = getSearch(titleArr);
+    setSearch(searchResult);
+  }, [searchQuery]);
  
   const handleCloseSearchDropdown = () => {
     if (searchQuery.length > 0) {
       setIsSearchDropdown(!isSearchDropdown);
+      setSearchQuery('');
     }
-    setSearchQuery('');
+  };
+
+  const handleFocus = () => {
+    
+    setIsSearchDropdown(true);
+ 
   };
   
   return (
@@ -145,11 +129,8 @@ export const Header = () => {
               placeholder={t('header.search')}
               value={searchQuery}
               onChange={handleChange}
-              onFocus={() => {
-                setIsSearchDropdown(true);
-              }}
-              onKeyDown={handleKeyDown}
-              
+              onFocus={handleFocus}
+              onKeyDown={handleKeyDown}   
             />
             <SearchIcon className={styles.header__img}/>
             {(isSearchDropdown && searchQuery.length > 0 && search.length > 0) && (
@@ -204,9 +185,7 @@ export const Header = () => {
                 placeholder="Пошук"
                 value={searchQuery}
                 onChange={handleChange}
-                onFocus={() => {
-                  setIsSearchDropdown(true);
-                }}
+                onFocus={handleFocus}
                 onKeyDown={handleKeyDown}
               />
               <SearchIcon className={styles.header__img__mobile}/>
@@ -215,13 +194,13 @@ export const Header = () => {
                 <CrossGray height={15} width={15}/>
               </button>
 
-              {(isSearchDropdown && query.length > 0 && search.length > 0)
-                    && (
-                      <InputSearchDropdown 
-                        search={search} 
-                        handleCloseSearchDropdown={handleCloseSearchDropdown}
-                      />
-                    )}
+              {(isSearchDropdown && searchQuery.length > 0 && search.length > 0)
+                && (
+                  <InputSearchDropdown 
+                    search={search} 
+                    handleCloseSearchDropdown={handleCloseSearchDropdown}
+                  />
+              )}
             </label>
           }
           {!isSearch && (
@@ -242,10 +221,5 @@ export const Header = () => {
       </div>
     </header>
   );
-};
-
-Header.propType = {
-  language: PropTypes.string, 
-  setLanguage: PropTypes.func, 
 };
 

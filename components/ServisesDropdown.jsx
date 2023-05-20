@@ -24,8 +24,6 @@ export const ServisesDropdown = ({ title, Img, values }) => {
     }
   };
 
-  console.log(values);
-
   return (
     <div className={styles.servisesDropdown} ref={refServisesDrop}>
       <label className={styles.servisesDropdown__label}>

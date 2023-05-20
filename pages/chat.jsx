@@ -9,17 +9,54 @@ import { Layout } from '../components/Layout';
 
 import styles from '../styles/itemPage.module.scss';
 import { getRightData } from '../helpers/rightData';
+import { BASE_URL } from './sitemap.xml';
+
+import { getRightURL } from '../helpers/rightData';
+import { ButtonUp } from '../components/ButtonUp';
 
 export default function ChatPage () {
   const { t }  = useTranslation();
 
-  const { locale } = useRouter();
+  const { locale, pathname } = useRouter();
   
   return (
     <Layout
       type='service page'
       title={t('navbar.chat')}
-      desctiption={`⭐${t('navbar.chat')}⭐ ${t('head.home.description')}`  }
+      desctiption={`⭐${t('navbar.chat')}⭐ ${t('head.home.description')}`}
+      script={`[
+        {
+          "@context": "http://schema.org",
+          "@type": "Article",
+          "name": "${getRightData(chatPage, locale, 'title')}",
+          "author": "Global Guide Service",
+          "articleBody": "${getRightData(chatPage, locale, 'text')}"
+        },
+        {
+            "@context": "http://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement":
+              [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "item":
+                  {
+                    "@id": "${BASE_URL}",
+                    "name": "${t('pageNavigation.main')}"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item":
+                  {
+                    "@id": "${getRightURL(locale, pathname)}",
+                    "name": "${t('navbar.chat')}"
+                  }
+                }
+              ]
+          }]`}
     >
       <div className="container">
         <PageNavigation />
@@ -43,6 +80,7 @@ export default function ChatPage () {
           </button>
         </div>
       </div>
+      <ButtonUp />
     </Layout>
   );
 };

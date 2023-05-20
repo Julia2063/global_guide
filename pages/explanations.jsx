@@ -7,16 +7,48 @@ import { Layout } from '../components/Layout';
 
 import styles from '../styles/homePage.module.scss';
 import { getCollection } from '../helpers/firebaseControl';
+import { getRightURL } from '../helpers/rightData';
+
+import { BASE_URL } from './sitemap.xml';
+import { useRouter } from 'next/router';
 
 export default function ExplanationsPage ({  explanations }) {
 
   const { t }  = useTranslation();
+  const { locale, pathname } = useRouter();
+  
 
   return (
     <Layout
       type='service page'
       title={t('navbar.explanations')}
-      desctiption={`⭐${t('navbar.explanations')}⭐ ${t('head.home.description')}`  }
+      desctiption={`⭐${t('navbar.explanations')}⭐ ${t('head.home.description')}`}
+      script={`
+        {
+            "@context": "http://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement":
+              [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "item":
+                  {
+                    "@id": "${BASE_URL}",
+                    "name": "${t('pageNavigation.main')}"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item":
+                  {
+                    "@id": "${getRightURL(locale, pathname)}",
+                    "name": "${t('navbar.explanations')}"
+                  }
+                }
+              ]
+          }`}
     >
       <div className="container">
         <PageNavigation />
@@ -43,7 +75,7 @@ export default function ExplanationsPage ({  explanations }) {
   );
 };
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   const explanations = await getCollection('explanations');
 	return {
 		props: { explanations,

@@ -67,7 +67,8 @@
       },
 
       "pageNavigation": {
-        "main": "Home"
+        "main": "Home",
+        "sitemap": "Site Map"
       },
 
       "footer": {
@@ -120,5 +121,16 @@
         "password": "* The password must contain at least 6 digits!"
       },
 
-      "logOut": "LogOut"
+      "logOut": "LogOut",
+
+      "microdatas": {
+        "newsAbout": "Law news for foreigners",
+        "explanationsAbout": "Explanations on the Global Guide Service website"
+      },
+
+      "errorPage": {
+        "h2": "Sorry, this page is not available",
+        "p": "You may have used an invalid link or this page has been removed",
+        "button": "Return to previous page"
+      }
   }

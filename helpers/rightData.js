@@ -1,51 +1,4 @@
-export const rightTitle = (item, language) => {
-  switch (language.split('-')[0]) {
-  case 'en': 
-    return item.titleEN;
-
-  case 'ru': 
-    return item.titleRU;
-
-  case 'ua': 
-    return item.titleUA;
-
-  default: 
-    return;
-  }
-};
-
-export const rightTitle2 = (item, language) => {
-  switch (language.split('-')[0]) {
-  case 'en': 
-    return item.title2EN;
-
-  case 'ru': 
-    return item.title2RU;
-
-  case 'ua': 
-    return item.title2UA;
-    
-  default: 
-    return;
-  }
-};
-
-export const rightPreview = (item, language) => {
-  switch (language.split('-')[0]) {
-  case 'en': 
-    return item.previewEN;
-
-  case 'ru': 
-    return item.previewRU;
-
-  case 'ua': 
-    return item.previewUA;
-
-  default: 
-    return;
-  }
-};
-
+import { BASE_URL } from '../pages/sitemap.xml';
 
 export const getRightData = (item, language, key) => {
   switch (language) {
@@ -63,7 +16,15 @@ export const getRightData = (item, language, key) => {
   }
 };
 
-export const splitTwoPoints = (string) => {
-  const i = string.indexOf(':');
-  return string.slice(i + 2);
-};
+export const getRightURL = (locale, pathname) => {
+  switch (locale) {
+    case 'ru':
+      return `${BASE_URL}/ru${pathname}`;
+      
+    case 'en':
+      return `${BASE_URL}/en${pathname}`;
+
+    default: 
+      return `${BASE_URL}${pathname}`;
+  }
+}

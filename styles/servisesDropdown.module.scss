@@ -51,15 +51,19 @@
       position: absolute;
       top: 30px;
       left: 30px;
+
+      & svg {
+        width: 36px;
+      }
   
       @include onMobile {
         width: 30px;
         height: 30px;
         top: 12px;
         left: 12px;
-  
-        & img {
-          width: 20px;
+
+        & svg {
+          width: 17px;
         }
       }
   

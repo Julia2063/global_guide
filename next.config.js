@@ -1,16 +1,24 @@
 /** @type {import('next').NextConfig} */
 
-const { i18n } = require('./next-i18next.config')
+const { i18n } = require('./next-i18next.config');
+const path = require('path');
 
 const nextConfig = {
 	images: {
-		loader: 'akamai',
-		path: '',
+		remotePatterns: [
+		  {
+			protocol: 'https',
+			hostname: 'firebasestorage.googleapis.com',
+			port: '',
+			pathname: '/**',
+		  },
+		],
 	  },
-	  assetPrefix: './',
-	webpack: (config, options) => {
+	sassOptions: {
+		includePaths: [path.join(__dirname, 'styles')],
+	  },
+	webpack: (config) => {
 		config.resolve.fallback = { fs: false };
-		
 		config.module.rules.push({
 			loader: '@svgr/webpack',
 			issuer: /\.[jt]sx?$/,

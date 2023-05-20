@@ -8,13 +8,46 @@ import { useTranslation } from 'next-i18next';
 import styles from '../styles/newsPage.module.scss';
 import { getCollection } from '../helpers/firebaseControl';
 
+import { BASE_URL } from './sitemap.xml';
+import { useRouter } from 'next/router';
+import { getRightURL } from '../helpers/rightData';
+
 export default function NewsPage ({ news }) {
   const { t }  = useTranslation();
+
+  const { locale, pathname } = useRouter();
+
   return (
     <Layout
       type='service page'
       desctiption={`⭐${t('navbar.news')}⭐ ${t('head.home.description')}`  }
       h1={t('navbar.news')}
+      script={`
+        {
+            "@context": "http://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement":
+              [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "item":
+                  {
+                    "@id": "${BASE_URL}",
+                    "name": "${t('pageNavigation.main')}"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item":
+                  {
+                    "@id": "${getRightURL(locale, pathname)}",
+                    "name": "${t('navbar.news')}"
+                  }
+                }
+              ]
+          }`}
     >
       <div className="container">
         <PageNavigation />

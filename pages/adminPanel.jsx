@@ -43,9 +43,6 @@ export default function AdminPanel () {
     });
   }, []);
 
-  console.log(news);
-  console.log(services);
-
   const handleModal = () => {
     setIsModal(!isModal);
   };
@@ -152,7 +149,7 @@ export default function AdminPanel () {
           <div className={styles.body__item__content}>
             <p>Услуги</p>
             <CustomeSwiper 
-              array={services}
+              array={services.filter(el => el.id !== '147406030952')}
               handleModalUpdate={handleModalUpdate}
               handleDelete={handleDelete}
             />

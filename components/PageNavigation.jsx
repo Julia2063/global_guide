@@ -11,8 +11,6 @@ export const PageNavigation = ({ title }) => {
 
   const pathnames = pathname.split('/').filter(el => el);
 
-
-  console.log(Object.values(query));
   return (
     <ul className={styles.pageNavigation}>
       <li>
@@ -22,7 +20,6 @@ export const PageNavigation = ({ title }) => {
       </li>
 
       {pathnames.map((el, index) => {
-        console.log(el);
         const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
         const isLast = index === pathnames.length - 1;
         const currentLocation = () => {
@@ -57,7 +54,7 @@ export const PageNavigation = ({ title }) => {
             </p>
           </li>
         ) : (currentLocation() ? (
-           <li key={pathname}>
+           <li key={pathname + index}>
             <p>
               <Link  href={routeTo}>
                 {`/ ${currentLocation()}`}

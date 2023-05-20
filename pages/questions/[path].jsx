@@ -6,13 +6,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getRightData } from '../../helpers/rightData';
 import { useRouter } from 'next/router';
 import { Layout } from '../../components/Layout';
+import ErrorPage from '../404';
 
 export default function QuestionsItemPage ({ questionItem }) {
 
   const { t }  = useTranslation();
   const { locale } = useRouter();
 
-  return (
+  return questionItem[0] ? (
     <Layout
       type='post page'
       title={getRightData(questionItem[0], locale, 'title')}
@@ -32,11 +33,11 @@ export default function QuestionsItemPage ({ questionItem }) {
         </div>
       </div>
     </Layout>
-  );
+  ) : <ErrorPage/> ;
 };
 
-export async function getServerSideProps({ params, locale }) {
-  const questionItem = await getCollectionWhereKeyValue('questions', 'path', params.path);
+export async function getServerSideProps({ params, locale, query }) {
+  const questionItem = await getCollectionWhereKeyValue('questions', 'path', query.q ? query.q : params.path);
   return { props: { questionItem,
     ...await serverSideTranslations(locale, ['common'])
   }};

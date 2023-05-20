@@ -32,7 +32,7 @@ export const CustomeSwiper = ({
 >
 {array && array.sort((a, b) => {
 
-return new Date(a.dateCreating) - new Date(b.dateCreating);
+return new Date(b.dateCreating) - new Date(a.dateCreating);
 }).map(el => (
 <SwiperSlide key={el.id}>
   <div className={styles.swiper__card} >
