@@ -42,6 +42,9 @@ export const PageNavigation = ({ title }) => {
           case 'citizenship':
             return t('citizenship.button');
 
+          case 'sitemap':
+            return t('pageNavigation.sitemap');
+
           default:
             return ;
           }

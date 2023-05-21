@@ -17,7 +17,6 @@ export default function Sitemap ({
     questionsTitles,
  }) {
 
-    console.log(newsTitles);
     const { t } = useTranslation();
     return (
         <Layout
@@ -25,7 +24,7 @@ export default function Sitemap ({
           title={t('pageNavigation.sitemap')}
         >
           <div className="container">
-            <PageNavigation pageType={'servises'}/>
+            <PageNavigation />
           </div>
           <div className="page page-bigBottom">
             <div className="container">
