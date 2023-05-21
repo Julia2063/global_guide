@@ -3,7 +3,7 @@ import { appWithTranslation } from 'next-i18next';
 import NextNProgress from 'nextjs-progressbar';
 
 require('dotenv').config();
-import '../styles/global.scss'
+import '../styles/global.scss';
 import { AppProvider } from '../components/AppProvider';
 
 function MyApp({ Component, pageProps }) {

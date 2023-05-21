@@ -23,13 +23,13 @@ export const ButtonUp = () => {
   };
 
   return (
-    <bytton 
+    <button 
       onClick={handleClick} 
       className={clsx(
         [styles.button],
         {[styles.hide]: scroll < 300}
       )}>
       ↑
-    </bytton>
+    </button>
   )
 }

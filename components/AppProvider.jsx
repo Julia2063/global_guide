@@ -19,8 +19,6 @@ export const AppProvider = ({ children }) => {
 
   const locale = router.locale;
 
-  console.log(titleArr);
-
   const getData = async() => {
     try {
         const newsTitles = await getTitleOfPosts('news', locale);
@@ -32,8 +30,7 @@ export const AppProvider = ({ children }) => {
     } catch (error){
       alert (error);
     }
-  };
-  
+  };  
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {

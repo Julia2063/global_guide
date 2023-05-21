@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 import { getAuth } from "firebase/auth";
-import { app } from "../firebase";
+import { app, realTimeDb } from "../firebase";
 import  { db }  from '../firebase';
 import { storage } from '../firebase';
 import { ref, deleteObject } from 'firebase/storage';
@@ -24,6 +24,45 @@ export async function  getCollection (collection)    {
     });
   });
 };
+
+export async function  getTitleOfPosts (col, locale) {
+  return new Promise(function (resolve) {
+  
+    db.collection(col).onSnapshot(function(snapshot) {
+      const titles = [];
+      snapshot.docs.forEach(el => 
+        titles.push([
+          el._delegate._document.data.value.mapValue.fields[locale].mapValue.fields.title.stringValue,
+          el._delegate._document.data.value.mapValue.fields.type.stringValue,
+          el._delegate._document.data.value.mapValue.fields.path.stringValue,
+        ]
+          ));
+          resolve(titles);
+  })
+  }).catch(err => {
+    alert(err);
+});
+};
+
+export async function getTitleOfServices (locale) {
+  return new Promise(function (resolve) {
+  
+    db.collection('services').onSnapshot(function(snapshot) {
+      const titles = [];
+      snapshot.docs.forEach(el => 
+        titles.push([
+          `${el._delegate._document.data.value.mapValue.fields.serviceType.mapValue.fields[locale].stringValue}: ${el._delegate._document.data.value.mapValue.fields[locale].mapValue.fields.title.stringValue}` ,
+          el._delegate._document.data.value.mapValue.fields.type.stringValue,
+          el._delegate._document.data.value.mapValue.fields.path.stringValue,
+        ]
+          ));
+          resolve(titles);
+  })
+  }).catch(err => {
+    alert(err);
+});
+};
+
 
 
 export function updateDocumentInCollection(collection, document, idDocumnent) {
@@ -150,48 +189,6 @@ export function createNewUser(user, regInfo) {
       });
     });
   };
-
-  export function getTitleOfPosts (collection, locale) {
-    return new Promise(function (resolve, reject) {
-      db.collection(collection).get().then(res => {
-        const data = [];
-          res.forEach((doc) => {
-            data.push(
-              [doc.data()[locale].title, doc.data().type, doc.data().path]
-            );
-          });
-          resolve(data);
-      }).catch((error) =>
-  reject(error))
-  })};
-
-  export function getTitleOfServices (locale) {
-    return new Promise(function (resolve, reject) {
-      db.collection('services').get().then(res => {
-        const data = [];
-          res.forEach((doc) => {
-            data.push(
-              [`${doc.data().serviceType[locale]}: ${doc.data()[locale].title}`, doc.data().type, doc.data().path]
-            );
-          });
-          resolve(data);
-      }).catch((error) =>
-  reject(error))
-  })};
-
-  export function getFieldsOfPosts (collection, field) {
-    return new Promise(function (resolve, reject) {
-      db.collection(collection).get().then(res => {
-        const data = [];
-          res.forEach((doc) => {
-            data.push(
-              doc.data()[field]
-            );
-          });
-          resolve(data);
-      }).catch((error) =>
-  reject(error))
-  })}
 
   export function createNewPost(postInfo, file, type, serviceType) {
     const id = Math.floor(Date.now() * Math.random()).toString();

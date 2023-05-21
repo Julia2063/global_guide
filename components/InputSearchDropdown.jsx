@@ -1,8 +1,3 @@
-import { useRef } from 'react';
-import Link from 'next/link'
-
-import { useOnClickOutside } from '../hooks/useOnClickOutside';
-
 import styles from '../styles/inputSearchDropdown.module.scss';
 import { useRouter } from 'next/router';
 
@@ -22,12 +17,8 @@ export const InputSearchDropdown = ({
 		});
 	};
 
-
-  const searchRef = useRef();
-  useOnClickOutside(searchRef, () => handleCloseSearchDropdown());
-
   return (
-    <ul className={styles.inputSearchDropdown} ref={searchRef}>
+    <ul className={styles.inputSearchDropdown} >
       {search.map((el, i) => {
         const getPath = () => {
           switch(true) {

@@ -16,6 +16,8 @@ export default function Sitemap ({
     explanationsTitles,
     questionsTitles,
  }) {
+
+    console.log(newsTitles);
     const { t } = useTranslation();
     return (
         <Layout

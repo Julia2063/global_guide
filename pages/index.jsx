@@ -21,6 +21,8 @@ import { getRightData } from '../helpers/rightData';
 import { ButtonUp } from '../components/ButtonUp';
 
 export default function HomePage({ questions, explanations }) {
+
+  
   
 	const [filterValue, setFilterValue] = useState({
 		personType: '',

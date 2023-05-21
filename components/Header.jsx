@@ -41,6 +41,7 @@ export const Header = () => {
 
   useOnClickOutside(refLanguageValues, () => setIsOpen(false));
   useOnClickOutside(inputRef, () => handleCloseSearchDropdown());
+
  
   const handleMenu = () => {
     setIsOpenMenu((prev) => !prev);
@@ -82,6 +83,7 @@ export const Header = () => {
   };
 
   const handleIsSearch = () => {
+    console.log('fwef');
     setIsSearch(!isSearch);
   };
 
@@ -106,10 +108,11 @@ export const Header = () => {
   }, [searchQuery]);
  
   const handleCloseSearchDropdown = () => {
-    if (searchQuery.length > 0) {
-      setIsSearchDropdown(!isSearchDropdown);
+    
+      setIsSearchDropdown(false);
       setSearchQuery('');
-    }
+      
+    
   };
 
   const handleFocus = () => {
@@ -117,6 +120,7 @@ export const Header = () => {
     setIsSearchDropdown(true);
  
   };
+
   
   return (
     <header className={styles.header}>
@@ -185,8 +189,8 @@ export const Header = () => {
                 placeholder="Пошук"
                 value={searchQuery}
                 onChange={handleChange}
-                onFocus={handleFocus}
                 onKeyDown={handleKeyDown}
+                
               />
               <SearchIcon className={styles.header__img__mobile}/>
                 
