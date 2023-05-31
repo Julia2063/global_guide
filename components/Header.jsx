@@ -109,6 +109,7 @@ export const Header = () => {
   const handleChange = (event) => {
     const { value } = event.target;
     setSearchQuery(value);
+    setIsSearchDropdown(true);
   };
       
 
@@ -196,7 +197,7 @@ export const Header = () => {
               <input 
                 type="text"
                 autoFocus 
-                placeholder="Пошук"
+                placeholder={t('header.search')}
                 value={searchQuery}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
