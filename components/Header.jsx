@@ -58,6 +58,16 @@ export const Header = () => {
     } 
   };
 
+  useEffect(()  => {
+    if (isOpenMenu) {
+      document.body.classList.add('overflowHidden');
+
+    } else {
+      document.body.classList.remove('overflowHidden');
+    }
+    
+  }, [isOpenMenu]);
+
   useEffect(() => {
     if (width > 769) {
       setHideOrSwow(() => {

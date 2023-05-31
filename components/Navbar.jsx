@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
@@ -10,8 +10,10 @@ import { useOnClickOutside } from '../hooks/useOnClickOutside';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { AppContext } from './AppProvider';
 
+import Choice from '../public/choice.svg';
 import LogoDark from '../public/logo_dark.svg';
 import Cross from '../public/cross.svg';
+import { useRouter } from 'next/router';
 
 export const Navbar = ({ 
   style,
@@ -19,6 +21,7 @@ export const Navbar = ({
   setHideOrSwow, 
   setIsOpenMenu 
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
   const { width } = useWindowSize();
 
@@ -26,18 +29,28 @@ export const Navbar = ({
   useOnClickOutside(refNavbar, () => {
     if (width < 769) {
       setIsOpenMenu(false);
-    setHideOrSwow(() => {
+      setHideOrSwow(() => {
     return { transform: 'translateX(100%)'};
-    })}
+    })};
+    setIsOpen(false);
     }
   );
  
   const { user } = useContext(AppContext);
+  const { locale, locales, pathname, query } = useRouter();
+  const refLanguageValues = useRef();
+
+  useOnClickOutside(refLanguageValues, () => setIsOpen(false));
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
       <div className={styles.navbar} style={style} ref={refNavbar}>
 
         <div className={styles.navbar__container}>
+       
           <div  className={`${styles.navbar__container__between} onMobile`} />
           <Link href="/">
             <LogoDark
@@ -49,8 +62,33 @@ export const Navbar = ({
           />
         </div>
 
-
+        <div className={`${styles.navbar__languageToogler} onMobile` } ref={refLanguageValues}>
+            <button className={styles.navbar__languageButton} onClick={toggle}>
+              {locale}
+              <Choice />
+            </button>
+            {isOpen && (
+              <ul className={styles.navbar__languageValues}>
+                {locales.map(el => (
+                  <li
+                    key={el}
+                    onClick={toggle}
+                  >
+                    <Link 
+                      href={{
+                        pathname:`${pathname}`,
+                        query,
+                      }} 
+                      locale={el}>
+							        {el}
+						        </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         <div className={styles.navbar__container}>
+          
           <li className={styles.navbar__item} onClick={handleMenu}>
             <PageNavLink href="/services" text={t('navbar.services')} />
           </li>
