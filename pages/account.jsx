@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { 
   sendPasswordResetEmail, 
   signInWithEmailAndPassword,
-  signOut,
 } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { Form } from '../components/Form';
@@ -78,16 +77,7 @@ export default function AccountPage () {
    
   };
 
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      setUser(null);
-
-    }).catch((error) => {
-      setIsModal(true);
-      setErrorTitle('Something went wrong...');
-      setErrorMessage(error.message);
-    });
-  };
+  
 
   return (
     <Layout
@@ -99,13 +89,7 @@ export default function AccountPage () {
         <div className="container">
           <div className={styles.formPage}>
             <div className={styles.formPage__form}>
-              {user ? (
-                <button 
-                  className={styles.formPage__form__button}
-                  onClick={handleSignOut}
-                >
-                  {t('logOut')}
-                </button>
+              {user ? (<div>Account</div>
               ):(
                 <Form 
                 formFunction="account"

@@ -32,7 +32,7 @@
         "chat": "Global чат",
         "about": "Про GGS",
         "news": "Новини",
-        "explanations": "Роз'яснення",
+        "explanations": "Посилання",
         "register": "Зареєструватися",
         "cabinet": "Вхід до кабінету",
         "login": "Вхід",
@@ -65,8 +65,8 @@
 
       "explanations": {
         "readMore": "Читати більше",
-        "explanations": "Роз'яснення",
-        "allExplanations": "Всі роз'яснення"
+        "explanations": "Посилання",
+        "allExplanations": "Всі посилання"
       },
 
       "pageNavigation": {
@@ -128,7 +128,7 @@
 
       "microdatas": {
         "newsAbout": "Новини юриспруденції для іноземців",
-        "explanationsAbout": "Роз'яснення на сайті Global Guide Service"
+        "explanationsAbout": "Посилання на сайті Global Guide Service"
       },
 
       "errorPage": {

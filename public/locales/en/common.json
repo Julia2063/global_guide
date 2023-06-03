@@ -31,7 +31,7 @@
         "chat": "Global chat",
         "about": "About GGS",
         "news": "News",
-        "explanations": "Explanations",
+        "explanations": "Links",
         "register": "Register",
         "cabinet": "Login to account",
         "login": "Login",
@@ -62,8 +62,8 @@
       },
       "explanations": {
         "readMore": "Read more",
-        "explanations": "Explanations",
-        "allExplanations": "All explanations"
+        "explanations": "Links",
+        "allExplanations": "All links"
       },
 
       "pageNavigation": {
@@ -125,7 +125,7 @@
 
       "microdatas": {
         "newsAbout": "Law news for foreigners",
-        "explanationsAbout": "Explanations on the Global Guide Service website"
+        "explanationsAbout": "Links on the Global Guide Service website"
       },
 
       "errorPage": {

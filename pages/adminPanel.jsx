@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import { auth, deleteImageFromStorage, removeDocumentFromCollection } from '../helpers/firebaseControl';
+import { auth } from '../helpers/firebaseControl';
 import { useRouter } from 'next/router';
 
 import styles from '../styles/adminPanel.module.scss';
@@ -8,9 +8,6 @@ import { useEffect, useState } from 'react';
 import { Modal } from '../components/Modal';
 import { InformationForm } from '../components/InformationForm';
 
-import  { db }  from '../firebase';
-import { CustomeSwiper } from '../components/CustomeSwiper';
-
 
 export default function AdminPanel () {
   const [isModal, setIsModal] = useState(false);
@@ -18,30 +15,6 @@ export default function AdminPanel () {
   const [type, setType] = useState('');
   const [currentInfoItem, setCurrentInfoItem] = useState(null);
   const [func, setFunc] = useState('updateInfo');
-
-  const [news, setNews] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [explanations, setExplanations] = useState([]);
-  const [services, setServices] = useState([]);
-  const [citizenship, setCitizenship] = useState([]);
-
-  useEffect(() => {
-    db.collection('news').onSnapshot(snapshot => {
-      setNews(snapshot.docs.map(doc => doc.data()))
-    });
-    db.collection('questions').onSnapshot(snapshot => {
-      setQuestions(snapshot.docs.map(doc => doc.data()))
-    });
-    db.collection('explanations').onSnapshot(snapshot => {
-      setExplanations(snapshot.docs.map(doc => doc.data()))
-    });
-    db.collection('services').onSnapshot(snapshot => {
-      setServices(snapshot.docs.map(doc => doc.data()))
-    });
-    db.collection('citizenship').onSnapshot(snapshot => {
-      setCitizenship(snapshot.docs.map(doc => doc.data()))
-    });
-  }, []);
 
   const handleModal = () => {
     setIsModal(!isModal);
@@ -65,40 +38,24 @@ export default function AdminPanel () {
     setFunc('addItem');
   };
 
-  const handleModalUpdate = (el) => {
-    setType(el.type)
-    setFunc('updateInfo');
-    setCurrentInfoItem(el);
-    setIsModal(true);
-    setTitleMessage(`Обновить ${el.type}`);
-    
-  };
+ 
 
-  const handleDelete = async (el) => {
-    try {
-      await removeDocumentFromCollection(`${el.type}`, el.idPost);
-      if (el.image.length > 0) {
-        await deleteImageFromStorage(el.image);
-      }
-    } catch (error) {
-      alert(error);
-    }
+  const handleClickCategory = (category) => {
+    router.push(`/adminPanel/${category}`);
   };
-
 
   return (
     <div className={styles.main}>
       <h1>Панель администратора</h1>
       <div className={styles.body}>
         <div className={styles.body__item}> 
-          <div className={styles.body__item__content}>
-            <p>Новости</p>
-           <CustomeSwiper 
-             array={news}
-             handleModalUpdate={handleModalUpdate}
-             handleDelete={handleDelete}
-            />
-          </div>
+            <div 
+              className={styles.body__item__content}
+              onClick={() => handleClickCategory('news')}
+            >
+              Новости
+            </div>
+  
           <button 
             name="news"
             className={styles.body__item__button}
@@ -109,6 +66,57 @@ export default function AdminPanel () {
         </div>
 
         <div className={styles.body__item}> 
+            <div 
+              className={styles.body__item__content}
+              onClick={() => handleClickCategory('questions')}
+            >
+              Вопросы
+            </div>
+  
+          <button 
+            name="questions"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'вопрос')}
+          >
+            +
+          </button>
+        </div>
+
+        <div className={styles.body__item}> 
+            <div 
+              className={styles.body__item__content}
+              onClick={() => handleClickCategory('explanations')}
+            >
+              Ссылки
+            </div>
+  
+          <button 
+            name="explanations"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'ссылку')}
+          >
+            +
+          </button>
+        </div>
+
+        <div className={styles.body__item}> 
+            <div 
+              className={styles.body__item__content}
+              onClick={() => handleClickCategory('services')}
+            >
+              Услуги
+            </div>
+  
+          <button 
+            name="services"
+            className={styles.body__item__button}
+            onClick={(e) => handleClick(e, 'услугу')}
+          >
+            +
+          </button>
+        </div>
+
+       {/*  <div className={styles.body__item}> 
           <div className={styles.body__item__content}>
             <p>Вопросы</p>
             <CustomeSwiper 
@@ -179,7 +187,7 @@ export default function AdminPanel () {
           >
             +
           </button>
-        </div>
+        </div> */}
 
       </div>
       <button 

@@ -15,6 +15,9 @@ import LogoDark from '../public/logo_dark.svg';
 import Cross from '../public/cross.svg';
 import { useRouter } from 'next/router';
 
+import { auth } from '../helpers/firebaseControl';
+import { signOut } from 'firebase/auth';
+
 export const Navbar = ({ 
   style,
   handleMenu,  
@@ -44,6 +47,15 @@ export const Navbar = ({
 
   const toggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      setUser(null);
+
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   return (
@@ -96,21 +108,32 @@ export const Navbar = ({
             <PageNavLink href="/chat" text={t('navbar.chat')} />
           </li>
           <li className={styles.navbar__item} onClick={handleMenu}>
-            <PageNavLink href="/about" text={t('navbar.about')} />
+            <PageNavLink href="/explanations" text={t('navbar.explanations')} />
           </li>
           <li className={styles.navbar__item} onClick={handleMenu}>
             <PageNavLink href="/news" text={t('navbar.news')} />
           </li>
           <li className={styles.navbar__item} onClick={handleMenu}>
-            <PageNavLink href="/explanations" text={t('navbar.explanations')} />
+            
+             <PageNavLink href="/about" text={t('navbar.about')} />
           </li>
         </div>
 
         <div className={`${styles.navbar__container} ${styles.navbar__container__large}`}>
-          {!user && (
+          {!user ? (
             <li className={styles.navbar__item}>
-            <PageNavLink href="/registration" text={t('navbar.register')} />
-          </li>
+              <PageNavLink href="/registration" text={t('navbar.register')} />
+            </li>
+          ) : (
+            <li  className={styles.navbar__item}>
+              <button 
+                className={styles.navbar__logout}
+                onClick={handleSignOut}
+            >
+              {t('logOut')}
+            </button>
+            </li>
+            
           )}
           
           <li className={styles.navbar__item__account}>
@@ -133,7 +156,7 @@ export const Navbar = ({
               <p>{user ?  t('navbar.account') : t('navbar.login')}</p> 
             </Link>
           </li>
-          {!user && (
+          {!user ? (
             <li className={styles.navbar__item} onClick={handleMenu}>
             <Link 
               href="/registration"
@@ -141,6 +164,15 @@ export const Navbar = ({
             >
               <p>{t('navbar.register_mobile')}</p> 
             </Link>
+          </li>
+          ) : (
+            <li className={styles.navbar__item} onClick={handleMenu}>
+            <button 
+                className={styles.navbar__logout}
+                onClick={handleSignOut}
+            >
+              {t('logOut')}
+            </button>
           </li>
           )}
           

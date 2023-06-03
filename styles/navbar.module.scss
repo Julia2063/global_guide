@@ -168,4 +168,17 @@
       flex-direction: column;
       gap: 10px;
     }
+
+    &__logout {
+      background: none;
+      border: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: inherit;
+      
+      @include onMobile {
+        border-bottom: 1px solid #000;
+        width: max-content;
+      }
+    }
   }

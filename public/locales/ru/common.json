@@ -30,7 +30,7 @@
         "chat": "Global чат",
         "about": "Про GGS",
         "news": "Новости",
-        "explanations": "Разъяснения",
+        "explanations": "Ссылки",
         "register": "Зарегистрироваться",
         "cabinet": "Вход в кабинет",
         "login": "Вход",
@@ -63,8 +63,8 @@
 
       "explanations": {
         "readMore": "Читать больше",
-        "explanations": "Разъяснения",
-        "allExplanations": "Все разъяснения"
+        "explanations": "Ссылки",
+        "allExplanations": "Все ссылки"
       },
 
       "pageNavigation": {
@@ -126,7 +126,7 @@
 
       "microdatas": {
         "newsAbout": "Новости юриспруденции для иностранцев",
-        "explanationsAbout": "Разъяснения на сайте Global Guide Service"
+        "explanationsAbout": "Ссылки на сайте Global Guide Service"
       },
 
       "errorPage": {

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { BannerDropdown } from '../components/BannerDropdown';
 import { DropdownWithText } from '../components/DropdownWithText';
-import { Explanation } from '../components/Explanation';
 import { useRouter } from 'next/router';
 
 import styles from '../styles/banner.module.scss'; 
@@ -19,10 +18,10 @@ import { BASE_URL } from './sitemap.xml';
 import { getRightData } from '../helpers/rightData';
 
 import { ButtonUp } from '../components/ButtonUp';
+import { NewsItem } from '../components/NewsItem';
 
-export default function HomePage({ questions, explanations }) {
+export default function HomePage({ questions, news }) {
 
-  
   
 	const [filterValue, setFilterValue] = useState({
 		personType: '',
@@ -164,11 +163,8 @@ export default function HomePage({ questions, explanations }) {
         <div className="page">
           <section className="container">
           
-            <div className={`${stylesHome.homePage__title} page__title-with-extension`}>
+            <div className={`${stylesHome.homePage__title}`}>
               <h3 className="page__title">{t('homePage.faq')}</h3>
-              <button className="button-extension onDesktop">
-                <p>{t('homePage.aq')}</p>
-              </button>
             </div>
             <div className={stylesHome.homePage__questions}>
               {questions.slice(0, 5).map(question => 
@@ -178,40 +174,35 @@ export default function HomePage({ questions, explanations }) {
                 />
               )}
 
-              <button className={`button onMobile ${stylesHome.homePage__allButton}`}>
-                <p>{t('homePage.aq')}</p>
-              </button>
-
             </div>
           </section>
         </div>
-        <div className="separator onDesktop" 
-          
-        >
+        <div className="separator onDesktop">
           <Separator/> 
         </div>
         <div className="page"> 
           <section className="container">
             <div className={`${stylesHome.homePage__title} page__title-with-extension`}>
-              <h3 className="page__title">{t('explanations.explanations')}</h3>
+              <h3 className="page__title">{t('navbar.news')}</h3>
               <button className="button-extension onDesktop">
-                <Link href="/explanations">
-                  <p>{t('explanations.allExplanations')}</p>
+                <Link href="/news">
+                  <p>{t('newsPage.button')}</p>
                 </Link>
               </button>
             </div>
             <div className={stylesHome.homePage__explanation}>
 
-              {explanations.slice(0, 6).map(explanation => 
-                <Explanation 
-                  item={explanation}
-                  key={explanation.id}
-                />
-              )}
+            {news.sort((a, b) => {
+              return new Date(b.dateCreating) - new Date(a.dateCreating);
+            }).slice(0, 6).map(el => {
+              return (
+                <NewsItem item={el} key={el.id} isNews={true} />
+              );
+            })}
 
               <button className={`button onMobile ${stylesHome.homePage__allButton}`}>
-                <Link href="/explanations">
-                  <p>{t('explanations.allExplanations')}</p>
+                <Link href="/news">
+                  <p>{t('newsPage.button')}</p>
                 </Link>
               </button>
             </div>
@@ -228,8 +219,8 @@ export default function HomePage({ questions, explanations }) {
 export async function getServerSideProps({ locale }) {
 
   const questions = await getCollection('questions');
-  const explanations = await getCollection('explanations');
-  return { props: { questions, explanations,
+  const news = await getCollection('news');
+  return { props: { questions, news,
     ...await serverSideTranslations(locale, ['common'])
   } };
 }

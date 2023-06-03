@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {format} from 'date-fns';
 import dynamic from "next/dynamic";
 import { clsx } from 'clsx';
@@ -18,7 +18,8 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
     'Депортация из Украины',
     'Легализация в Украине',
     'Документ сервис',
-    'Мониторинг'
+    'Мониторинг',
+    'Гражданство'
   ];
 
   const modules = {
@@ -113,6 +114,13 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           ua: 'Моніторинг',
           ru: 'Мониторинг',
           en: 'Monitoring',
+        };
+
+      case 'Гражданство':
+        return {
+          ua: 'Громадянство',
+          ru: 'Гражданство',
+          en: 'Citizenship',
         };
 
       default: 
@@ -260,18 +268,23 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
         }
       }
     );
+    
+    useEffect(() => {
+      if(serviceType === 'Гражданство') {
+        setDataModal({...dataModal, type: 'citizenship'})
+      }
+    }, [serviceType]);
 
-    console.log(dataModal);
   
   return (
     <form className={styles.form} onSubmit={(e) => handleSubmitModal(e)}>
       <div className={styles.image}>
           <img 
             src={dataModal.image.length > 0 
-              ? (dataModal.image ||'../addPhoto.svg')  
+              ? (dataModal.image ||'../../addPhoto.svg')  
               : currentInfoItem 
-                ? (currentInfoItem.image || '../addPhoto.svg') 
-                : (dataModal.image || '../addPhoto.svg')} 
+                ? (currentInfoItem.image || '../../addPhoto.svg') 
+                : (dataModal.image || '../../addPhoto.svg')} 
             alt="image"
             className={styles.image__img}
           />
@@ -279,7 +292,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
             <div  
             className={styles.addPhoto} 
           >
-            <img src='../photo.svg' alt="add photo" /> 
+            <img src='../../photo.svg' alt="add photo" /> 
           </div>
 
           <input
@@ -356,7 +369,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           )}
           > 
 
-          {(type === 'services' && func === 'updateInfo') && (
+          {((type === 'services' || type === 'citizenship') && func === 'updateInfo') && (
             <p className={styles.serviceType}>{`${currentInfoItem.serviceType.ua}:`} </p>
           )}
             <input
@@ -403,7 +416,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           )}
           >
 
-          {(type === 'services' && func === 'updateInfo') && (
+          {((type === 'services' || type === 'citizenship') && func === 'updateInfo') && (
             <p className={styles.serviceType}>{`${currentInfoItem.serviceType.en}:`} </p>
           )}  
             <input
@@ -450,7 +463,7 @@ export const InformationForm = ({ type, func, setIsModal, currentInfoItem}) => {
           )}
           >
 
-          {(type === 'services' && func === 'updateInfo') && (
+          {((type === 'services' || type === 'citizenship') && func === 'updateInfo') && (
             <p className={styles.serviceType}>{`${currentInfoItem.serviceType.ru}:`} </p>
           )}
              <input

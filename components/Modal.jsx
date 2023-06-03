@@ -13,7 +13,7 @@ export const Modal = ({ title, message, handleModal, form }) => {
             <p>{title}</p>
             <button className={styles.modal__close} onClick={handleModal}>
               <img 
-                src={'../cross__white.svg'} 
+                src={'../../cross__white.svg'} 
                 alt="cross" 
                 className={styles.modal__icon}
               />
