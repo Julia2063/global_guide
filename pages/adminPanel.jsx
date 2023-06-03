@@ -3,7 +3,7 @@ import { auth } from '../helpers/firebaseControl';
 import { useRouter } from 'next/router';
 
 import styles from '../styles/adminPanel.module.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Modal } from '../components/Modal';
 import { InformationForm } from '../components/InformationForm';
@@ -116,78 +116,7 @@ export default function AdminPanel () {
           </button>
         </div>
 
-       {/*  <div className={styles.body__item}> 
-          <div className={styles.body__item__content}>
-            <p>Вопросы</p>
-            <CustomeSwiper 
-              array={questions}
-              handleModalUpdate={handleModalUpdate}
-              handleDelete={handleDelete}
-              
-            />
-          </div>
-          <button
-            name="questions"
-            className={styles.body__item__button}
-            onClick={(e) => handleClick(e, 'вопрос')}
-          >
-            +
-          </button>
-        </div>
-
-        <div className={styles.body__item}> 
-          <div className={styles.body__item__content}>
-            <p>Разъяснения</p>
-            <CustomeSwiper 
-              array={explanations}
-              handleModalUpdate={handleModalUpdate}
-              handleDelete={handleDelete}
-            />
-          </div>
-          <button
-            name="explanations"
-            className={styles.body__item__button}
-            onClick={(e) => handleClick(e, 'разьяснение')}
-          >
-            +
-          </button>
-        </div>
-
-        <div className={styles.body__item}> 
-          <div className={styles.body__item__content}>
-            <p>Услуги</p>
-            <CustomeSwiper 
-              array={services.filter(el => el.id !== '147406030952')}
-              handleModalUpdate={handleModalUpdate}
-              handleDelete={handleDelete}
-            />
-          </div>
-          <button
-            name="services"
-            className={styles.body__item__button}
-            onClick={(e) => handleClick(e, 'услугу')}
-          >
-            +
-          </button>
-        </div>
-
-        <div className={styles.body__item}> 
-          <div className={styles.body__item__content}>
-            <p>Гражданство (услуги)</p>
-            <CustomeSwiper 
-              array={citizenship}
-              handleModalUpdate={handleModalUpdate}
-              handleDelete={handleDelete}
-            />
-          </div>
-          <button
-            name="citizenship"
-            className={styles.body__item__button}
-            onClick={(e) => handleClick(e, 'гражданство')}
-          >
-            +
-          </button>
-        </div> */}
+      
 
       </div>
       <button 
