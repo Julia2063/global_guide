@@ -58,6 +58,10 @@
         text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
   
         margin-bottom: 35px;
+
+        &__tulp {
+          opacity: 0;
+        }
   
         @include onLaptop {
           font-size: 20px;
@@ -82,7 +86,7 @@
       }
   
       & button {
-        align-self: end;
+        align-self: start;
       }
     }
   

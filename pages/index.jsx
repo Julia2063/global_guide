@@ -153,9 +153,17 @@ export default function HomePage({ questions, news }) {
                   setFilterValue({...filterValue, serviseType: e})}
               />
             </div>
-            <button className={`button ${styles.banner__button}`}  >
-              <p>{t('homePage.banner.go')}</p>
-            </button>
+            <div className={`${styles.banner__label} onDesktop`}> 
+            <div className={`${styles.banner__label__title} ${styles.banner__label__title__tulp}`}>fgds</div>
+              <button className={`button ${styles.banner__button}`}  >
+                <p>{t('homePage.banner.go')}</p>
+              </button>
+            </div>
+
+            <button className={`button ${styles.banner__button} onMobile`}  >
+                <p>{t('homePage.banner.go')}</p>
+              </button>
+            
           </div>
         </div>
       </div>
