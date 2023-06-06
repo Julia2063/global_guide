@@ -3,10 +3,11 @@ import { auth } from '../helpers/firebaseControl';
 import { useRouter } from 'next/router';
 
 import styles from '../styles/adminPanel.module.scss';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { Modal } from '../components/Modal';
 import { InformationForm } from '../components/InformationForm';
+import { AppContext } from '../components/AppProvider';
 
 
 export default function AdminPanel () {
@@ -15,6 +16,8 @@ export default function AdminPanel () {
   const [type, setType] = useState('');
   const [currentInfoItem, setCurrentInfoItem] = useState(null);
   const [func, setFunc] = useState('updateInfo');
+
+  const { userRole } = useContext(AppContext);
 
   const handleModal = () => {
     setIsModal(!isModal);
@@ -46,17 +49,16 @@ export default function AdminPanel () {
 
   return (
     <div className={styles.main}>
-      <h1>Панель администратора</h1>
-      <div className={styles.body}>
-        <div className={styles.body__item}> 
-            <div 
-              className={styles.body__item__content}
-              onClick={() => handleClickCategory('news')}
-            >
-              Новости
-            </div>
-  
-          <button 
+      {userRole && (<><h1>Панель администратора</h1><div className={styles.body}>
+        <div className={styles.body__item}>
+          <div
+            className={styles.body__item__content}
+            onClick={() => handleClickCategory('news')}
+          >
+            Новости
+          </div>
+
+          <button
             name="news"
             className={styles.body__item__button}
             onClick={(e) => handleClick(e, 'новость')}
@@ -65,15 +67,15 @@ export default function AdminPanel () {
           </button>
         </div>
 
-        <div className={styles.body__item}> 
-            <div 
-              className={styles.body__item__content}
-              onClick={() => handleClickCategory('questions')}
-            >
-              Вопросы
-            </div>
-  
-          <button 
+        <div className={styles.body__item}>
+          <div
+            className={styles.body__item__content}
+            onClick={() => handleClickCategory('questions')}
+          >
+            Вопросы
+          </div>
+
+          <button
             name="questions"
             className={styles.body__item__button}
             onClick={(e) => handleClick(e, 'вопрос')}
@@ -82,15 +84,15 @@ export default function AdminPanel () {
           </button>
         </div>
 
-        <div className={styles.body__item}> 
-            <div 
-              className={styles.body__item__content}
-              onClick={() => handleClickCategory('explanations')}
-            >
-              Ссылки
-            </div>
-  
-          <button 
+        <div className={styles.body__item}>
+          <div
+            className={styles.body__item__content}
+            onClick={() => handleClickCategory('explanations')}
+          >
+            Ссылки
+          </div>
+
+          <button
             name="explanations"
             className={styles.body__item__button}
             onClick={(e) => handleClick(e, 'ссылку')}
@@ -99,15 +101,15 @@ export default function AdminPanel () {
           </button>
         </div>
 
-        <div className={styles.body__item}> 
-            <div 
-              className={styles.body__item__content}
-              onClick={() => handleClickCategory('services')}
-            >
-              Услуги
-            </div>
-  
-          <button 
+        <div className={styles.body__item}>
+          <div
+            className={styles.body__item__content}
+            onClick={() => handleClickCategory('services')}
+          >
+            Услуги
+          </div>
+
+          <button
             name="services"
             className={styles.body__item__button}
             onClick={(e) => handleClick(e, 'услугу')}
@@ -116,15 +118,15 @@ export default function AdminPanel () {
           </button>
         </div>
 
-      
 
-      </div>
-      <button 
+
+      </div><button
         className={styles.logout}
         onClick={handleSignOut}
       >
-        Выход
-      </button>
+          Выход
+        </button></>)}
+      
 
       {isModal && (
         <Modal

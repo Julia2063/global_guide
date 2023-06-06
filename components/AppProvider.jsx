@@ -9,11 +9,16 @@ export const AppContext = React.createContext({
   setUser: () => {},
   titleArr: [],
   setTitleArr: () => {},
+  userRole: null,
+  setUserRole: () => {}
 });
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [titleArr, setTitleArr] = useState([]);
+  const [userRole, setUserRole] = useState(null);
+
+  console.log(user);
   
   const router = useRouter();
 
@@ -38,6 +43,7 @@ export const AppProvider = ({ children }) => {
       if (user) {
         getCollectionWhereKeyValue('users', 'uid', auth.currentUser.uid).then(res => {
           if (res[0].role === "admin") {
+            setUserRole(res[0].role);
             router.push('adminPanel');
           }
         });
@@ -54,9 +60,10 @@ export const AppProvider = ({ children }) => {
       user,
       setUser,
       titleArr,
-      setTitleArr
+      setTitleArr,
+      userRole
     };
-  }, [user, titleArr]) ;
+  }, [user, titleArr, userRole]) ;
 
   return (
     <AppContext.Provider value={contextValue}>
