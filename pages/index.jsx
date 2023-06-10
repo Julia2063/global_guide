@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useContext } from 'react';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout } from "../components/Layout";
 import Link from 'next/link';
@@ -19,43 +19,24 @@ import { getRightData } from '../helpers/rightData';
 
 import { ButtonUp } from '../components/ButtonUp';
 import { NewsItem } from '../components/NewsItem';
+import { AppContext } from '../components/AppProvider';
 
 export default function HomePage({ questions, news }) {
+  const { servicesArray } = useContext(AppContext);
 
-  
 	const [filterValue, setFilterValue] = useState({
-		personType: '',
-		serviseType: '',
+		serviceType: '',
+		service: '',
 	  });
+
 	  const { t }  = useTranslation();
 	  const { locale } = useRouter();
+
+    const router = useRouter();
+
+    console.log(filterValue);
 	
-	  const valuesPersonType = useMemo(() => {
-		switch (filterValue.personType) {
-		case t('services.citizens'):
-		  return [t('services.foreigners')];
-	
-		case  t('services.foreigners'):
-		  return [t('services.citizens')];
-	
-		default:
-		  return [t('services.citizens'), t('services.foreigners')];
-		};
-		  
-	  }, [filterValue.personType, t]) ;
-	
-	  const valuesServiseType = useMemo(() => {
-		switch (filterValue.personType) {
-		case t('services.citizens'):
-		  return [
-			t('services.borderControl'),
-			t('services.customControl'),
-			t('services.ban'),
-			t('services.monitoring'),
-		  ];
-	  
-		default:
-		  return [
+	  const valuesServiceType =  [
 			t('services.borderControl'),
 			t('services.customControl'),
 			t('services.ban'),
@@ -64,16 +45,23 @@ export default function HomePage({ questions, news }) {
 			t('services.document'),
 			t('services.monitoring'),
 		  ];
-		}
-	  }, [filterValue.personType, t]);
+	
+	  const valuesService = filterValue.serviceType.length > 0 
+    ? servicesArray.filter(el => el[0].includes(filterValue.serviceType)).map(el => el[0].split(':')[1])
+    : [];
 	
 	  useEffect(() => {
 
 		setFilterValue({
-		  personType: '',
-		  serviseType: '',
+		  serviceType: '',
+		  service: '',
 		});
 	  }, [locale]);
+
+  const handleTransition = () => {
+    const path = servicesArray.find(el => el[0].includes(filterValue.serviceType) && el[0].includes(filterValue.service))[2];
+    router.push(`/services/${path}`);
+  }
 
 	return (
 	  <Layout 
@@ -130,37 +118,37 @@ export default function HomePage({ questions, news }) {
           <div className={styles.banner__dropdowns}>
             <div className={styles.banner__label}>
               <div className={styles.banner__label__title}>
-                {t('homePage.banner.label_title1')} 
+                {t('homePage.banner.label_title2')}
               </div>
               <BannerDropdown
-                title={t('homePage.banner.bannerDropdown.title1')}
-                values={valuesPersonType}
-                dropdownValue={filterValue.personType}
+                title={t('homePage.banner.bannerDropdown.title2')}
+                values={valuesServiceType}
+                dropdownValue={filterValue.serviceType}
                 setDropdownValue={(e) =>
-                  setFilterValue({...filterValue, personType: e})}
+                  setFilterValue({...filterValue, serviceType: e})}
               />
             </div>
 
             <div className={styles.banner__label}>
               <div className={styles.banner__label__title}>
-                {t('homePage.banner.label_title2')}
+                {t('homePage.banner.label_title1')}
               </div>
               <BannerDropdown
-                title={t('homePage.banner.bannerDropdown.title2')}
-                values={valuesServiseType}
-                dropdownValue={filterValue.serviseType}
+                title={t('homePage.banner.bannerDropdown.title1')}
+                values={valuesService}
+                dropdownValue={filterValue.service}
                 setDropdownValue={(e) =>
-                  setFilterValue({...filterValue, serviseType: e})}
+                  setFilterValue({...filterValue, service: e})}
               />
             </div>
             <div className={`${styles.banner__label} onDesktop`}> 
             <div className={`${styles.banner__label__title} ${styles.banner__label__title__tulp}`}>fgds</div>
-              <button className={`button ${styles.banner__button}`}  >
+              <button className={`button ${styles.banner__button}`} onClick={handleTransition}  >
                 <p>{t('homePage.banner.go')}</p>
               </button>
             </div>
 
-            <button className={`button ${styles.banner__button} onMobile`}  >
+            <button className={`button ${styles.banner__button} onMobile`} onClick={handleTransition} >
                 <p>{t('homePage.banner.go')}</p>
               </button>
             
@@ -200,9 +188,7 @@ export default function HomePage({ questions, news }) {
             </div>
             <div className={stylesHome.homePage__explanation}>
 
-            {news.sort((a, b) => {
-              return new Date(b.dateCreating) - new Date(a.dateCreating);
-            }).slice(0, 6).map(el => {
+            {news.slice(0, 6).map(el => {
               return (
                 <NewsItem item={el} key={el.id} isNews={true} />
               );

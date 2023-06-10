@@ -12,7 +12,7 @@ export const PageNavLink = ({href, text}) => {
       <Link 
         href={href}
         className={clsx(
-          [styles.navbar__link], { [styles.navbar__link__active]: href === pathname.slice(1) || href === pathname.split('/')[1] },
+          [styles.navbar__link], { [styles.navbar__link__active]: href === pathname || href === `/${pathname.split('/')[1]}`  },
         )}
       >
         {text}

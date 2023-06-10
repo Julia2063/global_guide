@@ -30,6 +30,7 @@ export default function Services({ services }) {
   const { t }  = useTranslation();
   const { locale, pathname } = useRouter();
 
+
   const borderControl = services
     .filter(service => service.serviceType[locale] === (
       t('services.borderControl')
@@ -252,10 +253,12 @@ export default function Services({ services }) {
   );
 };
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
 
   const services = await getCollection('services');
   return { props: { services,
     ...await serverSideTranslations(locale, ['common'])
-  } };
-}
+  },
+  revalidate: 60,
+ };
+};

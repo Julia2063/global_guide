@@ -139,35 +139,7 @@
       cursor: pointer;
     }
 
-    &__languageToogler {
-      align-self: center;
-      margin-bottom: 50px;
-      position: relative;
-    }
-
-    &__languageButton {
-      border: none;
-      background: none;
-
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      font-size: 16px;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      color: $dark;
-    }
-
-    &__languageValues {
-      position: absolute;
-      list-style: none;
-      left: 50px;
-      top: -20px;
-
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    
 
     &__logout {
       background: none;

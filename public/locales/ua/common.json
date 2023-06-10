@@ -43,7 +43,7 @@
       "homePage": {
         "banner": {
           "h1": "Послуги для іноземних громадян",
-          "label_title1": "Я шукаю послуги для",
+          "label_title1": "Оберіть послугу",
           "label_title2": "Тип послуги",
 
           "bannerDropdown": {

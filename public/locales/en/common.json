@@ -42,7 +42,7 @@
       "homePage": {
         "banner": {
           "h1": "Services for foreigners",
-          "label_title1": "I am looking for services for",
+          "label_title1": "Choose a service",
           "label_title2": "Type of service",
 
           "bannerDropdown": {

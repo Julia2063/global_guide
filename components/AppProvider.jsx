@@ -10,13 +10,16 @@ export const AppContext = React.createContext({
   titleArr: [],
   setTitleArr: () => {},
   userRole: null,
-  setUserRole: () => {}
+  setUserRole: () => {},
+  servicesArray: [],
+  setServicesArray: () => {},
 });
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [titleArr, setTitleArr] = useState([]);
   const [userRole, setUserRole] = useState(null);
+  const [servicesArray, setServicesArray] = useState([]);
 
   console.log(user);
   
@@ -32,6 +35,7 @@ export const AppProvider = ({ children }) => {
         const servicesTitles = await getTitleOfServices(locale);
         const citizenshipTitles = await getTitleOfPosts('citizenship', locale);
         setTitleArr([...newsTitles, ...questionsTitles, ...explanationsTitles, ...servicesTitles, ...citizenshipTitles]);
+        setServicesArray(servicesTitles);
     } catch (error){
       alert (error);
     }
@@ -61,9 +65,11 @@ export const AppProvider = ({ children }) => {
       setUser,
       titleArr,
       setTitleArr,
-      userRole
+      userRole,
+      servicesArray
+
     };
-  }, [user, titleArr, userRole]) ;
+  }, [user, titleArr, userRole, servicesArray]) ;
 
   return (
     <AppContext.Provider value={contextValue}>

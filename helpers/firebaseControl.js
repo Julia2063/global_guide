@@ -10,7 +10,7 @@ export const auth = getAuth(app);
 
 export async function  getCollection (collection)    {
   return new  Promise(function (resolve, reject) {
-    db.collection(collection).get().then(res => {
+    db.collection(collection).orderBy('dateCreating', 'desc').get().then(res => {
       const data = [];
       res.forEach(doc => {
         data.push({

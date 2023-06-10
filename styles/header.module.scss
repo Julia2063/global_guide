@@ -136,6 +136,44 @@
       cursor: pointer;
       font-size: 12px;
     }
+
+    &__languageTooglerMob {
+      align-self: center;
+   
+      position: relative;
+    }
+
+    &__languageButtonMob {
+      border: none;
+      background: none;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-size: 16px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      color: $dark;
+    }
+
+    &__languageValuesMob {
+      position: absolute;
+      list-style: none;
+      left: 50px;
+      top: -20px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+      color: $gray;
+    }
+
+    &__logoLang {
+      display: flex;
+      gap: 40px;
+      
+    }
   }
 
   .onMobile {

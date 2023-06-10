@@ -20,6 +20,7 @@ import { AppContext } from './AppProvider';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenMob, setIsOpenMob] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [search, setSearch] = useState([]);
 
@@ -39,9 +40,21 @@ export const Header = () => {
   const refLanguageValues = useRef();
   const inputRef = useRef();
 
-  useOnClickOutside(refLanguageValues, () => setIsOpen(false));
+  const refLanguageValuesMob = useRef();
+
+
+  useOnClickOutside(refLanguageValues, () => {
+   
+    setIsOpen(false);
+  });
+  
   useOnClickOutside(inputRef, () => handleCloseSearchDropdown());
 
+  useOnClickOutside(refLanguageValuesMob, () => {
+ 
+     setIsOpenMob(false);
+  }
+  );
  
   const handleMenu = () => {
     setIsOpenMenu((prev) => !prev);
@@ -83,6 +96,10 @@ export const Header = () => {
 
   const toggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleMob = () => {
+    setIsOpenMob(!isOpenMob);
   };
 
   const handleKeyDown = (event) => {
@@ -156,13 +173,13 @@ export const Header = () => {
             )}
           </label>
 
-          <div className={styles.header__languageToogler}>
+          <div className={styles.header__languageToogler} ref={refLanguageValues}>
             <button className={styles.header__button} onClick={toggle}>
               {locale}
               <Choice />
             </button>
             {isOpen && (
-              <ul className={styles.header__languageValues} ref={refLanguageValues} >
+              <ul className={styles.header__languageValues} >
                 {locales.map(el => (
                   <li
                     key={el}
@@ -223,9 +240,37 @@ export const Header = () => {
               <button className={styles.header__button} onClick={handleIsSearch}>
                 <SearchImgDark />
               </button>
-              <Link href="/">
-                <LogoDark alt="logo" className="logo--header" />
-              </Link>
+              <div className={styles.header__logoLang} >
+                <Link href="/">
+                  <LogoDark alt="logo" className="logo--header" />
+                </Link>
+                <div className={`${styles.header__languageTooglerMob}` } ref={refLanguageValuesMob}>
+            <button className={styles.header__languageButtonMob} onClick={toggleMob}>
+              {locale}
+              <Choice />
+            </button>
+            {isOpenMob && (
+              <ul className={styles.header__languageValuesMob} >
+                {locales.map(el => (
+                  <li
+                    key={el}
+                    onClick={toggleMob}
+                  >
+                    <Link 
+                      href={{
+                        pathname:`${pathname}`,
+                        query,
+                      }} 
+                      locale={el}>
+							        {el}
+						        </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+              </div>
+                
               <button className={styles.header__button} onClick={handleMenu}>
                 <Menu />
               </button>

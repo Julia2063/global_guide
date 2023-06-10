@@ -10,10 +10,8 @@ import { useOnClickOutside } from '../hooks/useOnClickOutside';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { AppContext } from './AppProvider';
 
-import Choice from '../public/choice.svg';
 import LogoDark from '../public/logo_dark.svg';
 import Cross from '../public/cross.svg';
-import { useRouter } from 'next/router';
 
 import { auth } from '../helpers/firebaseControl';
 import { signOut } from 'firebase/auth';
@@ -24,7 +22,7 @@ export const Navbar = ({
   setHideOrSwow, 
   setIsOpenMenu 
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+
   const { t } = useTranslation();
   const { width } = useWindowSize();
 
@@ -35,19 +33,10 @@ export const Navbar = ({
       setHideOrSwow(() => {
     return { transform: 'translateX(100%)'};
     })};
-    setIsOpen(false);
     }
   );
  
   const { user } = useContext(AppContext);
-  const { locale, locales, pathname, query } = useRouter();
-  const refLanguageValues = useRef();
-
-  useOnClickOutside(refLanguageValues, () => setIsOpen(false));
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
@@ -74,31 +63,7 @@ export const Navbar = ({
           />
         </div>
 
-        <div className={`${styles.navbar__languageToogler} onMobile` } ref={refLanguageValues}>
-            <button className={styles.navbar__languageButton} onClick={toggle}>
-              {locale}
-              <Choice />
-            </button>
-            {isOpen && (
-              <ul className={styles.navbar__languageValues}>
-                {locales.map(el => (
-                  <li
-                    key={el}
-                    onClick={toggle}
-                  >
-                    <Link 
-                      href={{
-                        pathname:`${pathname}`,
-                        query,
-                      }} 
-                      locale={el}>
-							        {el}
-						        </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+        
         <div className={styles.navbar__container}>
           
           <li className={styles.navbar__item} onClick={handleMenu}>
