@@ -142,7 +142,7 @@ export default function Sitemap ({
     );
 };
 
-export async function getServerSideProps({ locale }) {   
+export async function getStaticProps({ locale }) {   
     const servicesTitles = await getTitleOfServices(locale);
     const citizenshipTitles = await getTitleOfPosts('citizenship', locale);
     const newsTitles = await getTitleOfPosts('news', locale);
@@ -150,5 +150,7 @@ export async function getServerSideProps({ locale }) {
     const questionsTitles = await getTitleOfPosts('questions', locale);
     return { props: {servicesTitles, citizenshipTitles, newsTitles, explanationsTitles, questionsTitles,
       ...await serverSideTranslations(locale, ['common'])
-    } };
+    },
+    revalidate: 10,
+  };
   }

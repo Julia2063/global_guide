@@ -75,11 +75,12 @@ export default function ExplanationsPage ({  explanations }) {
   );
 };
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   const explanations = await getCollection('explanations');
 	return {
 		props: { explanations,
 			...(await serverSideTranslations(locale, ['common'])),
 		},
+    revalidate: 10,
 	}
 }

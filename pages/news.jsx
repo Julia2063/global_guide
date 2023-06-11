@@ -71,10 +71,12 @@ export default function NewsPage ({ news }) {
 };
 
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
 
   const news = await getCollection('news');
   return { props: { news,
     ...await serverSideTranslations(locale, ['common'])
-  } };
+  },
+  revalidate: 10,
+ };
 }
