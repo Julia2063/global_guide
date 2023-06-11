@@ -18,7 +18,7 @@ export const Footer = () => {
       <div className="container">
         <div className={styles.footer__content}>
           <section className={styles.footer__section}>
-            <Link href="/home">
+            <Link href="/">
               <LogoWhite
                 alt="logo" 
                 className={`${styles.footer__logo} logo--footer`} />

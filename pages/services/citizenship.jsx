@@ -96,7 +96,7 @@ export default function CitizenshipPage ( { citizenship }) {
   );
 };
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
 
     const citizenship = await getCollection('citizenship');
     return { props: { citizenship,
