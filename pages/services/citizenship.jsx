@@ -101,5 +101,7 @@ export async function getServerSideProps({ locale }) {
     const citizenship = await getCollection('citizenship');
     return { props: { citizenship,
       ...await serverSideTranslations(locale, ['common'])
-    } };
-  }
+    },
+  revalidate: 10,
+   };
+}
