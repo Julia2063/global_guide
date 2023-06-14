@@ -118,6 +118,8 @@
       
     &__link {
       color: inherit;
+      display: flex;
+      align-items: center;
   
       &__logo {
         margin-right: 15px;
