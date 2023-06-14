@@ -56,9 +56,7 @@ export default function NewsPage ({ news }) {
       <div className="page page-bigBottom">
         <div className="container">
           <div className={styles.newsPage}>
-            {news.sort((a, b) => {
-              return new Date(b.dateCreating) - new Date(a.dateCreating);
-            }).map(el => {
+            {news.map(el => {
               return (
                 <NewsItem item={el} key={el.id} isNews={true} />
               );
